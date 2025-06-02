@@ -9,7 +9,7 @@ logger:
     hass_nabucasa.iot: debug
 
 recorder:
-  db_url: mysql://homeassistantDB:ha-mariaDBdata22@192.168.178.150:3306/homeassistantDB?charset=utf8
+  db_url: !secret db_url
   exclude:
     domains:
       - device_tracker
