@@ -1,0 +1,117 @@
+esphome:
+  name: marble-machine
+  friendly_name: Marble Machine
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "mm4CjoM+KXBwq4VnezKADEYS5wL7sCHAOqVAek+JFeA="
+
+ota:
+  - platform: esphome
+    password: "cea2cc2b804d5a052cfdea338ee85be7"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Marble-Machine Fallback Hotspot"
+    password: "Y1Ob9ZFX9Nuw"
+
+captive_portal:
+
+#CUSTOM CODE AB HIER
+
+stepper:
+  - platform: uln2003
+    id: my_stepper
+    pin_a: D2
+    pin_b: D7
+    pin_c: D6
+    pin_d: D5
+    max_speed: 500 steps/s
+    sleep_when_done: true
+    step_mode: FULL_STEP
+
+# Switch to control the motor
+switch:
+  - platform: template
+    name: "Motor Switch"
+    id: motor_switch
+    optimistic: true
+
+# Slider to control the speed
+number:
+  - platform: template
+    name: "Motor Speed"
+    id: motor_speed
+    min_value: 100
+    max_value: 500
+    step: 50
+    unit_of_measurement: "steps/s"
+    initial_value: 500
+    optimistic: True
+    set_action:
+      - stepper.set_speed:
+          id: my_stepper
+          speed: !lambda 'return x;'
+      - logger.log:
+          level: DEBUG
+          format: "Motor Speed: %f"
+          args: [ 'id(motor_speed).state' ]
+
+  - platform: template
+    name: "Stepper Control"
+    min_value: -1000
+    max_value: 1000
+    initial_value: 0
+    step: 10
+    set_action:
+      - stepper.set_target:
+          id: my_stepper
+          target: !lambda 'return x;'
+
+  - platform: template
+    name: "Step Count"
+    id: step_count
+    min_value: 50
+    max_value: 1000
+    initial_value: 300
+    step: 50
+    unit_of_measurement: "steps"
+    optimistic: True
+
+# Sensor to show current steps
+sensor:
+  - platform: template
+    name: "Current Steps"
+    id: current_steps
+    unit_of_measurement: "steps"
+    lambda: |-
+      return id(my_stepper).current_position;
+
+interval:
+  - id: motor_interval
+    interval: 10s
+    then:
+      if:
+        condition:
+          switch.is_on: motor_switch
+        then:
+          - stepper.set_speed:
+              id: my_stepper
+              speed: !lambda 'return id(motor_speed).state;'
+          - stepper.set_target:
+              id: my_stepper
+              target: !lambda 'return id(my_stepper).current_position + id(step_count).state;'
+          - sensor.template.publish:
+              id: current_steps
+              state: !lambda 'return id(my_stepper).current_position;'

@@ -1,0 +1,7 @@
+sensor:
+  - name: "Gaszaehler"
+    state_topic: "gaszaehler/main/json"
+    value_template: "{{ value_json.value }}"
+    unit_of_measurement: "m³"
+    device_class: "gas"
+    icon: "mdi:fire"

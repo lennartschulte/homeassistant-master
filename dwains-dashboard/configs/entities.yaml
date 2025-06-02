@@ -1,0 +1,53 @@
+climate.kuhlschrank_freezer:
+  devices_sort_order: 1
+climate.kuhlschrank_fridge:
+  col_span: '1'
+  col_span_lg: '1'
+  col_span_xl: '1'
+  custom_card: false
+  custom_popup: true
+  devices_sort_order: 2
+  disabled: false
+  friendly_name: ''
+  hidden: false
+  row_span: '1'
+  row_span_lg: '1'
+  row_span_xl: '1'
+eb9:
+  sort_order: 11
+ecp:
+  sort_order: 17
+eel:
+  sort_order: 10
+ekw:
+  sort_order: 9
+eoj:
+  sort_order: 13
+eql:
+  sort_order: 5
+ewf:
+  sort_order: 3
+ewr:
+  sort_order: 6
+f0u:
+  sort_order: 18
+f5v:
+  sort_order: 19
+gbd:
+  sort_order: 2
+gk9:
+  sort_order: 8
+hwf:
+  sort_order: 15
+i2k:
+  sort_order: 7
+ibh:
+  sort_order: 16
+ihi:
+  sort_order: 12
+kdj:
+  sort_order: 14
+n55:
+  sort_order: 4
+p8h:
+  sort_order: 1

@@ -1,0 +1,73 @@
+# sensor.wohnzimmer_temperatur_offset:
+#   unit_of_measurement: °C
+#   device_class: temperature
+#   friendly_name: Wohnzimmer Temperatur
+sensor.computer_power: {}
+sensor.computer_power_offset:
+  unit_of_measurement: W
+  device_class: energy
+sensor.bosch18v_power_offset:
+  unit_of_measurement: W
+  device_class: energy
+sensor.strom_zaehlerstand_input:
+  unit_of_measurement: kWh
+  device_class: energy
+  icon: mdi:gauge
+sensor.momentanleistung:
+  unit_of_measurement: W
+  device_class: energy
+  icon: mdi:transmission-tower-import
+sensor.spannung_l1:
+  device_class: voltage
+  unit_of_measurement: V
+sensor.spannung_l2:
+  device_class: voltage
+  unit_of_measurement: V
+sensor.spannung_l3:
+  device_class: voltage
+  unit_of_measurement: V
+climate.wandthermostat_emil:
+  max_temp: 25
+  min_temp: 12
+climate.wandthermostat_matilda:
+  max_temp: 25
+  min_temp: 12
+climate.wandthermostat_buero:
+  max_temp: 25
+  min_temp: 12
+climate.wandthermostat_badezimmer:
+  max_temp: 25
+  min_temp: 12
+climate.heizkorperthermostat_emil:
+  max_temp: 25
+  min_temp: 12
+climate.heizkorperthermostat_matilda:
+  max_temp: 25
+  min_temp: 12
+climate.heizkorperthermostat_wohnzimmer:
+  max_temp: 25
+  min_temp: 12
+climate.heizkorperthermostat_buero:
+  max_temp: 25
+  min_temp: 12
+climate.heizkorperthermostat_flur:
+  max_temp: 25
+  min_temp: 12
+climate.heizkorperthermostat_waschkuche:
+  max_temp: 25
+  min_temp: 12
+climate.kuche:
+  max_temp: 25
+  min_temp: 12
+climate.schlafzimmer:
+  max_temp: 25
+  min_temp: 12
+climate.buro:
+  max_temp: 25
+  min_temp: 12
+climate.wohnzimmer:
+  max_temp: 25
+  min_temp: 12
+climate.badezimmer:
+  max_temp: 25
+  min_temp: 12

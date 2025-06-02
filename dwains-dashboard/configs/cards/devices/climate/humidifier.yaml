@@ -1,0 +1,9 @@
+col_span: '1'
+col_span_lg: '1'
+col_span_xl: '1'
+entity: humidifier.midea_dehumidifier_31885837503729
+position: bottom
+row_span: '1'
+row_span_lg: '1'
+row_span_xl: '1'
+type: humidifier

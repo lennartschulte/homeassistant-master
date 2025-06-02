@@ -1,0 +1,79 @@
+# Example configuration.yaml entry
+energie_computer_verbrauch_stunde:
+  source: sensor.energy_computer_verbrauch
+  cycle: hourly
+  name: "Computer Verbrauch (Stunde)"
+energie_computer_verbrauch_woche:
+  source: sensor.energy_computer_verbrauch
+  cycle: weekly
+  name: "Computer Verbrauch (Woche)"
+energie_computer_verbrauch_monat:
+  source: sensor.energy_computer_verbrauch
+  cycle: monthly
+  name: "Computer Verbrauch (Monat)"
+energie_computer_verbrauch_tag:
+  source: sensor.energy_computer_verbrauch
+  cycle: daily
+  name: "Computer Verbrauch (Tag)"
+
+energie_3d_drucker_verbrauch_tag:
+  source: sensor.energy_3d_drucker_verbrauch
+  cycle: daily
+  name: "3D Drucker Verbrauch (Tag)"
+
+energie_resin_drucker_verbrauch_tag:
+  source: sensor.energy_resin_drucker_verbrauch
+  cycle: daily
+  name: "Resin Drucker Verbrauch (Tag)"
+
+energie_waschmaschine_verbrauch_woche:
+  source: sensor.waschmaschine_energy_total
+  cycle: weekly
+  name: "Waschmaschine Verbrauch (Woche)"
+energie_waschmaschine_verbrauch_monat:
+  source: sensor.waschmaschine_energy_total
+  cycle: monthly
+  name: "Waschmaschine Verbrauch (Monat)"
+energie_waschmaschine_verbrauch_tag:
+  source: sensor.waschmaschine_energy_total
+  cycle: daily
+  name: "Waschmaschine Verbrauch (Tag)"
+
+energie_stromverbrauch_tag:
+  source: sensor.strom_zaehlerstand
+  cycle: daily
+  name: "Stromverbrauch (Tag)"
+energie_stromverbrauch_woche:
+  source: sensor.strom_zaehlerstand
+  cycle: weekly
+  name: "Stromverbrauch (Woche)"
+energie_stromverbrauch_monat:
+  source: sensor.strom_zaehlerstand
+  cycle: monthly
+  name: "Stromverbrauch (Monat)"
+
+gas_gasverbrauch_tag:
+  source: sensor.gas_zaehlerstand_neu
+  cycle: daily
+  name: "Gasverbrauch (Tag)"
+gas_gasverbrauch_woche:
+  source: sensor.gas_zaehlerstand_neu
+  cycle: weekly
+  name: "Gasverbrauch (Woche)"
+gas_gasverbrauch_monat:
+  source: sensor.gas_zaehlerstand_neu
+  cycle: monthly
+  name: "Gasverbrauch (Monat)"
+
+water_wasserverbrauch_tag:
+  source: sensor.wasser_zaehlerstand
+  cycle: daily
+  name: "Wasserverbrauch (Tag)"
+water_wasserverbrauch_woche:
+  source: sensor.wasser_zaehlerstand
+  cycle: weekly
+  name: "Wasserverbrauch (Woche)"
+water_wasserverbrauch_monat:
+  source: sensor.wasser_zaehlerstand
+  cycle: monthly
+  name: "Wasserverbrauch (Monat)"

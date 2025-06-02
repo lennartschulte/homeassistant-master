@@ -1,0 +1,201 @@
+esphome:
+  name: fingerprintdoorbell
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+ota:
+  password: "c96d6655ddc5bb55fb6304043e8c8a2e"
+  platform: esphome
+api:
+  encryption:
+    key: "UvLXgiBeP15UYMgwU/Kt6YLsQOU7u+UQxPA/LvZ3KYs="
+  services:
+    - service: enroll
+      variables:
+        finger_id: int
+        num_scans: int
+      then:
+        - fingerprint_grow.enroll:
+            finger_id: !lambda 'return finger_id;'
+            num_scans: !lambda 'return num_scans;'
+    - service: cancel_enroll
+      then:
+        - fingerprint_grow.cancel_enroll:
+    - service: delete
+      variables:
+        finger_id: int
+      then:
+        - fingerprint_grow.delete:
+            finger_id: !lambda 'return finger_id;'
+    - service: delete_all
+      then:
+        - fingerprint_grow.delete_all:
+          
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Fingerprintdoorbell"
+    password: "bAofAoQ2l9Fx"
+
+captive_portal:
+switch:
+   - platform: gpio
+     pin: D3
+     name: "Name light"
+     inverted: true 
+   - platform: template
+     name: "Fingerprint light"
+     id: fingerprint_light_switch
+     restore_mode: RESTORE_DEFAULT_ON 
+     turn_on_action:
+      - switch.template.publish:
+          id: fingerprint_light_switch
+          state: ON
+      - fingerprint_grow.aura_led_control:
+          state: ALWAYS_ON
+          speed: 0
+          color: BLUE
+          count: 0
+     turn_off_action:
+      - switch.template.publish:
+          id: fingerprint_light_switch
+          state: OFF
+      - fingerprint_grow.aura_led_control:
+          state: ALWAYS_OFF
+          speed: 0
+          color: BLUE
+          count: 0
+#  - platform: gpio
+#    id: trigger_relay
+#    name: trigger_relay
+#    pin: D4
+#    inverted: true
+binary_sensor:
+  - platform: gpio
+    name: "Sensing"
+    pin: D2
+    icon: mdi:fingerprint
+    filters:
+      invert:
+    on_press:
+      then:
+        - fingerprint_grow.aura_led_control:
+            state: BREATHING
+            speed: 200
+            color: PURPLE
+            count: 1
+    on_release:
+      then:
+        - script.execute: light_status_restore
+uart:
+  tx_pin: D0
+  rx_pin: D1
+  baud_rate: 57600
+
+script:
+  - id: light_status_restore
+    then:
+    - if:
+        condition:
+          switch.is_on: fingerprint_light_switch
+        then:
+          switch.turn_on: fingerprint_light_switch
+        else:
+          switch.turn_off: fingerprint_light_switch
+          
+fingerprint_grow:
+#  sensing_pin: D2
+  on_finger_scan_matched:
+#    - switch.turn_on: trigger_relay
+    - fingerprint_grow.aura_led_control:
+        state: BREATHING
+        speed: 200
+        color: GREEN
+        count: 1
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Authorized finger"
+    - delay: 4000ms
+#    - switch.turn_off: trigger_relay
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Scan your finger"
+    - script.execute: light_status_restore
+  on_finger_scan_unmatched:
+#    - switch.turn_off: trigger_relay
+    - fingerprint_grow.aura_led_control:
+        state: FLASHING
+        speed: 25
+        color: RED
+        count: 2
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Unauthorized finger"
+    - delay: 100ms
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Scan your finger"
+    - script.execute: light_status_restore
+  on_enrollment_scan:
+    - fingerprint_grow.aura_led_control:
+        state: FLASHING
+        speed: 25
+        color: BLUE
+        count: 2
+    - fingerprint_grow.aura_led_control:
+        state: ALWAYS_ON
+        speed: 0
+        color: PURPLE
+        count: 0
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Finger scanned"
+  on_enrollment_done:
+    - fingerprint_grow.aura_led_control:
+        state: BREATHING
+        speed: 100
+        color: BLUE
+        count: 2
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Enrolled fingerprint"
+    - script.execute: light_status_restore
+  on_enrollment_failed:
+    - fingerprint_grow.aura_led_control:
+        state: FLASHING
+        speed: 25
+        color: RED
+        count: 4
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Failed to enroll fingerprint"
+    - script.execute: light_status_restore
+text_sensor:
+  - platform: template
+    id: fingerprint_state
+    name: "Doorbell Fingerprint State"
+
+sensor:
+  - platform: fingerprint_grow
+    fingerprint_count:
+      name: "Doorbell Fingerprint Count"
+    last_finger_id:
+      name: "Doorbell Fingerprint Last Finger ID"
+    last_confidence:
+      name: "Doorbell Fingerprint Last Confidence"
+    status:
+      name: "Doorbell Fingerprint Status"
+    capacity:
+      name: "Doorbell Fingerprint Capacity"
+    security_level:
+      name: "Doorbell Fingerprint Security Level"
+
+

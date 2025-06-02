@@ -1,0 +1,4 @@
+alarm_entity: ''
+disable_clock: false
+disable_welcome_message: false
+weather_entity: weather.dwd_weather_iserlohn

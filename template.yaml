@@ -1,0 +1,79 @@
+- sensor:
+    # Resin Drucker Power Offset
+    #- name: "Resin Drucker Leistung"
+    #  unique_id: "resin_drucker_leistung_offset"
+    #  state: "{{ int(states.sensor.resin_drucker_power.state | float * 0.1) }}"
+    #  unit_of_measurement: "W"
+    #  state_class: measurement
+    #  icon: mdi:flash
+    #  device_class: "energy"
+
+    # Laser Power Offset
+    - name: "Laser Leistung"
+      unique_id: "laser_leistung_offset"
+      state: "{{ int(states.sensor.laser_master_power.state | float * 0.1) }}"
+      unit_of_measurement: "W"
+      state_class: measurement
+      icon: mdi:flash
+      device_class: "power"
+
+    # Temp Offset Wohnzimmer
+    - name: "Wohnzimmer Temperatur"
+      unique_id: "wohnzimmer_temperatur_offset"
+      state: "{{ states.sensor.wohnzimmer_temperatur.state | float - 4 }}"
+      unit_of_measurement: "C"
+      state_class: measurement
+      icon: mdi:thermometer
+
+    # co2_anlage Power Offset
+    - name: "CO 2 Anlage Leistung"
+      unique_id: "co2_anlage_power_offset"
+      state: "{{ int(states.sensor.co2_anlage_power.state | float * 0.1) }}"
+      unit_of_measurement: "W"
+      state_class: measurement
+      icon: mdi:flash
+      device_class: "power"
+
+    # UV-Klärer Power Offset
+    - name: "UV-Klärer Leistung"
+      unique_id: "uv_c_klarer_power_offset"
+      state: "{{ int(states.sensor.uv_c_klarer_power.state | float * 0.1) }}"
+      unit_of_measurement: "W"
+      state_class: measurement
+      icon: mdi:flash
+      device_class: "power"
+
+- binary_sensor:
+    #Teams Sensoren
+    - name: "Teams Muted"
+      unique_id: "ts_a7703e21-2ae1-4af5-ba77-108f2462004a"
+      icon: "mdi:microphone-off"
+      state: "{{ None }}"
+    - name: "Teams Video"
+      unique_id: "ts_38dc82bf-bc6d-491f-84c1-9fbee02641a9"
+      icon: "mdi:webcam-off"
+      state: "{{ None }}"
+    - name: "Teams Hand Raised"
+      unique_id: "ts_9e7c62d5-5640-4cfb-8ff7-4eac9922030e"
+      icon: "mdi:hand-back-left-off"
+      state: "{{ None }}"
+    - name: "Teams Meeting"
+      unique_id: "ts_74837ead-9946-49c9-8aec-f25c0c031ec5"
+      icon: "mdi:phone-off"
+      state: "{{ None }}"
+    - name: "Teams Recording"
+      unique_id: "ts_493dcc2e-7cf6-456a-95b2-8cd029b2300c"
+      icon: "mdi:power-off"
+      state: "{{ None }}"
+    - name: "Teams Background Blurred"
+      unique_id: "ts_ae97f0dd-7dc3-4f9b-bfb4-ecbc30b8957b"
+      icon: "mdi:blur-off"
+      state: "{{ None }}"
+    - name: "Teams Sharing"
+      unique_id: "ts_402f1b21-5ad5-49d2-b451-2cf1e95cab65"
+      icon: "mdi:projector-screen-off"
+      state: "{{ None }}"
+    - name: "Teams Unread Messages"
+      unique_id: "ts_61500ecd-5f28-4be4-912d-a64f306fa0cc"
+      icon: "mdi:message-off"
+      state: "{{ None }}"

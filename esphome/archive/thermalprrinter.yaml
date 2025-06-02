@@ -1,0 +1,45 @@
+esphome:
+  name: thermalprrinter
+  friendly_name: ThermalPrrinter
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "RjE2NFeykbC3x78TF321a8E9R0Z6BkM4MYlYHJHWVTc="
+
+ota:
+  password: "bf65f3b415710b1b290d5add8519f947"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Thermalprrinter Fallback Hotspot"
+    password: "Do64HCGXTfAp"
+
+captive_portal:
+output:
+  - platform: esp8266_pwm
+    id: qr204_printer
+    pin: D5
+
+sensor:
+  - platform: pulse_counter
+    pin: D6
+    name: "QR204_Pulse_Counter"
+    update_interval: 10ms
+
+binary_sensor:
+  - platform: gpio
+    pin: D7
+    name: "QR204_Paper_Sensor"
+    device_class: problem
+

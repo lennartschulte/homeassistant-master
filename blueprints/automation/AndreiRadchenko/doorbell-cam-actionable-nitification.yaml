@@ -1,0 +1,162 @@
+blueprint:
+  name: Doorbell cam actionable nitification
+  description: Blueprint for automation that send actionable notification with photo
+    on doorbell press. Notification are sending to home assistant companoin app on
+    android or ios. Automation can triggering by any entity that change state from
+    <on> to <off>. i.e. switch, motion sensor, input_boolean, binary_sensor can bee
+    chosen as automation trigger. You can edit notification title . Message is day
+    and time of automation triggering. Snapshots are stored in <config/www/doorbell>
+    folder and can bee used with gallery card. You can specify mobile_app device or
+    group of devices for notification to be sent to. For iOS yor can chose notification
+    sound from dropdown list. There are three action button in notification. The first
+    one opens dashboard view that specified in blueprint. Next two buttons perform
+    configurable action1 and action2. You can set the time during which the actions
+    in the notification are active.
+  domain: automation
+  input:
+    notification_title:
+      name: Notification title (Optional)
+      description: 'Default: "Someone at the doorbell ring!"'
+      default: Someone at the doorbell ring!
+    doorbell_button:
+      name: Trigger entity
+      description: Changing state of this entity fom <off> to <on> will start doorbell
+        notification automation.
+      selector:
+        entity: {}
+    doorbell_cam:
+      name: Doorbell Cam
+      description: The Camera from wich take photo for notification.
+      selector:
+        entity:
+          domain: camera
+          multiple: false
+    notify_dev:
+      name: Device to notify
+      description: Device or group of devices for notification through mobile_app
+        notification service. For example <notify.mobile_app_iphone>, <notify.all_devices>
+      selector:
+        text:
+          type: search
+          multiline: false
+    ios_sound:
+      name: Notification sound
+      description: Notification sound for iOS (Optional). Default <US-EN-Morgan-Freeman-Someone-Is-Arriving.wav>
+      default: US-EN-Morgan-Freeman-Someone-Is-Arriving.wav
+      selector:
+        select:
+          mode: dropdown
+          custom_value: true
+          options:
+          - US-EN-Morgan-Freeman-Someone-Is-Arriving.wav
+          - US-EN-Morgan-Freeman-Wife-Is-Arriving.wav
+          - US-EN-Morgan-Freeman-Boss-Is-Arriving.wav
+          - US-EN-Morgan-Freeman-Girlfriend-Is-Arriving.wav
+          - US-EN-Morgan-Freeman-Welcome-Home.wav
+          - US-EN-Morgan-Freeman-Son-Is-Arriving.wav
+          - US-EN-Morgan-Freeman-Roommate-Is-Arriving.wav
+          - US-EN-Morgan-Freeman-Motion-Detected.wav
+          - US-EN-Morgan-Freeman-Motion-In-Wine-Cellar.wav
+          - US-EN-Morgan-Freeman-Motion-In-Garage.wav
+          - US-EN-Daisy-Back-Door-Motion.wav
+          - US-EN-Daisy-Front-Door-Motion.wav
+          - US-EN-Alexa-Motion-In-Garage.wav
+          - US-EN-Alexa-Motion-In-Back-Yard.wav
+          - US-EN-Alexa-Motion-Detected-Generic.wav
+          multiple: false
+    uri_:
+      name: Dashboard tab
+      description: Dashboard tab to open by click <Dashboard> button. Default </lovelace/default_view>
+      default: /lovelace/default_view
+    action1_title:
+      name: Action 1 title (Optional)
+      description: Action to perform on click action 1 button
+      default: action1
+    action1:
+      name: Action 1
+      description: Action to run on action button 1 press
+      default: []
+      selector:
+        action: {}
+    action2_title:
+      name: Action 2 title (Optional)
+      description: Action to perform on click action 1 button
+      default: action2
+    action2:
+      name: Action 2
+      description: Action to run on action button 2 press
+      default: []
+      selector:
+        action: {}
+    delay:
+      name: Delay (Optional)
+      description: The time during which the actions in the notification are active
+      default: '30'
+      selector:
+        number:
+          min: 0.0
+          max: 120.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 1.0
+  source_url: https://community.home-assistant.io/t/doorbell-cam-actionable-nitification/414976
+variables:
+  button: !input doorbell_button
+  image_file: /local/doorbell/{{ expand(button)[0].last_changed | as_timestamp  |
+    timestamp_custom("%Y-%m-%d_%H-%M-%S") }}.jpg
+trigger:
+- entity_id: !input doorbell_button
+  platform: state
+  from: 'off'
+  to: 'on'
+condition: []
+action:
+- alias: Set up variables for the actions
+  variables:
+    action_1: '{{ ''ACTION_1'' ~ context.id }}'
+    action_2: '{{ ''ACTION_2'' ~ context.id }}'
+- data_template:
+    entity_id: !input doorbell_cam
+    filename: /config/www/doorbell/{{ expand(button)[0].last_changed | as_timestamp  |
+      timestamp_custom("%Y-%m-%d_%H-%M-%S") }}.jpg
+  service: camera.snapshot
+- service: !input notify_dev
+  data:
+    title: !input notification_title
+    message: '{{ as_timestamp(now()) | timestamp_custom(''%d:%m %H:%M'', true) }}'
+    data:
+      push:
+        sound: !input ios_sound
+      ttl: 0
+      priority: high
+      image: '{{ image_file }}'
+      actions:
+      - action: URI
+        title: Dashboard
+        uri: !input uri_
+      - action: '{{ action_1 }}'
+        title: !input action1_title
+      - action: '{{ action_2 }}'
+        title: !input action2_title
+- alias: Wait for a response
+  wait_for_trigger:
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: '{{ action_1 }}'
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: '{{ action_2 }}'
+  timeout: !input delay
+  continue_on_timeout: true
+- alias: Perform the action
+  choose:
+  - conditions:
+    - condition: template
+      value_template: '{{ wait.trigger.event.data.action == action_1 }}'
+    sequence: !input action1
+  - conditions:
+    - condition: template
+      value_template: '{{ wait.trigger.event.data.action == action_2 }}'
+    sequence: !input action2

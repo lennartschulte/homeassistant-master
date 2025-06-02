@@ -1,0 +1,14 @@
+device_config:
+  00:12:4b:00:24:c2:aa:e0-1: # format: {ieee}-{endpoint_id}
+    type: "switch" # corrected device type
+  00:12:4b:00:24:c1:9b:a7-1: # format: {ieee}-{endpoint_id}
+    type: "switch" # corrected device type
+
+zigpy_config:
+  ota:
+    ikea_provider: true # Auto update Trådfri devices
+    ledvance_provider: true # Auto update LEDVANCE/OSRAM devices
+    salus_provider: true # Auto update SALUS/Computime devices
+    inovelli_provider: true # Auto update INOVELLI devices
+    otau_directory: /share/deconz_ota # Utilize .ota files to update everything
+  source_routing: true

@@ -1,0 +1,377 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+logger:
+  default: info
+  logs:
+    homeassistant.components.alexa: debug
+    hass_nabucasa.iot: debug
+
+recorder:
+  db_url: mysql://homeassistantDB:ha-mariaDBdata22@192.168.178.150:3306/homeassistantDB?charset=utf8
+  exclude:
+    domains:
+      - device_tracker
+      - weather
+    entity_globs:
+      - sensor.tasmota_*
+      - sensor.*internetgatewaydevicev2_fritz_box_7590*
+      - sensor.*vindriktning*
+      - sensor.senec_solar_mpp*
+      - sensor.*voltage*
+      - sensor.senec_bms_*
+      - sensor.senec_enfluri_*
+    entities:
+      - sensor.waschmaschine_energy_factor
+      - sensor.waschmaschine_energy_totalstarttime
+      - sensor.waschmaschine_energy_apparentpower
+      - sensor.waschmaschine_energy_reactivepower
+      - sensor.waschmaschine_energy_voltage
+      - sensor.waschmaschine_mqtt_connect_count
+      - sensor.waschmaschine_wifi_connect_count
+      - sensor.lenovom10_fully_dashboard_free_memory
+      - sensor.spannung_l1
+      - sensor.spannung_l2
+      - sensor.spannung_l3
+      - sensor.time
+      - sensor.werkstattpi_steckdose_rms_voltage
+      - sensor.computer_power
+      - sensor.fritz_box_7590_b_received
+      - sensor.fritz_box_7590_b_sent
+      - sensor.fritz_box_7590_packets_received
+      - sensor.fritz_box_7590_packets_sent
+      - sensor.senec_mcu_temp
+      - sensor.senec_battery_state_current
+      - sensor.senec_battery_state_voltage
+      - sensor.senec_case_temp
+      - sensor.computer_current
+      - sensor.computer_voltage
+      - light.gardine_wohnzimmer
+      - light.govee_lightstrip_werkstatt
+
+http:
+  #ssl_certificate: /ssl/fullchain.pem
+  #ssl_key: /ssl/privkey.pem
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.178.78
+    - 172.30.33.0/24
+
+browser_mod:
+
+influxdb:
+  api_version: 2
+  ssl: false
+  host: 192.168.178.150
+  port: 8086
+  token: !secret influxdbtoken
+  organization: 65bdbfdab7ca2578
+  bucket: HomeAssistant
+  tags:
+    source: HA
+  tags_attributes:
+    - friendly_name
+  default_measurement: units
+  exclude:
+    entities:
+      - zone.home
+    domains:
+      - persistent_notification
+      - person
+  include:
+    domains:
+      - sensor
+      - binary_sensor
+      - sun
+    entities:
+      - weather.home
+
+binary_sensor:
+  - platform: template
+    sensors:
+      alexa_klingel:
+        friendly_name: "Klingel"
+        value_template: >-
+          {{
+            is_state('input_boolean.alexa_klingel', 'on')
+          }}
+  - platform: template
+    sensors:
+      alexa_klingel2:
+        friendly_name: "Klingel2"
+        value_template: >-
+          {{
+            is_state('input_boolean.alexa_klingel', 'on')
+          }}
+
+tts:
+  - platform: google_translate
+    language: "de"
+
+homeassistant:
+  customize: !include customize.yaml
+
+energy:
+python_script:
+
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /local/hass-hue-icons.js
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensor.yaml
+mqtt: !include mqtt.yaml
+rest: !include rest.yaml
+template: !include template.yaml
+utility_meter: !include utility_meter.yaml
+zha: !include zha.yaml
+
+command_line:
+  - sensor:
+      name: CPU Temperature
+      unique_id: cpu_temperature
+      command: "cat /sys/class/thermal/thermal_zone0/temp"
+      unit_of_measurement: "°C"
+      value_template: "{{ value | multiply(0.001) | round(1) }}"
+      scan_interval: 10
+
+light:
+  - platform: group
+    name: Esstisch
+    entities:
+      - light.hue_filament_bulb_1
+      - light.hue_filament_bulb_2
+      - light.hue_filament_bulb_3
+      - light.hue_filament_bulb_4
+
+switch:
+  - platform: rpi_gpio
+    switches:
+      - port: 14
+        name: RPI Luefter
+  - platform: wake_on_lan
+    mac: 04:D9:F5:CB:72:75
+    name: Computer Wake On Lan Wired
+  - platform: wake_on_lan
+    mac: 7C:83:34:B9:C4:EE
+    name: Werkstatt Wake On Lan Wired
+  - platform: template
+    switches:
+      #Convert Raw Signal von Sonoff RF Bridge (http://192.168.178.89/cs? listening command "rfraw 177") fuer Portisch Firmware unter https://bbconv.hrbl.pl/
+      lichterkette_dach:
+        friendly_name: "Lichterkette Dach"
+        turn_on:
+          action: script.433_steckdose_1_3_b_an
+        turn_off:
+          action: script.433_steckdose_1_3_b_aus
+  - platform: template
+    switches:
+      135_c_plug: #Steckdose 1,3,5 C
+        friendly_name: "135 C"
+        turn_on:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0136 03C0 26D4 28181819081818190818181908190818181908190818181908 55; rfraw 177
+        turn_off:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0140 03C0 26E8 28181819081818190818181908190818181908190819081818 55; rfraw 177
+  - platform: template
+    switches:
+      135_d_plug: #Steckdose 1,3,5 D
+        friendly_name: "135 D"
+        turn_on:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 014A 03B6 26FC 28181819081818190818181908190819081818190818181908 55; rfraw 177
+        turn_off:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0136 03CA 26DE 28181819081818190818181908190819081818190819081818 55; rfraw 177
+  - platform: template
+    switches:
+      135_a_plug: #Steckdose 1,3,5 A
+        friendly_name: "135 A"
+        turn_on:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0136 03D4 26E8 28181819081818190818181818190819081908190818181908 55; rfraw 177
+        turn_off:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0140 03AC 26E8 28181819081818190818181818190819081908190819081818 55; rfraw 177
+  - platform: template
+    switches:
+      135_b_plug: #Steckdose 1,3,5 B
+        friendly_name: "135 B"
+        turn_on:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0136 03CA 26E8 28181819081818190818181908181819081908190818181908 55; rfraw 177
+        turn_off:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 012C 03CA 26E8 28181819081818190818181908181819081908190819081818 55; rfraw 177
+  - platform: template
+    switches:
+      134_a_plug: #Steckdose 1,3,4 A
+        friendly_name: "134 A"
+        #value_template: "{{ is_state('switch.134_a_plug', 'on') }}"
+        turn_on:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0136 03C0 26D4 28181819081818181819081818190819081908190818181908 55; rfraw 177
+        turn_off:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 012C 03CA 26D4 28181819081818181819081818190819081908190819081818 55; rfraw 177
+  - platform: template
+    switches:
+      134_b_plug: #Steckdose 1,3,4 B
+        friendly_name: "134 B"
+        turn_on:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 015E 0398 26A2 28181819081818181819081908181819081908190909090908 55; rfraw 177
+        turn_off:
+          action: mqtt.publish
+          data:
+            topic: cmnd/tasmota_825F0C/Backlog
+            payload: rfraw AA B0 21 03 08 0154 03A2 26C0 28181819081818181819081908181819081908190819081818 55; rfraw 177
+  - platform: template
+    switches:
+      pos_priner: #POS Printer
+        friendly_name: "POS Printer"
+        turn_on:
+          action: mqtt.publish
+          data:
+            topic: Prn062523002F0C0A29000013241289A8B9
+            payload: "{{\"\x1b\x40\"}}"
+        turn_off:
+          action: mqtt.publish
+          data:
+            topic: Prn062523002F0C0A29000013241289A8B9
+            payload: "{{\"\x1d\x56\x42\x00\"}}"
+
+climate:
+  - platform: generic_thermostat
+    name: RPI Luefter Steuerung
+    heater: switch.rpi_luefter
+    target_sensor: sensor.cpu_temperatur
+    min_temp: 55
+    max_temp: 80
+    ac_mode: true
+    target_temp: 60
+    cold_tolerance: 0.1
+    hot_tolerance: 0.1
+    min_cycle_duration:
+      seconds: 30
+    keep_alive:
+      minutes: 5
+    initial_hvac_mode: "cool"
+
+cover:
+  - platform: template
+    covers:
+      markise:
+        device_class: awning
+        friendly_name: "Markise"
+        position_template: >
+          {% if is_state('binary_sensor.sensor_markise', 'on') %}
+            50
+          {% elif is_state('binary_sensor.sensor_markise', 'off') %}
+            0
+          {% endif %}
+        value_template: "{{is_state('binary_sensor.sensor_markise', 'on')}}"
+        open_cover:
+          action: script.markise_runter
+        close_cover:
+          action: script.markise_hoch
+        stop_cover:
+          action: script.markise_stop
+
+generic_hygrostat:
+  - name: Badezimmerlüftung
+    target_sensor: sensor.sensor_dusche_luftfeuchtigkeit
+    device_class: dehumidifier
+    humidifier: light.badezimmer_luftung_switch
+    min_humidity: 50
+    max_humidity: 90
+    target_humidity: 80
+    sensor_stale_duration: 01:00:00
+    min_cycle_duration:
+      seconds: 30
+    keep_alive:
+      minutes: 2
+    away_humidity: 70
+    away_fixed: True
+
+midea_dehumidifier:
+  username: !secret mideausername
+  password: !secret mideapassword
+
+rest_command:
+  todoist:
+    method: post
+    url: "https://api.todoist.com/sync/v8/sync"
+    payload: !secret todoist_api_payload
+    content_type: "application/x-www-form-urlencoded"
+
+#cloud:
+#  alexa:
+#    filter:
+#      include_entities:
+#        - binary_sensor.alexa_klingel
+#    entity_config:
+#      binary_sensor.alexa_klingel:
+#        name: "Klingel"
+#        description: "Klingel Binary Sensor"
+#        display_categories: DOORBELL
+
+# alexa:
+#   smart_home:
+#     locale: de-DE
+#     endpoint: https://api.eu.amazonalexa.com/v3/events
+#     client_id: amzn1.application-oa2-client.4a294e1615c04cdf8c0fa4022c6311a2
+#     client_secret: b51718d268eb3c8fa3628bb4747642341200437a3793e06b1f5d1aa055b6d850
+#     filter:
+#       include_entities:
+#         - binary_sensor.alexa_klingel2
+#     entity_config:
+#       binary_sensor.alexa_klingel2:
+#         name: "Klingel 2"
+#         description: "Klingel Binary Sensor"
+#         display_categories: DOORBELL
+
+calendar:
+  - platform: todoist
+    token: !secret todoist_api_token
+    custom_projects:
+      - name: "Alle Projekte"
+      - name: "Heute fällig"
+        due_date_days: 0
+      - name: "Diese Woche fällig"
+        due_date_days: 7
+      - name: "Alexa"
+        labels:
+          - Alexa
+        include_projects:
+          - Alexa To-do-Liste
+          - Alexa Einkaufsliste

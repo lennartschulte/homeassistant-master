@@ -1,0 +1,124 @@
+- resource: https://api.battlemetrics.com/servers/31179098
+  scan_interval: 180
+  sensor:
+    - name: "ARK-Server-Island"
+      json_attributes_path: "$.data.attributes"
+      value_template: "{{value_json.data.attributes.name}}"
+      json_attributes:
+        - "name"
+        - "ip"
+        - "players"
+        - "status"
+    - name: "ARK-Server-Island Status"
+      value_template: "{{value_json.data.attributes.status}}"
+      icon: "mdi:web"
+    - name: "ARK-Server-Island Player"
+      value_template: "{{value_json.data.attributes.players}}"
+      icon: "mdi:account-multiple"
+      state_class: "measurement"
+    - name: "ARK-Server-Island IP"
+      value_template: "{{value_json.data.attributes.ip}}"
+    - name: "ARK-Server-Island Rank"
+      value_template: "{{value_json.data.attributes.rank}}"
+      icon: "mdi:chart-timeline-variant-shimmer"
+      state_class: "measurement"
+
+- resource: https://api.battlemetrics.com/servers/28697185
+  scan_interval: 180
+  sensor:
+    - name: "ARK-Server-Bob"
+      json_attributes_path: "$.data.attributes"
+      value_template: "{{value_json.data.attributes.name}}"
+      json_attributes:
+        - "name"
+        - "ip"
+        - "players"
+        - "status"
+    - name: "ARK-Server-Bob Status"
+      value_template: "{{value_json.data.attributes.status}}"
+      icon: "mdi:web"
+    - name: "ARK-Server-Bob Player"
+      value_template: "{{value_json.data.attributes.players}}"
+      icon: "mdi:account-multiple"
+      state_class: "measurement"
+    - name: "ARK-Server-Bob IP"
+      value_template: "{{value_json.data.attributes.ip}}"
+    - name: "ARK-Server-Bob Rank"
+      value_template: "{{value_json.data.attributes.rank}}"
+      icon: "mdi:chart-timeline-variant-shimmer"
+      state_class: "measurement"
+
+- resource: https://api.battlemetrics.com/servers/31178921
+  scan_interval: 180
+  sensor:
+    - name: "ARK-Server-Aberration"
+      json_attributes_path: "$.data.attributes"
+      value_template: "{{value_json.data.attributes.name}}"
+      json_attributes:
+        - "name"
+        - "ip"
+        - "players"
+        - "status"
+    - name: "ARK-Server-Aberration Status"
+      value_template: "{{value_json.data.attributes.status}}"
+      icon: "mdi:web"
+    - name: "ARK-Server-Aberration Player"
+      value_template: "{{value_json.data.attributes.players}}"
+      icon: "mdi:account-multiple"
+      state_class: "measurement"
+    - name: "ARK-Server-Aberration IP"
+      value_template: "{{value_json.data.attributes.ip}}"
+    - name: "ARK-Server-Aberration Rank"
+      value_template: "{{value_json.data.attributes.rank}}"
+      icon: "mdi:chart-timeline-variant-shimmer"
+      state_class: "measurement"
+
+- resource: https://api.battlemetrics.com/servers/28697258
+  scan_interval: 180
+  sensor:
+    - name: "ARK-Server-Center"
+      json_attributes_path: "$.data.attributes"
+      value_template: "{{value_json.data.attributes.name}}"
+      json_attributes:
+        - "name"
+        - "ip"
+        - "players"
+        - "status"
+    - name: "ARK-Server-Center Status"
+      value_template: "{{value_json.data.attributes.status}}"
+      icon: "mdi:web"
+    - name: "ARK-Server-Center Player"
+      value_template: "{{value_json.data.attributes.players}}"
+      icon: "mdi:account-multiple"
+      state_class: "measurement"
+    - name: "ARK-Server-Center IP"
+      value_template: "{{value_json.data.attributes.ip}}"
+    - name: "ARK-Server-Center Rank"
+      value_template: "{{value_json.data.attributes.rank}}"
+      icon: "mdi:chart-timeline-variant-shimmer"
+      state_class: "measurement"
+#Earth
+- resource: https://api.battlemetrics.com/servers/28697208
+  scan_interval: 180
+  sensor:
+    - name: "ARK-Server-Earth"
+      json_attributes_path: "$.data.attributes"
+      value_template: "{{value_json.data.attributes.name}}"
+      json_attributes:
+        - "name"
+        - "ip"
+        - "players"
+        - "status"
+    - name: "ARK-Server-Earth Status"
+      value_template: "{{value_json.data.attributes.status}}"
+      icon: "mdi:web"
+    - name: "ARK-Server-Earth Player"
+      value_template: "{{value_json.data.attributes.players}}"
+      icon: "mdi:account-multiple"
+      state_class: "measurement"
+    - name: "ARK-Server-Earth IP"
+      value_template: "{{value_json.data.attributes.ip}}"
+    - name: "ARK-Server-Earth Rank"
+      value_template: "{{value_json.data.attributes.rank}}"
+      icon: "mdi:chart-timeline-variant-shimmer"
+      state_class: "measurement"

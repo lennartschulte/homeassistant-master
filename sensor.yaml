@@ -1,0 +1,262 @@
+- platform: time_date
+  display_options:
+    - "time"
+    - "date"
+
+#- platform: history_stats
+#  name: Lüftung Schlafzimmer
+#  entity_id: binary_sensor.fensterkontakt_schlafzimmer_state
+#  state: "on"
+#  type: time
+#  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+#  end: "{{ now() }}"
+#- platform: history_stats
+#  name: Lüftung Wohnzimmer
+#  entity_id: binary_sensor.turkontakt_wohnzimmer_state
+#  state: "on"
+#  type: time
+#  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+#  end: "{{ now() }}"
+#- platform: history_stats
+#  name: Lüftung Küche
+#  entity_id: binary_sensor.fensterkontakt_kuche_state
+#  state: "on"
+#  type: time
+#  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+#  end: "{{ now() }}"
+#- platform: history_stats
+# name: Lüftung Emil
+#  entity_id: binary_sensor.fensterkontakt_emil_state
+#  state: "on"
+#  type: time
+#  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+#  end: "{{ now() }}"
+#- platform: history_stats
+#  name: Lüftung Matilda
+#  entity_id: binary_sensor.fensterkontakt_matilda_state
+#  state: "on"
+#  type: time
+#  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+#  end: "{{ now() }}"
+
+#   #kWh Lavalampe
+# - platform: integration
+#   source: sensor.lavalampe_leistung
+#   name: energy_lavalampe_verbrauch
+#   unit_prefix: k
+#   round: 2
+#   method: left
+
+#kWh Computer
+- platform: integration
+  source: sensor.computer_power_offset
+  name: energy_computer_verbrauch
+  unit_prefix: k
+  round: 2
+  method: left
+
+#kWh 3D Drucker
+- platform: integration
+  source: sensor.3d_drucker_leistung_offset
+  name: energy_3d_drucker_verbrauch
+  unit_prefix: k
+  round: 2
+  method: left
+
+#kWh Resin Drucker
+- platform: integration
+  source: sensor.resin_drucker_leistung_offset
+  name: energy_resin_drucker_verbrauch
+  unit_prefix: k
+  round: 2
+  method: left
+
+#kWh Laser
+- platform: integration
+  source: sensor.laser_leistung_offset
+  name: energy_laser_verbrauch
+  unit_prefix: k
+  round: 2
+  method: left
+
+#   #kWh Aquariumpumpe
+# - platform: integration
+#   source: sensor.aquariumpumpe_leistung
+#   name: energy_aquariumpumpe_verbrauch
+#   unit_prefix: k
+#   round: 2
+#   method: left
+#   #kWh Aquariumbeleuchtung
+# - platform: integration
+#   source: sensor.aquariumbeleuchtung_leistung
+#   name: energy_aquariumbeleuchtung_verbrauch
+#   unit_prefix: k
+#   round: 2
+#   method: left
+
+#Klarname PV Status
+- platform: template
+  sensors:
+    senec_system_state_name:
+      friendly_name: "Senec Status"
+      #unit_of_measurement: "Status"
+      #entity_id: sensor.deebot_ozmo_t8_stats_type
+      icon_template: mdi:solar-power
+      value_template: >-
+        {% set mapper =  {
+            'NETZ + ENTLADEN' : 'Netz + Entladen',
+            'PV + ENTLADEN' : 'PV + Entladen',
+            'SELBSTTEST' : 'Selbsttest',
+            'BATTERIEDIAGNOSE' : 'Batterie Diagnose',
+            'AKKU VOLL' : 'Speicher voll',
+            'AKKU LEER' : 'Speicher leer',
+            'SOFTWARE UPDATE' : 'Software-Update',
+            'ENTLADEN' : 'Entladen',
+            'EIGENVERBRAUCH' : 'Eigenverbrauch',
+            'NOTLADUNG' : 'Notladung',
+            'NEUSTART' : 'Neustart',
+            'PASSIV' : 'Passiv',
+            'NETZSTABILISIERUNG' : 'Netzstabilisierung',
+            'unavailable' : 'nicht erreichbar',
+            'NPU-FEHLER' : 'NPU-Fehler',
+            'AUFWACHLADUNG' : 'Aufwachladung',
+            'ISOLATIONSTEST' : 'Isolationstest',
+            'SICHERHEITSENTLADUNG' : 'Sicherheitsentladung',
+            'LITHIUM SICHERHEITSMODUS AKTIV' : 'LITHIUM SICHERHEITSMODUS AKTIV',
+            'AUSGESCHALTET' : 'Ausgeschaltet',
+            'INSTALLATIONSMODUS' : 'INSTALLATIONSMODUS',
+            'SOFTWAREAKTUALISIERUNG' : 'SOFTWAREAKTUALISIERUNG',
+            'UNKNOWN' : 'UNBEKANNT',
+            'LADEN' : 'Laden' } %}
+        {% set state =  states.sensor.senec_system_state.state %}
+        {{ mapper[state] if state in mapper else 'Unbekannt-Status' }}
+
+#Klarname Deebot Reinigungsmodus
+- platform: template
+  sensors:
+    deebot_ozmo_t8_stats_type_name:
+      friendly_name: "DEEBOT Reinigungsmodus"
+      #unit_of_measurement: "Status"
+      #entity_id: sensor.deebot_ozmo_t8_stats_type
+      value_template: >-
+        {% set mapper =  {
+            'customArea' : 'Manuell',
+            'auto' : 'Automatisch',
+            'spotArea' : 'Bereich' } %}
+        {% set state =  states.sensor.deebot_ozmo_t8_stats_type.state %}
+        {{ mapper[state] if state in mapper else 'unbekannt' }}
+
+  #Klarname Waschvorgang Reinigungsmodus
+- platform: template
+  sensors:
+    waschvorgang_name:
+      friendly_name: "Waschvorgang"
+      #unit_of_measurement: "Status"
+      #entity_id: input_boolean.waschvorgang
+      value_template: >-
+        {% set mapper =  {
+            'on' : 'Waschmaschine läuft',
+            'off' : 'Waschmaschine läuft nicht' } %}
+        {% set state =  states.input_boolean.waschvorgang.state %}
+        {{ mapper[state] if state in mapper else 'unbekannt' }}
+
+- platform: rest
+  name: ender_2_s1_pro_sensor
+  resource: "http://192.168.178.105:7125/printer/objects/query?heater_bed&extruder&print_stats&toolhead&display_status&virtual_sdcard"
+  json_attributes_path: "$.result.status"
+  json_attributes:
+    - heater_bed
+    - extruder
+    - print_stats
+    - toolhead
+    - display_status
+    - virtual_sdcard
+  value_template: >-
+    {{ 'OK' if ('result' in value_json) else None }}
+  #  Adding an API key is only necessary while using the [authorization] component
+  #  and if Home Assistant is not a trusted client
+- platform: template
+  sensors:
+    ender3s1pro_hotend_target:
+      friendly_name: "V0.126 Hotend Target"
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: >-
+        {{ states.sensor.ender_2_s1_pro_sensor.attributes['extruder']['target'] | float | round(1) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_hotend_actual:
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: >-
+        {{ states.sensor.ender_2_s1_pro_sensor.attributes['extruder']['temperature'] | float | round(1) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_bed_target:
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: >-
+        {{ states.sensor.ender_2_s1_pro_sensor.attributes['heater_bed']['target'] | float | round(1) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_bed_actual:
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: >-
+        {{ states.sensor.ender_2_s1_pro_sensor.attributes['heater_bed']['temperature'] | float | round(1) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_state:
+      icon_template: mdi:printer-3d
+      value_template: >-
+        {{ states.sensor.ender_2_s1_pro_sensor.attributes['print_stats']['state'] if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_current_print:
+      value_template: >-
+        {{ states.sensor.ender_2_s1_pro_sensor.attributes['print_stats']['filename'] if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_current_progress:
+      unit_of_measurement: "%"
+      icon_template: mdi:file-percent
+      value_template: >-
+        {{ (states.sensor.ender_2_s1_pro_sensor.attributes['display_status']['progress'] * 100) | round(1) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_print_time:
+      icon_template: mdi:clock-start
+      value_template: >-
+        {{ states.sensor.ender_2_s1_pro_sensor.attributes['print_stats']['print_duration'] | timestamp_custom("%H:%M:%S", 0) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_time_remaining:
+      icon_template: mdi:clock-end
+      value_template: >-
+        {{ (((states.sensor.ender_2_s1_pro_sensor.attributes['print_stats']['print_duration'] / states.sensor.ender_2_s1_pro_sensor.attributes['display_status']['progress'] - states.sensor.ender_2_s1_pro_sensor.attributes['print_stats']['print_duration']) if states.sensor.ender_2_s1_pro_sensor.attributes['display_status']['progress'] > 0 else 0) | timestamp_custom('%H:%M:%S', 0)) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_eta:
+      icon_template: mdi:clock-outline
+      value_template: >-
+        {{ (as_timestamp(now()) + 1 * 60 * 60 + ((states.sensor.ender_2_s1_pro_sensor.attributes['print_stats']['print_duration'] / states.sensor.ender_2_s1_pro_sensor.attributes['display_status']['progress'] - states.sensor.ender_2_s1_pro_sensor.attributes['print_stats']['print_duration']) if states.sensor.ender_2_s1_pro_sensor.attributes['display_status']['progress'] > 0 else 0)) | timestamp_custom("%H:%M:%S", 0) if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_nozzletemp:
+      icon_template: mdi:thermometer
+      value_template: >-
+        {{ [(states.sensor.ender_2_s1_pro_sensor.attributes['extruder']['temperature'] | float | round(1) | string), " / ", (states.sensor.ender_2_s1_pro_sensor.attributes['extruder']['target'] | float | round(1) | string)] | join if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+    ender3s1pro_bedtemp:
+      icon_template: mdi:thermometer
+      value_template: >-
+        {{ [(states.sensor.ender_2_s1_pro_sensor.attributes['heater_bed']['temperature'] | float | round(1) | string), " / ", (states.sensor.ender_2_s1_pro_sensor.attributes['heater_bed']['target'] | float | round(1) | string)] | join if is_state('sensor.ender_2_s1_pro_sensor', 'OK') else None }}
+
+- platform: template
+  sensors:
+    fingerprint_person:
+      friendly_name: "Fingerprint Person"
+      value_template: >-
+        {% if states('sensor.doorbell_fingerprint_last_finger_id') | int >= 1 %}
+          {%- set printid = states('sensor.doorbell_fingerprint_last_finger_id') | int -%}
+          {%- set prints = states("input_text.fingerprint_data") | from_json if states("input_text.fingerprint_data") else [] -%}
+          {%- set fingerprint = prints|selectattr('id', 'eq', states('sensor.doorbell_fingerprint_last_finger_id') | int) | first -%}
+          {{fingerprint["n"]}}
+        {% endif %}
+      icon_template: >-
+        {% if states('sensor.doorbell_fingerprint_last_finger_id') | int >= 1 %}
+          mdi:human-male
+        {% endif %}
+
+- platform: template
+  sensors:
+    rasimir_battery:
+      friendly_name: "Rasimir Batterie"
+      value_template: "{{ state_attr('vacuum.rasimir','battery_level')}}"
+      unit_of_measurement: "%"
+    rasimir_next_start:
+      friendly_name: "Rasimir nächster Start"
+      value_template: "{{ state_attr('vacuum.rasimir','next_scheduled_start') }}"
+    rasimir_blade_time:
+      friendly_name: "Rasimir Zeit Messer"
+      value_template: "{{ state_attr('vacuum.rasimir','statistics').worktime_blades_on}}"
+      unit_of_measurement: "Minuten"

@@ -1,0 +1,204 @@
+esphome:
+  name: "laserpowercontroller32"
+  friendly_name: LaserPowerController
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "bjFX1s7rC7N0wcGQr9V6oI/zDHire9J+Hfp06/hm854="
+
+ota:
+  platform: esphome
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "LaserPowerController"
+    password: "R4ylQ4959T5Q"
+
+captive_portal:
+
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+  id: bus_a
+
+ads1115:
+  - address: 0x48
+
+switch:
+   - platform: gpio
+     pin: GPIO2
+     id: LaserPowerControllerLED
+     name: "Laser Power Controller LED"
+     inverted: False
+   - platform: gpio
+     pin: GPIO27
+     id: steckdose4
+     name: "Steckdose 4"
+     inverted: True
+   - platform: gpio
+     pin: GPIO25
+     id: steckdose3
+     name: "Steckdose 3"
+     inverted: True
+   - platform: gpio
+     pin: GPIO32
+     id: steckdose2
+     name: "Steckdose 2"
+     restore_mode: RESTORE_DEFAULT_ON
+     inverted: True
+   - platform: gpio
+     pin: GPIO4
+     id: steckdose1
+     name: "Steckdose 1"
+     inverted: True
+
+   - platform: template
+     id: LaserLichtAutomatik
+     name: "Laser Licht Automatik"
+     optimistic: True
+     restore_mode: RESTORE_DEFAULT_ON 
+   - platform: template
+     id: LaserAbsaugungAutomatik
+     name: "Laser Absaugung Automatik"
+     optimistic: True
+     restore_mode: RESTORE_DEFAULT_ON 
+   - platform: template
+     id: LaserAirAssistAutomatik
+     name: "Laser Air Assist Automatik"
+     optimistic: True
+     restore_mode: RESTORE_DEFAULT_ON 
+
+   - platform: template
+     id: LaserLichtAutomatikSchalter
+     name: "Laser Licht Automatik Schalter"
+     optimistic: True
+     internal: True
+     lambda: |-
+      if (id(LaserLichtAutomatik).state) {
+        if (id(LaserLEDStatus).state) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+     #on_turn_on:
+      #- switch.turn_on: steckdose2
+     #on_turn_off:
+      #- switch.turn_off: steckdose2
+   - platform: template
+     id: LaserAbsaugungAutomatikSchalter
+     name: "Laser Absaugung Automatik Schalter"
+     optimistic: True
+     internal: True
+     lambda: |-
+      if (id(LaserAbsaugungAutomatik).state) {
+        if (id(LaserAbsaugungStatus).state) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+     on_turn_on:
+      - switch.turn_on: steckdose1
+     on_turn_off:
+      - switch.turn_off: steckdose1
+
+   - platform: template
+     id: LaserAirAssistAutomatikSchalter
+     name: "Laser Licht Automatik Schalter"
+     optimistic: True
+     internal: True
+     lambda: |-
+      if (id(LaserAirAssistAutomatik).state) {
+        if (id(LaserAbsaugungStatus).state) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+     on_turn_on:
+      - switch.turn_on: steckdose4
+     on_turn_off:
+      - switch.turn_off: steckdose4
+
+binary_sensor:
+  - platform: template
+    id: LaserLEDStatus
+    name: "Laser LED Status"
+    lambda: |-
+      if (id(LaserLEDSpannung).state < id(schwelle_led_max).state) {
+        if (id(LaserLEDSpannung).state > id(schwelle_led_min).state) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+  - platform: template
+    id: LaserAbsaugungStatus
+    name: "Laser Absaugung Status"
+    lambda: |-
+      if (id(LaserAbsaugungSpannung).state < id(schwelle_absaugung_max).state) {
+        if (id(LaserAbsaugungSpannung).state > id(schwelle_absaugung_min).state) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+sensor:
+  - platform: homeassistant
+    name: "Schwelle Absaugung Max"
+    id: schwelle_absaugung_max
+    entity_id: input_number.schwelleabsaugung_max
+  - platform: homeassistant
+    name: "Schwelle LED Max"
+    id: schwelle_led_max
+    entity_id: input_number.schwelleled_max
+  - platform: homeassistant
+    name: "Schwelle Absaugung Min"
+    id: schwelle_absaugung_min
+    entity_id: input_number.schwelleabsaugung_min
+  - platform: homeassistant
+    name: "Schwelle LED Min"
+    id: schwelle_led_min
+    entity_id: input_number.schwelleled_min
+  - platform: ads1115
+    multiplexer: 'A0_A1'
+    gain: 6.144
+    name: "Laser Absaugung Spannung"
+    id: LaserAbsaugungSpannung
+    update_interval: 1s
+    filters:
+      - multiply: -1.0
+      - round: 2
+  - platform: ads1115
+    multiplexer: 'A2_A3'
+    gain: 6.144
+    name: "Laser LED Spannung"
+    id: LaserLEDSpannung
+    update_interval: 1s
+    filters:
+      - multiply: -1.0
+      - round: 2

@@ -1,0 +1,2987 @@
+'1631186527333':
+  alias: Alexa - TTS
+  sequence:
+  - service: notify.alexa_media_wohnzimmer
+    data:
+      message: Test
+      data:
+        type: tts
+  mode: single
+ankuendigung:
+  alias: Alexa - Ankündigung
+  sequence:
+  - service: notify.alexa_media_echo_dot_buro
+    data:
+      message: ja
+      data:
+        type: tts
+  mode: single
+blink_update:
+  alias: Blink Update
+  sequence:
+  - service: blink.trigger_camera
+    target:
+      entity_id: camera.blink_kamera
+  - service: blink.blink_update
+  mode: single
+testtrigger:
+  alias: TestTrigger
+  sequence:
+  - event: TestTrigger
+    event_data: {}
+  mode: single
+doorbell_snapshot:
+  alias: Doorbell Snapshot
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: camera.snapshot
+    target:
+      entity_id:
+      - camera.haustur
+    data:
+      filename: /config/www/cam_captures/eufy_doorbell/last_event.jpg
+  - service: camera.snapshot
+    target:
+      entity_id: camera.haustur
+    data:
+      filename: /config/www/cam_captures/eufy_doorbell/{{now().strftime("%Y-%m-%d_%H-%M-%S")}}.jpg
+  mode: single
+  icon: mdi:cctv
+kuche_reinigen:
+  alias: Küche reinigen
+  sequence:
+  - service: vacuum.send_command
+    target:
+      device_id: 7399305295640484ad7009ee9383fb16
+    data:
+      command: spot_area
+      params:
+        rooms: 8
+        cleanings: 1
+  mode: single
+  icon: mdi:robot-vacuum
+schlafzimmer_reinigen:
+  alias: Schlafzimmer reinigen
+  sequence:
+  - service: vacuum.send_command
+    target:
+      device_id: 7399305295640484ad7009ee9383fb16
+    data:
+      command: spot_area
+      params:
+        rooms: 10
+        cleanings: 1
+  mode: single
+  icon: mdi:robot-vacuum
+esszimmer_reinigen:
+  alias: Esszimmer reinigen
+  sequence:
+  - service: vacuum.send_command
+    target:
+      device_id: 7399305295640484ad7009ee9383fb16
+    data:
+      command: spot_area
+      params:
+        rooms: 3
+        cleanings: 1
+  mode: single
+  icon: mdi:robot-vacuum
+vordertur_snapshot:
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: camera.snapshot
+    target:
+      entity_id:
+      - camera.vordertur
+    data:
+      filename: /config/www/cam_captures/eufy_vordertuer/last_event.jpg
+  - service: camera.snapshot
+    target:
+      entity_id:
+      - camera.vordertur
+    data:
+      filename: /config/www/cam_captures/eufy_vordertuer/{{now().strftime("%Y-%m-%d_%H-%M-%S")}}.jpg
+  mode: single
+  alias: Vordertür Snapshot
+  icon: mdi:cctv
+blink_snapshot:
+  alias: Blink Snapshot
+  sequence:
+  - service: camera.snapshot
+    data:
+      filename: /config/www/cam_captures/blink/last_event.jpg
+    target:
+      entity_id: camera.blink_kamera
+  - service: camera.snapshot
+    data:
+      filename: /config/www/cam_captures/blink/{{now().strftime("%Y-%m-%d_%H-%M-%S")}}.jpg
+    target:
+      entity_id: camera.blink_kamera
+  mode: single
+  icon: mdi:cctv
+doorbell_pressed_snapshot:
+  alias: Doorbell Pressed Snapshot
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: camera.snapshot
+    data:
+      filename: /config/www/cam_captures/eufy_doorbell_pressed/last_event.jpg
+    target:
+      entity_id: camera.haustur
+  - service: camera.snapshot
+    target:
+      entity_id: camera.haustur
+    data:
+      filename: /config/www/cam_captures/eufy_doorbell_pressed/{{now().strftime("%Y-%m-%d_%H-%M-%S")}}.jpg
+  mode: single
+  icon: mdi:cctv
+buro_aus_licht_rollo_pc:
+  alias: Büro - AUS - Licht + Rollo + PC + HZ
+  sequence:
+  - scene: scene.buro_aus
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.shutdown_desktop_pc
+  - service: climate.set_temperature
+    data:
+      temperature: 19
+    target:
+      entity_id: climate.buro
+  mode: single
+  icon: mdi:chair-rolling
+buro_aus_licht_rollo:
+  alias: Büro - AUS - Licht + Rollo
+  sequence:
+  - scene: scene.buro_aus
+  mode: single
+  icon: mdi:chair-rolling
+buro_aus_licht:
+  alias: Büro - AUS - Licht
+  sequence:
+  - scene: scene.buro_aus_licht
+  mode: single
+  icon: mdi:chair-rolling
+buro_an_licht_rollo_pc:
+  alias: Büro - AN - Licht + Rollo + PC + HZ
+  sequence:
+  - scene: scene.homeoffice
+  - service: wake_on_lan.send_magic_packet
+    data:
+      mac: 04:D9:F5:CB:72:75
+  - service: climate.set_temperature
+    data:
+      temperature: 20.5
+    target:
+      entity_id: climate.buro
+  mode: single
+  icon: mdi:chair-rolling
+buro_an_licht_rollo:
+  alias: Büro - AN - Licht + Rollo
+  sequence:
+  - scene: scene.homeoffice
+  mode: single
+  icon: mdi:chair-rolling
+buro_an_licht:
+  alias: Büro - AN - Licht
+  sequence:
+  - scene: scene.homeoffice_licht
+  mode: single
+  icon: mdi:chair-rolling
+flur_reinigen:
+  alias: Flur reinigen
+  sequence:
+  - service: vacuum.send_command
+    target:
+      device_id: 7399305295640484ad7009ee9383fb16
+    data:
+      command: spot_area
+      params:
+        rooms: 4,0
+        cleanings: 1
+  mode: single
+  icon: mdi:robot-vacuum
+komplettreinigung_ohne_kz:
+  alias: Komplettreinigung (ohne KZ)
+  sequence:
+  - service: vacuum.send_command
+    target:
+      device_id: 7399305295640484ad7009ee9383fb16
+    data:
+      command: spot_area
+      params:
+        rooms: 8,3,9,6,10,0,4
+        cleanings: 1
+  mode: single
+  icon: mdi:robot-vacuum
+markise_hoch:
+  alias: Markise - Hoch
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmota_825F0C/Backlog
+      payload: rfraw AA B0 35 05 08 1298 060E 012C 0316 2256 481A3B2A3A3B2B2B2B2A3B2A3A3A3B2A3B2B2B2A3A3A3A3B2A3B2A3B2A3A3A3A3B2A3A3A3B2A3A3A3B
+        55; rfraw 177
+  mode: single
+  icon: mdi:blinds-open
+markise_runter:
+  alias: Markise - Runter
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmota_825F0C/Backlog
+      payload: rfraw AA B0 35 05 08 12B6 05E6 0154 02EE 22B0 481A3B2A3A3B2B2B2B2A3B2A3A3A3B2A3B2B2B2A3A3A3A3B2A3B2A3B2A3A3A3A3B2A3A3B2B2A3A3B2B
+        55; rfraw 177
+  mode: single
+  icon: mdi:blinds-horizontal
+markise_stop:
+  alias: Markise - Stop
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmota_825F0C/Backlog
+      payload: rfraw AA B0 35 05 08 1298 0618 012C 0302 2256 481A3B2A3A3B2B2B2B2A3B2A3A3A3B2A3B2B2B2A3A3A3A3B2A3B2A3B2A3A3A3A3B2A3B2A3B2A3B2A3B
+        55; rfraw 177
+  mode: single
+  icon: mdi:blinds-horizontal
+wled_police:
+  alias: WLED - Police
+  sequence:
+  - service: input_select.select_option
+    data:
+      option: Manuell
+    target:
+      entity_id: input_select.lichtmodus_kuche
+  - service: select.select_option
+    data:
+      option: Police
+    target:
+      entity_id: select.wled_kueche_preset
+  mode: single
+  icon: mdi:led-strip-variant
+wled_regenbogen:
+  alias: WLED - Regenbogen
+  sequence:
+  - service: input_select.select_option
+    data:
+      option: Manuell
+    target:
+      entity_id: input_select.lichtmodus_kuche
+  - service: select.select_option
+    data:
+      option: Regenbogen
+    target:
+      entity_id: select.wled_kueche_preset
+  mode: single
+  icon: mdi:led-strip-variant
+haustur_offnen:
+  alias: Haustür öffnen
+  sequence:
+  - device_id: 000dae04b97df4e1e01fbba85440acda
+    domain: lock
+    entity_id: lock.nuki_haustur_lock
+    type: open
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  mode: single
+  icon: mdi:door-open
+aqara_motion_reset:
+  alias: Aqara Motion Reset
+  sequence:
+  - service: zha.set_zigbee_cluster_attribute
+    data:
+      ieee: 00:15:8d:00:07:e3:ff:49
+      endpoint_id: 1
+      cluster_id: 1280
+      cluster_type: in
+      attribute: 2
+      value: '0'
+  mode: single
+'1657746472017':
+  alias: Neues Skript
+  sequence:
+  - device_id: dc5fcf7ad021353efd0f06171775d40b
+    domain: cover
+    entity_id: cover.hmip_froll_00115d8992e908
+    type: set_position
+    position: 100
+activate_alexa_actionable_notification:
+  description: Activates an actionable notification on a specific echo device
+  fields:
+    text:
+      description: The text you would like alexa to speak.
+      example: What would you like the thermostat set to?
+    event_id:
+      description: Correlation ID for event responses
+      example: ask_for_temperature
+    alexa_device:
+      description: Alexa device you want to trigger
+      example: media_player.bedroom_echo
+  sequence:
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.alexa_actionable_notification
+      value: '{"text": "{{ text }}", "event": "{{ event_id }}"}'
+  - service: media_player.play_media
+    data:
+      entity_id: '{{ alexa_device }}'
+      media_content_type: skill
+      media_content_id: amzn1.ask.skill.6c312f95-9a18-4b64-a42b-54c91bc24ee1
+  mode: single
+alexa_doorbell_test:
+  alias: Alexa - Doorbell Test
+  sequence:
+  - service: notify.alexa_media_echo_show
+    data:
+      message: <audio src="soundbank://soundlibrary/bell/church/church_bells_06"/>
+        Es ist jemand an der Tür
+      target: media_player.echo_show
+      data:
+        type: tts
+  mode: single
+  icon: mdi:bell-ring
+alexa_ankundigung:
+  alias: Alexa Ankündigung
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: '{{ alexa_device  }}'
+      volume_level: 0.8
+  - service: '{{ alexa_service }}'
+    data:
+      message: '{{ alexa_message }}'
+      data:
+        type: tts
+  - service: media_player.volume_set
+    data:
+      entity_id: '{{ alexa_device  }}'
+      volume_level: '{{ alexa_volume }}'
+  mode: single
+  icon: mdi:bullhorn
+test_ankundigung_mit_skript:
+  alias: Test Ankündigung mit Skript
+  sequence:
+  - service: script.alexa_ankundigung
+    data_template:
+      alexa_device: media_player.echo_dot_buro
+      alexa_service: notify.alexa_media_echo_dot_buro
+      alexa_volume: '{{ states.media_player.echo_dot_buro.attributes.volume_level
+        }}'
+      alexa_message: <audio src="soundbank://soundlibrary/bell/church/church_bells_06"/>
+        Es ist jemand an der Tür
+  mode: single
+fingerprint_lernen:
+  alias: Fingerprint lernen
+  sequence:
+  - data:
+      num_scans: 2
+      finger_id: '{{states(''input_number.fingerprint_id'')}}'
+    action: esphome.fingerprintdoorbell_enroll
+  - data_template:
+      entity_id: input_text.fingerprint_data
+      value: "{% if states('input_text.fingerprint_data') == \"unknown\" %}\n  {{\"[]\"}}\n{%
+        endif %}"
+    enabled: false
+    action: input_text.set_value
+  - data_template:
+      entity_id: input_text.fingerprint_data
+      value: '{% set print_id = states(''input_number.fingerprint_id'') | int %} {%
+        set print_name = states(''input_select.person'') %} {% set print_finger =
+        states(''input_select.fingerprint_finger'') %} {% set prints = states(''input_text.fingerprint_data'')
+        | from_json if states(''input_text.fingerprint_data'') else [] %} {{(prints|rejectattr(''id'',
+        ''eq'', print_id) | list + [{''id'': print_id, ''n'': print_name, ''f'': print_finger}])
+        | tojson }}'
+    enabled: true
+    action: input_text.set_value
+  mode: single
+  icon: mdi:fingerprint
+fingerprint_loeschen:
+  alias: Fingerprint löschen
+  sequence:
+  - service: esphome.fingerprintdoorbell_delete
+    data:
+      finger_id: '{{states(''input_number.fingerprint_id'')}}'
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.fingerprint_data
+      value: '{%- set print_id = states(''input_number.fingerprint_id'')| int -%}
+        {%- set prints = states(''input_text.fingerprint_data'') | from_json if states(''input_text.fingerprint_data'')
+        else [] -%} {{ (prints|rejectattr(''id'', ''eq'', print_id)) | list | tojson
+        }}'
+  mode: single
+  icon: mdi:fingerprint-off
+alexa_klingel:
+  alias: Alexa Klingel
+  sequence:
+  - alias: Echo Show Lautstärke auf 9
+    data:
+      volume_level: 0.9
+    target:
+      device_id:
+      - b125ba08175d1b0557b45ee427dd177d
+    action: media_player.volume_set
+  - data:
+      target: media_player.echo_show
+      message: Es ist jemand an der Tür<audio src="soundbank://soundlibrary/bell/church/church_bells_06"/>
+    action: notify.alexa_media
+  - if:
+    - condition: device
+      type: is_off
+      device_id: e4237a886370b1697a409a4a44726857
+      entity_id: switch.echo_dot_buro_do_not_disturb_switch
+      domain: switch
+    then:
+    - if:
+      - condition: numeric_state
+        entity_id: media_player.echo_dot_buro
+        attribute: volume_level
+        below: 0.3
+      then:
+      - data:
+          volume_level: 0.3
+        target:
+          device_id: e4237a886370b1697a409a4a44726857
+        action: media_player.volume_set
+      alias: Lautstärke leiser als 3
+    - data:
+        message: Es ist jemand an der Tür
+        data:
+          type: tts
+      alias: Klingel Büro
+      action: notify.alexa_media_echo_dot_buro
+    alias: Büro Klingel
+  - action: script.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: script.buro_status_klingel
+  - alias: Werkstatt Klingel
+    if:
+    - condition: device
+      type: is_off
+      device_id: 2c1c65c2604160bf8dc6c5f3b983100f
+      entity_id: 13af7a12e73bde9c8c42784010873883
+      domain: switch
+    then:
+    - data:
+        message: Es ist jemand an der Tür
+      action: notify.alexa_media_echo_pop_werkstatt
+    - data:
+        song_str: '''MissionImp:d=16,o=6,b=95:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,a#5,8c,2p,32p,a#5,g5,2f#,32p,a#5,g5,2f,32p,a#5,g5,2e,d#,8d'''
+      enabled: false
+      action: esphome.nspanelworkshop_play_rtttl
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0
+  - alias: Echo Show Lautstärke auf 5
+    data:
+      volume_level: 0.5
+    target:
+      device_id:
+      - b125ba08175d1b0557b45ee427dd177d
+    action: media_player.volume_set
+  mode: single
+  icon: mdi:bullhorn
+kamera_snapshot_notification:
+  alias: Kamera Snapshot Notification
+  sequence:
+  - service: camera.snapshot
+    data:
+      filename: /config/www/snapshots/haustuer.jpg
+    target:
+      entity_id:
+      - camera.haustuer
+  - delay: 00:00:01
+  - service: notify.mobile_app_pixel_7
+    data:
+      title: Klingel
+      message: Front Yard motion detected at {{now().strftime("%H:%M %d-%m-%y")}}
+      data:
+        attachment:
+          content-type: jpg
+          hide-thumbnail: false
+          url: /config/www/snapshots/haustuer.jpg
+  mode: single
+433_steckdose_1_3_b_an:
+  alias: 433 Steckdose 1,3 B - An
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmota_825F0C/Backlog
+      payload: rfraw AA B0 21 03 08 0140 03B6 26C0 28181819081818190819081908181819081908190818181908
+        55; rfraw 177
+  mode: single
+  icon: mdi:blinds-horizontal
+433_steckdose_1_3_b_aus:
+  alias: 433 Steckdose 1,3 B - Aus
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmota_825F0C/Backlog
+      payload: rfraw AA B0 21 03 08 0136 03CA 26F2 28181819081818190819081908181819081908190819081818
+        55; rfraw 177
+  mode: single
+  icon: mdi:blinds-horizontal
+harry_potter_klingel:
+  alias: Harry Potter Klingel
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.harman_kardon_allure
+    data:
+      media_content_id: media-source://media_source/local/Media/Harry Potter Theme.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: Harry Potter Theme.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+      - media_content_type: ''
+        media_content_id: media-source://media_source/local/Media
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.lenovom10_fully_dashboard
+    data:
+      media_content_id: media-source://media_source/local/Media/Schweinebacke.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: Schweinebacke.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+      - media_content_type: ''
+        media_content_id: media-source://media_source/local/Media
+  mode: single
+attribute_change:
+  alias: Attribute change
+  sequence:
+  - type: turn_on
+    device_id: 6d16c06f6771af66a5a3aedd68bfc77e
+    entity_id: light.garten_steckdosenleuchte_vorne_links_light
+    domain: light
+  - service: light.turn_off
+    data:
+      transition: 2
+    target:
+      device_id:
+      - 6d16c06f6771af66a5a3aedd68bfc77e
+      - 136d221dc1484726ff6a20fcffbffb6b
+      - c3457c301cf7b12f5c195d86570cf289
+  - service: light.turn_off
+    data:
+      transition: 4
+    target:
+      entity_id: light.steckdosenlampen
+  mode: single
+notify_alexa:
+  alias: Notify Alexa
+  use_blueprint:
+    path: TheAppleFreak/notify_alexa.yaml
+buro_an_licht_pc_hz:
+  alias: Büro - AN - Licht + PC + HZ
+  sequence:
+  - service: wake_on_lan.send_magic_packet
+    metadata: {}
+    data:
+      broadcast_port: 9
+      mac: 04:D9:F5:CB:72:75
+  - service: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 21
+    target:
+      entity_id: climate.buro
+  - service: scene.turn_on
+    metadata: {}
+    target:
+      entity_id: scene.homeoffice_licht
+  mode: single
+  icon: mdi:chair-rolling
+fritzbox_purge:
+  alias: Fritzbox Purge
+  sequence:
+  - service: recorder.purge_entities
+    metadata: {}
+    data:
+      keep_days: 1
+      entity_id:
+      - sensor.fritz_box_7590_b_received
+      - sensor.internetgatewaydevicev2_fritz_box_7590_b_received
+      - sensor.fritz_box_7590_b_sent
+      - sensor.internetgatewaydevicev2_fritz_box_7590_b_sent
+      - sensor.fritz_box_7590_kb_s_received
+      - sensor.fritz_box_7590_kib_s_received
+      - sensor.internetgatewaydevicev2_fritz_box_7590_kib_s_received
+      - sensor.fritz_box_7590_gb_received
+      - sensor.fritz_box_7590_gb_sent
+      - sensor.fritz_box_7590_kib_s_sent_2
+      - sensor.fritz_box_7590_link_download_throughput
+  description: ''
+purge_berechnung:
+  alias: 'Purge Berechnung '
+  sequence:
+  - variables:
+      anzahl_start: '{{ states("sensor.datenbankeintrage_states") |int(0) + 1000 }}'
+      anzahl_min: '{{ anzahl_start |int(0) }}'
+      anzahl_akt: '{{ anzahl_start |int(0) - 1}}'
+  - service: recorder.purge_entities
+    metadata: {}
+    data:
+      keep_days: 2
+      entity_id:
+      - automation.nspanel_werkstatt_konfiguration
+      - sensor.aquariumpumpe_leistung_offset
+      - sensor.aquariumpumpe_leistung
+  - repeat:
+      sequence:
+      - variables:
+          anzahl_min: '{{ states("sensor.datenbankeintrage_states") |int(0) }}'
+      - delay:
+          hours: 0
+          minutes: 1
+          seconds: 0
+          milliseconds: 0
+      - variables:
+          anzahl_akt: '{{ states("sensor.datenbankeintrage_states") |int(0) }}'
+      - service: persistent_notification.create
+        metadata: {}
+        data:
+          message: Start:{{ anzahl_start }}, akt:{{ anzahl_akt }}, Min:{{     anzahl_min  }}
+      until:
+      - condition: template
+        value_template: '{{anzahl_akt | int > anzahl_min | int}}'
+    enabled: true
+  - service: notify.persistent_notification
+    metadata: {}
+    data:
+      message: Start:{{ anzahl_start }}, Gelöscht:{{ anzahl_start - anzahl_min }},
+        Min:{{ anzahl_min  }}
+  description: ''
+  mode: restart
+  fields: {}
+purge_test:
+  alias: Purge Test
+  sequence:
+  - variables:
+      anzahl_start: '{{ states("sensor.datenbankeintrage_states") |int(0) }}'
+      anzahl_min: '{{ anzahl_start |int(0) }}'
+      anzahl_akt: '{{ anzahl_start |int(0) }}'
+      count: '{{ 0 |int(0) }}'
+  - if:
+    - condition: template
+      value_template: '{{ anzahl_akt <= anzahl_min }}'
+    then:
+    - service: persistent_notification.create
+      metadata: {}
+      data:
+        message: Ja
+    else:
+    - service: persistent_notification.create
+      metadata: {}
+      data:
+        message: Nein
+  - service: persistent_notification.create
+    metadata: {}
+    data:
+      message: start {{ anzahl_start }} & min {{ anzahl_min }} & akt {{ anzahl_akt
+        }}
+  - repeat:
+      sequence:
+      - variables:
+          count: '{{ count | int(0) + 1 }}'
+      - service: persistent_notification.create
+        metadata: {}
+        data:
+          message: 'Loop Count: {{ count }}'
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 10
+          milliseconds: 0
+      until:
+      - condition: template
+        value_template: '{{ anzahl_akt | int  > anzahl_min | int}}'
+  description: ''
+pos_printer_mqtt_test:
+  alias: POS-Printer-MQTT-Test
+  sequence:
+  - alias: Beispiele
+    sequence:
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Testnachricht
+
+
+          Zeile 3
+
+          Zeile 4
+
+
+
+
+          Zeile 8
+
+          '
+    - alias: Schriftgröße 7
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x07"}}
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "Textausrichtung - links\n "
+    - alias: Textausrichtung - rechts
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x02"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "Textausrichtung - rechts\n "
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Schriftgröße 3
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x02"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "Textausrichtung - center\n "
+    - alias: Schriftgröße 5
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x04"}}
+
+          '
+    - alias: Schriftgröße Big 8
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1d\x21\x07"}}
+
+          '
+    - alias: Test Message aus Python Script
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "b'\x03\0518183\0\ea\x01TEST IT FROM MQTT\n\e!\x7Fthis is big test\n\ed\x01\e!\bwelcome
+          to hspos test from MQTT,If you like our test please,click on the links\n\ed\x01\x1D(k\x03\01C\b\x1D(k\x03\01E1\x1D(k\x15\01P0www.hsprinter.com\n\x1D(k\x03\01R0\x1D(k\x03\01Q0'"
+    - alias: Schriftgröße Big 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1d\x21\x00"}}
+
+          '
+    - alias: Feed Lines 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x01"}}
+
+          '
+    - alias: Feed Lines 9
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x09"}}
+
+          '
+    - alias: Feed Lines 12
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x0c"}}
+
+          '
+    - alias: QR Code - www.hsprinter.com
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1d\x28\x6b\x03\x00\x31\x43\x08\x1d\x28\x6b\x03\x00\x31\x45\x31\x1d\x28\x6b\x15\x00\x31\x50\x30\x77\x77\x77\x2e\x68\x73\x70\x72\x69\x6e\x74\x65\x72\x2e\x63\x6f\x6d\x0a\x1d\x28\x6b\x03\x00\x31\x51\x30\x1d\x28\x6b\x03\x00\x31\x52\x30"}}
+
+          '
+    - alias: Cut Paper
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1D\x41\x00"}}
+
+          '
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message aus Python Script
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "\x03\0518183\0\ea\x01TEST IT FROM MQTT\n\e!\x7Fthis is big test\n\ed\x01\e!\bwelcome
+          to hspos test from MQTT,If you like our test please,click on the links\n\ed\x01\x1D(k\x03\01C\b\x1D(k\x03\01E1\x1D(k\x15\01P0www.hsprinter.com\n\x1D(k\x03\01R0\x1D(k\x03\01Q0'"
+    - alias: Default Zeilenabstand
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x32"}}
+
+          '
+    - alias: Zeilenabstand 20
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3\x14"}}
+
+          '
+    - alias: Zeilenabstand 60
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3<"}}
+
+          '
+    - alias: Zeilenabstand 150
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3\x96"}}
+
+          '
+    - alias: Zeilenabstand 100
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3d"}}
+
+          '
+    - alias: Print Bold
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x01"}}
+
+          '
+    - alias: Print Normal
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    - alias: Logo
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    enabled: true
+  - alias: Beispiel Message ToDo Liste
+    sequence:
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+
+          Homeassistant
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Die Todo-Liste hat folgende Einträge:
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'O - Eintrag 1
+
+          O - Eintrag 2
+
+
+          O - Eintrag 3
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "Viel Spaß beim erledigen der Aufgaben\\n\\n\\n\n\n\n \n"
+  - alias: Beispiel Message Einkaufsliste Liste
+    sequence:
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+
+          Homeassistant
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '- Einkaufsliste -
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x01"}}
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Die Todo-Liste hat folgende {{ states("todo.einkaufsliste") }} Einträge:
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - action: todo.get_items
+      metadata: {}
+      data:
+        status: needs_action
+      target:
+        entity_id: todo.einkaufsliste
+      response_variable: mylist
+    - alias: Print Bold
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x01"}}
+
+          '
+    - alias: Zeilenabstand 100
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3d"}}
+
+          '
+    - alias: Einkaufsliste
+      action: mqtt.publish
+      metadata: {}
+      data:
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{%- for item in mylist[''todo.einkaufsliste''][''items''] %}
+
+          - {{ item.summary }}
+
+
+          {%- endfor %}
+
+          '
+    - alias: Print Normal
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    - alias: Default Zeilenabstand
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x32"}}
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "\nViel Spaß beim Einkaufen\n{{ states(\"sensor.time\") }}\n\n \n
+          \n"
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+  - sequence:
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'START
+
+
+
+          START
+
+          '
+    - alias: Logo
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1c\x70\x01\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+          ENDE
+
+
+
+          ENDE
+
+          '
+  description: ''
+  icon: mdi:printer-pos
+  fields: {}
+einkaufsliste_drucken:
+  alias: Einkaufsliste Drucken
+  sequence:
+  - if:
+    - condition: state
+      entity_id: switch.pos_drucker
+      state: 'off'
+    then:
+    - type: turn_on
+      device_id: a899a0b8375c8e2811c052ef029d582e
+      entity_id: fdb93ce9be002daa2721c668a09403f2
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 50
+        milliseconds: 0
+  - alias: Beispiel Message Einkaufsliste Liste
+    sequence:
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+
+          Homeassistant
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '- Einkaufsliste -
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x01"}}
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Die Todo-Liste hat folgende {{ states("todo.einkaufsliste") }} Einträge:
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - action: todo.get_items
+      metadata: {}
+      data:
+        status: needs_action
+      target:
+        entity_id: todo.einkaufsliste
+      response_variable: mylist
+    - alias: Print Bold
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x01"}}
+
+          '
+    - alias: Zeilenabstand 100
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3d"}}
+
+          '
+    - alias: Einkaufsliste
+      action: mqtt.publish
+      metadata: {}
+      data:
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{%- for item in mylist[''todo.einkaufsliste''][''items''] %}
+
+          - {{ item.summary }}
+
+
+          {%- endfor %}
+
+          '
+    - alias: Print Normal
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    - alias: Default Zeilenabstand
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x32"}}
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "\nViel Spaß beim Einkaufen\n{{ states(\"sensor.time\") }}\n\n \n
+          \n"
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+  description: ''
+  icon: mdi:printer-pos
+  fields: {}
+nachricht_an_die_kuche_drucken:
+  alias: Nachricht an die Küche Drucken
+  sequence:
+  - if:
+    - condition: state
+      entity_id: switch.pos_drucker
+      state: 'off'
+    then:
+    - type: turn_on
+      device_id: a899a0b8375c8e2811c052ef029d582e
+      entity_id: fdb93ce9be002daa2721c668a09403f2
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 50
+        milliseconds: 0
+  - alias: Beispiel Message Einkaufsliste Liste
+    sequence:
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+
+          Homeassistant
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '- Wichtige Nachricht -
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x01"}}
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Die Todo-Liste hat folgende {{ states("todo.einkaufsliste") }} Einträge:
+
+          '
+      enabled: false
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+          Eine wichtige Nachricht an den Chef:
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - action: todo.get_items
+      metadata: {}
+      data:
+        status: needs_action
+      target:
+        entity_id: todo.einkaufsliste
+      response_variable: mylist
+      enabled: false
+    - alias: Print Bold
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x01"}}
+
+          '
+    - alias: Zeilenabstand 100
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3d"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "Ich liebe dich über alles. \nDu bist mein Pupi und die beste Frau
+          auf der ganzen Welt.\nDu bist auch die beste Mama auf der Welt.\nOhne dich
+          würde der Laden hier nicht laufen und dafür bin ich dir sehr sehr dankbar.\nMach
+          dir nicht so viele Gedanken, sondern ...\n... Be Positive!!!"
+    - alias: Einkaufsliste
+      action: mqtt.publish
+      metadata: {}
+      data:
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{%- for item in mylist[''todo.einkaufsliste''][''items''] %}
+
+          - {{ item.summary }}
+
+
+          {%- endfor %}
+
+          '
+      enabled: false
+    - alias: Print Normal
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    - alias: Default Zeilenabstand
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x32"}}
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "\nLove Ya\n{{ states(\"sensor.time\") }}\n\n \n \n"
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+  description: ''
+  icon: mdi:printer-pos
+  fields: {}
+fully_dashboard_lange_an:
+  alias: Fully Dashboard lange an
+  sequence:
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '180'
+    target:
+      entity_id: number.lenovom10_fully_dashboard_screen_off_timer
+  - delay:
+      hours: 2
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '30'
+    target:
+      entity_id: number.lenovom10_fully_dashboard_screen_off_timer
+  description: ''
+alexa_mp3:
+  alias: Fully MP3
+  sequence:
+  - action: media_player.play_media
+    metadata:
+      title: Schweinebacke.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+      - media_content_type: ''
+        media_content_id: media-source://media_source/local/Media
+    data:
+      media_content_id: media-source://media_source/local/Media/Schweinebacke.mp3
+      media_content_type: audio/mpeg
+    target:
+      entity_id: media_player.lenovom10_fully_dashboard
+  description: ''
+harman_kardon_mp3:
+  alias: Harman Kardon MP3
+  sequence:
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.5
+    target:
+      entity_id: media_player.harman_kardon_allure
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - action: media_player.play_media
+    metadata:
+      title: Harry Potter Theme.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+      - media_content_type: ''
+        media_content_id: media-source://media_source/local/Media
+    data:
+      media_content_id: media-source://media_source/local/Media/Harry Potter Theme.mp3
+      media_content_type: audio/mpeg
+    target:
+      entity_id: media_player.harman_kardon_allure
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.3
+    target:
+      entity_id: media_player.harman_kardon_allure
+  - action: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.harman_kardon_allure
+      message: Es ist jemand an der Tür
+    target:
+      entity_id: tts.home_assistant_cloud
+    enabled: false
+  - action: media_player.play_media
+    metadata:
+      title: Es ist jemand an der Tür. Eventuell. Schau mal nach
+      thumbnail: https://brands.home-assistant.io/_/tts/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/tts.home_assistant_cloud?message=Es+ist+jemand+an+der+T%C3%BCr.+Eventuell.+Schau+mal+nach&language=de-DE&voice=KatjaNeural
+    data:
+      media_content_id: media-source://tts/tts.home_assistant_cloud?message=Es+ist+jemand+an+der+T%C3%BCr.+Eventuell.+Schau+mal+nach&language=de-DE&voice=KatjaNeural
+      media_content_type: provider
+    target:
+      entity_id: media_player.harman_kardon_allure
+    enabled: false
+  - action: media_player.play_media
+    metadata:
+      title: Fly FRITZ! Fly
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://dlna_dms
+      - media_content_type: object.container
+        media_content_id: 'media-source://dlna_dms/avm_fritz_mediaserver/:4:cont1:20:0:0:'
+      - media_content_type: object.container
+        media_content_id: 'media-source://dlna_dms/avm_fritz_mediaserver/:4:cont1:50:0:0:'
+    data:
+      media_content_id: media-source://dlna_dms/avm_fritz_mediaserver/:5:audio5:part11:11:5
+      media_content_type: audio/mpeg
+    target:
+      entity_id: media_player.harman_kardon_allure
+    enabled: false
+  - action: media_player.play_media
+    metadata:
+      title: Emil-na-klar.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+      - media_content_type: ''
+        media_content_id: media-source://media_source/local/Media
+    data:
+      media_content_id: media-source://media_source/local/Media/Emil-na-klar.mp3
+      media_content_type: audio/mpeg
+    target:
+      entity_id: media_player.harman_kardon_allure
+    enabled: false
+  - action: media_player.play_media
+    metadata:
+      title: hast-du-heute-gluck-penner-(mp3convert.org).mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+      - media_content_type: ''
+        media_content_id: media-source://media_source/local/Media
+    data:
+      media_content_id: media-source://media_source/local/Media/hast-du-heute-gluck-penner-(mp3convert.org).mp3
+      media_content_type: audio/mpeg
+    target:
+      entity_id: media_player.harman_kardon_allure
+    enabled: false
+  description: ''
+  icon: mdi:file-music
+todo_drucken:
+  alias: ToDo Drucken
+  sequence:
+  - if:
+    - condition: state
+      entity_id: switch.pos_drucker
+      state: 'off'
+    then:
+    - type: turn_on
+      device_id: a899a0b8375c8e2811c052ef029d582e
+      entity_id: fdb93ce9be002daa2721c668a09403f2
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 50
+        milliseconds: 0
+  - alias: Beispiel Message Einkaufsliste Liste
+    sequence:
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+
+          Homeassistant
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '- ToDo-Liste -
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x01"}}
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Die Todo-Liste hat folgende {{ states("todo.todo") }} Einträge:
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - action: todo.get_items
+      metadata: {}
+      data:
+        status: needs_action
+      target:
+        entity_id:
+        - todo.todo
+      response_variable: mylist
+    - alias: Print Bold
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x01"}}
+
+          '
+    - alias: Zeilenabstand 100
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3d"}}
+
+          '
+    - alias: Einkaufsliste
+      action: mqtt.publish
+      metadata: {}
+      data:
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{%- for item in mylist[''todo.todo''][''items''] %}
+
+          - {{ item.summary }}
+
+
+          {%- endfor %}
+
+          '
+    - alias: Print Normal
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    - alias: Default Zeilenabstand
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x32"}}
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "\nViel Spaß beim Erledigen\n{{ states(\"sensor.time\") }}\n\n \n
+          \n"
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+  description: ''
+  icon: mdi:printer-pos
+  fields: {}
+todo_homeassistant_drucken:
+  alias: ToDo Homeassistant Drucken
+  sequence:
+  - if:
+    - condition: state
+      entity_id: switch.pos_drucker
+      state: 'off'
+    then:
+    - type: turn_on
+      device_id: a899a0b8375c8e2811c052ef029d582e
+      entity_id: fdb93ce9be002daa2721c668a09403f2
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 50
+        milliseconds: 0
+  - alias: Beispiel Message Einkaufsliste Liste
+    sequence:
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+
+          Homeassistant
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '- ToDo-Liste -
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x01"}}
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Die Todo-Liste hat folgende {{ states("todo.to_do_homeassistant")
+          }} Einträge:
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - action: todo.get_items
+      metadata: {}
+      data:
+        status: needs_action
+      target:
+        entity_id:
+        - todo.to_do_homeassistant
+      response_variable: mylist
+    - alias: Print Bold
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x01"}}
+
+          '
+    - alias: Zeilenabstand 100
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3d"}}
+
+          '
+    - alias: Einkaufsliste
+      action: mqtt.publish
+      metadata: {}
+      data:
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{%- for item in mylist[''todo.to_do_homeassistant''][''items'']
+          %}
+
+          - {{ item.summary }}
+
+
+          {%- endfor %}
+
+          '
+    - alias: Print Normal
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    - alias: Default Zeilenabstand
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x32"}}
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "\nViel Spaß beim Erledigen\n{{ states(\"sensor.time\") }}\n\n \n
+          \n"
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+  description: ''
+  icon: mdi:printer-pos
+  fields: {}
+schnapchenliste_drucken:
+  alias: Schnäppchenliste Drucken
+  sequence:
+  - if:
+    - condition: state
+      entity_id: switch.pos_drucker
+      state: 'off'
+    then:
+    - type: turn_on
+      device_id: a899a0b8375c8e2811c052ef029d582e
+      entity_id: fdb93ce9be002daa2721c668a09403f2
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 50
+        milliseconds: 0
+  - alias: Beispiel Message Einkaufsliste Liste
+    sequence:
+    - alias: Schriftgröße Big
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b!\x7f"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '
+
+
+          Homeassistant
+
+          '
+    - alias: Überschrift
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '- Schnäppchenliste -
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x01"}}
+
+          '
+    - alias: Textausrichtung - links
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x00"}}
+
+          '
+    - alias: Schriftgröße 1
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x21\x00"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: 'Die Todo-Liste hat folgende {{ states("todo.schnappchenliste") }}
+          Einträge:
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - action: todo.get_items
+      metadata: {}
+      data:
+        status: needs_action
+      target:
+        entity_id:
+        - todo.schnappchenliste
+      response_variable: mylist
+    - alias: Print Bold
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x01"}}
+
+          '
+    - alias: Zeilenabstand 100
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b3d"}}
+
+          '
+    - alias: Einkaufsliste
+      action: mqtt.publish
+      metadata: {}
+      data:
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{%- for item in mylist[''todo.schnappchenliste''][''items''] %}
+
+          - {{ item.summary }}
+
+
+          {%- endfor %}
+
+          '
+    - alias: Print Normal
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1bE\x00"}}
+
+          '
+    - alias: Default Zeilenabstand
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x32"}}
+
+          '
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+    - alias: Textausrichtung - center
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x61\x01"}}
+
+          '
+    - alias: Test Message
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: "\nSchnapp sie dir alle!\n{{ states(\"sensor.time\") }}\n\n \n \n"
+    - alias: Feed Lines 2
+      action: mqtt.publish
+      metadata: {}
+      data:
+        evaluate_payload: false
+        qos: 0
+        retain: false
+        topic: Prn062523002F0C0A29000013241289A8B9
+        payload: '{{"\x1b\x64\x02"}}
+
+          '
+  description: ''
+  icon: mdi:printer-pos
+  fields: {}
+buro_status_klingel:
+  alias: Büro Status - Klingel
+  sequence:
+  - variables:
+      buro_status: '{{ states(''select.buro_status_voreinstellung'') }}'
+      licht_status: '{{ states(''light.buro_status'') }}'
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: Police
+    target:
+      entity_id: select.buro_status_voreinstellung
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ licht_status == ''off'' }}'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.buro_status
+    - conditions:
+      - condition: template
+        value_template: '{{ buro_status != ''unknown'' }}'
+      sequence:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: '{{ buro_status }}'
+        target:
+          entity_id: select.buro_status_voreinstellung
+    - conditions:
+      - condition: template
+        value_template: '{{ buro_status == ''unknown'' }}'
+      sequence:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Kerze
+        target:
+          entity_id: select.buro_status_voreinstellung
+  description: ''
+buro_status_3d_druck_fertig:
+  alias: Büro Status - 3D Druck fertig
+  sequence:
+  - variables:
+      buro_status: '{{ states(''select.buro_status_voreinstellung'') }}'
+      licht_status: '{{ states(''light.buro_status'') }}'
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: 3D Druck fertig
+    target:
+      entity_id: select.buro_status_voreinstellung
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ licht_status == ''off'' }}'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.buro_status
+    - conditions:
+      - condition: template
+        value_template: '{{ buro_status != ''unknown'' }}'
+      sequence:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: '{{ buro_status }}'
+        target:
+          entity_id: select.buro_status_voreinstellung
+    - conditions:
+      - condition: template
+        value_template: '{{ buro_status == ''unknown'' }}'
+      sequence:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Kerze
+        target:
+          entity_id: select.buro_status_voreinstellung
+  description: ''
+buro_status_blau_rotation:
+  alias: Büro Status - Blau Rotation
+  sequence:
+  - variables:
+      buro_status: '{{ states(''select.buro_status_voreinstellung'') }}'
+      licht_status: '{{ states(''light.buro_status'') }}'
+  - action: select.select_option
+    metadata: {}
+    data:
+      option: Blau Rotation
+    target:
+      entity_id: select.buro_status_voreinstellung
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ licht_status == ''off'' }}'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.buro_status
+    - conditions:
+      - condition: template
+        value_template: '{{ buro_status == ''Police'' }}'
+      sequence:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Kerze
+        target:
+          entity_id: select.buro_status_voreinstellung
+    - conditions:
+      - condition: template
+        value_template: '{{ buro_status != ''unknown'' }}'
+      sequence:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: '{{ buro_status }}'
+        target:
+          entity_id: select.buro_status_voreinstellung
+    - conditions:
+      - condition: template
+        value_template: '{{ buro_status == ''unknown'' }}'
+      sequence:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Kerze
+        target:
+          entity_id: select.buro_status_voreinstellung
+  description: ''
+tts_handy_test:
+  sequence:
+  - action: notify.mobile_app_pixel_7
+    metadata: {}
+    data:
+      message: TTS
+      data:
+        tts_text: Hallo. hier ist dein Handy.
+  - action: notify.mobile_app_lenovo_tb_x606f
+    metadata: {}
+    data:
+      message: TTS
+      data:
+        tts_text: Test
+  - action: notify.mobile_app_sm_a528b
+    metadata: {}
+    data:
+      message: TTS
+      data:
+        tts_text: Test
+  - action: notify.mobile_app_lenovo_tb_x606fa
+    metadata: {}
+    data:
+      message: TTS
+      data:
+        tts_text: Test
+  - action: notify.xplora_watch
+    metadata: {}
+    data:
+      message: TTS
+      data:
+        tts_text: Test
+  - action: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      message: Test
+      media_player_entity_id: media_player.lenovom10_fully_dashboard
+    target:
+      entity_id: tts.home_assistant_cloud
+  - action: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      message: Test
+      media_player_entity_id: media_player.harman_kardon_allure
+    target:
+      entity_id: tts.home_assistant_cloud
+  alias: TTS Handy Test
+  description: ''

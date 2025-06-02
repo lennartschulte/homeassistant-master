@@ -1,0 +1,92 @@
+esphome:
+  name: esphometestboard
+  friendly_name: ESPHomeTestBoard
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "z1jIdrmF2d6Bp9uW+wT6B/azhcnr4PSxYQdbXWZP14Y="
+
+ota:
+  password: "b3bd198b746f997ca729835b0d890820"
+  platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esphometestboard"
+    password: "DaRLyOdfw9mo"
+
+captive_portal:
+
+#CUSTOM CODE AB HIER
+
+i2c:
+  sda: D2
+  scl: D1
+  scan: true
+  frequency: 400kHz
+
+globals:
+  - id: scroll_x
+    type: int
+    restore_value: no
+    initial_value: '0'
+  - id: scroll_length
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+interval:
+  - interval: 50ms
+    then:
+      lambda: |-
+        if (id(scroll_x) < -(id(scroll_length))) {
+          id(scroll_x) = 128;  // Startposition rechts außerhalb des Displays
+        } else {
+          id(scroll_x) -= 1;  // Geschwindigkeit des Scrollens
+        }
+
+sensor:
+  - platform: homeassistant
+    id: werkstatt_leistung
+    entity_id: sensor.werkstatt_leistung
+  - platform: adc
+    pin: A0
+    name: "KY-003 Hall Sensor"
+    id: ky_003_sensor
+    update_interval: 1s
+
+switch:
+  - platform: gpio
+    name: "Display Switch"
+    pin: D5
+    id: display_switch
+    restore_mode: ALWAYS_ON
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 64x48"
+    address: 0x3C
+    lambda: |-
+      if (id(display_switch).state) {
+        char buffer[32];
+        sprintf(buffer, "Wert: %.1fW", id(werkstatt_leistung).state);
+        std::string text = buffer;
+        id(scroll_length) = text.length() * 6;  // Multiplikationsfaktor basierend auf der Schriftgröße
+        it.print(id(scroll_x), 0, id(font1), text.c_str());
+      }
+
+font:
+  - file: "fonts/arial.ttf"
+    id: font1
+    size: 16

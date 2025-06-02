@@ -1,0 +1,34 @@
+-== Watchman Report ==- 
+
+-== Congratulations, all 20 services from your config are available!
+
+-== Missing 15 entity(ies) from 74 found in your config:
++--------------------------------+---------+--------------------------------------------------------------+
+| Entity ID                      | State   | Location                                                     |
++--------------------------------+---------+--------------------------------------------------------------+
+| switch.shutdown_desktop_pc     | unknown | scripts.yaml:205                                             |
+| sensor.desktop                 | unavail | configuration.yaml:23                                        |
+| sensor.energy_lavalampe_verbra | missing | utility_meter.yaml:3,7,11                                    |
+| uch                            |         |                                                              |
+| sensor.energy_aquariumpumpe_ve | missing | utility_meter.yaml:33,37,41                                  |
+| rbrauch                        |         |                                                              |
+| sensor.energy_aquariumbeleucht | missing | utility_meter.yaml:59,63,67                                  |
+| ung_verbrauch                  |         |                                                              |
+| light.tortenglocke             | unavail | scenes.yaml:321                                              |
+| light.stehlampe                | unavail | scenes.yaml:331                                              |
+| sensor.wohnzimmer_temperatur_o | unavail | customize.yaml:1                                             |
+| ffset                          |         |                                                              |
+| sensor.lavalampe_leistung      | missing | customize.yaml:5                                             |
+| sensor.wohnzimmer_temperatur   | missing | esphome/dht22display.yaml:44                                 |
+| sensor.wohnzimmer_luftfeuchtig | missing | esphome/dht22display.yaml:47                                 |
+| keit                           |         |                                                              |
+| media_player.amazon_fire_media | missing | custom_components/fullykiosk/services.yaml:9,23,44,74,88,102 |
+| _player                        |         | ,133,154,168,182                                             |
+| camera.front_door              | missing | custom_components/browser_mod/services.yaml:47               |
+| camera.generic_stream          | missing | custom_components/webrtc/services.yaml:20,66                 |
+| media_player.mibox4            | missing | custom_components/webrtc/services.yaml:51                    |
++--------------------------------+---------+--------------------------------------------------------------+
+
+-== Report created on 02 Jun 2022 13:46:56
+-== Parsed 40 files in 0.48s., ignored 0 files 
+-== Generated in: 0.01s. Validated in: 0.00s.

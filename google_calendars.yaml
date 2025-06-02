@@ -1,0 +1,84 @@
+
+- cal_id: de.german#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: feiertage_in_deutschland
+    ignore_availability: true
+    name: Feiertage in Deutschland
+    track: true
+
+#- cal_id: lennartschulte@gmail.com
+#  entities:
+#  - device_id: termine
+#    ignore_availability: true
+#    name: Termine
+#    track: true
+
+#- cal_id: 6lsqrnvmfbv62t1tma5al1nnfk@group.calendar.google.com
+#  entities:
+#  - device_id: ardex
+#    ignore_availability: true
+#    name: Ardex
+#    track: true
+
+#- cal_id: family00329688950856023846@group.calendar.google.com
+#  entities:
+#  - device_id: familie
+#    ignore_availability: true
+#    name: Familie
+#    track: true
+
+#- cal_id: bq0f6bho984uck3p2fd1erdq88@group.calendar.google.com
+#  entities:
+#  - device_id: floriansdorf
+#    ignore_availability: true
+#    name: Floriansdorf
+#    track: true
+
+- cal_id: 59v3hpej7lqspvga6mnmilvj7s@group.calendar.google.com
+  entities:
+  - device_id: ha_geburtstage
+    ignore_availability: true
+    name: Geburtstage
+    track: true
+
+- cal_id: sk93g4so5gtu8f69qavb52pt3c@group.calendar.google.com
+  entities:
+  - device_id: ha_mull
+    ignore_availability: true
+    name: "M\xFCll"
+    track: true
+
+- cal_id: 8jdg9rhp1kdieo00k8338kgcgg@group.calendar.google.com
+  entities:
+  - device_id: ha_termine
+    ignore_availability: true
+    name: Termine
+    track: true
+
+- cal_id: lennartschulte@gmail.com
+  entities:
+  - device_id: termine
+    ignore_availability: true
+    name: Termine
+    track: false
+
+- cal_id: 6lsqrnvmfbv62t1tma5al1nnfk@group.calendar.google.com
+  entities:
+  - device_id: ardex
+    ignore_availability: true
+    name: Ardex
+    track: false
+
+- cal_id: bq0f6bho984uck3p2fd1erdq88@group.calendar.google.com
+  entities:
+  - device_id: floriansdorf
+    ignore_availability: true
+    name: Floriansdorf
+    track: false
+
+- cal_id: family00329688950856023846@group.calendar.google.com
+  entities:
+  - device_id: familie
+    ignore_availability: true
+    name: Familie
+    track: false

@@ -1,0 +1,2914 @@
+- id: '1630514812825'
+  name: Alles aus
+  entities:
+    light.auge:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      friendly_name: Auge
+      supported_features: 40
+      state: 'off'
+    light.lichtstreifen:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      friendly_name: Lichtstreifen
+      supported_features: 40
+      state: 'off'
+    light.wohnzimmer_temp_2:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      - unknown
+      - unknown
+      - unknown
+      - unknown
+      - sunrise
+      - sunset
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      friendly_name: Wohnzimmer Temp 2
+      supported_features: 44
+      state: 'off'
+    light.hue_color_lamp_1:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      - unknown
+      - unknown
+      - unknown
+      - unknown
+      - sunrise
+      - sunset
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      friendly_name: Bogenlampe
+      supported_features: 44
+      state: 'off'
+    light.gruppe_esstisch:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      entity_id:
+      - light.light_bulb_1
+      - light.light_bulb_2
+      - light.light_bulb_4
+      - light.light_bulb_3
+      icon: mdi:lightbulb-group
+      friendly_name: 'Esstisch '
+      supported_features: 40
+      state: 'off'
+    light.nanoleaf_aurora:
+      min_color_temp_kelvin: 1200
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 833
+      effect_list:
+      - Alarm
+      - Color Burst
+      - Disco Color
+      - Fall leafs
+      - Flames
+      - Forest
+      - Halloween Highlights
+      - Inner Peace
+      - Kaleidoscope of Colors
+      - Nemo
+      - Northern Lights
+      - Party
+      - Romantic
+      - Rose Tinted Glasses
+      - Single fade
+      - Skittles
+      - Snowfall
+      - Vintage
+      - Vintage Checkerboard
+      - Vintage Holiday
+      - Vintage Modern
+      - Vintage Splash
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Nanoleaf Aurora
+      supported_features: 36
+      state: 'off'
+    light.iserlohn:
+      effect_list:
+      - Solid
+      - Blink
+      - Breathe
+      - Wipe
+      - Wipe Random
+      - Random Colors
+      - Sweep
+      - Dynamic
+      - Colorloop
+      - Rainbow
+      - Scan
+      - Scan Dual
+      - Fade
+      - Theater
+      - Theater Rainbow
+      - Running
+      - Saw
+      - Twinkle
+      - Dissolve
+      - Dissolve Rnd
+      - Sparkle
+      - Sparkle Dark
+      - Sparkle+
+      - Strobe
+      - Strobe Rainbow
+      - Strobe Mega
+      - Blink Rainbow
+      - Android
+      - Chase
+      - Chase Random
+      - Chase Rainbow
+      - Chase Flash
+      - Chase Flash Rnd
+      - Rainbow Runner
+      - Colorful
+      - Traffic Light
+      - Sweep Random
+      - Chase 2
+      - Aurora
+      - Stream
+      - Scanner
+      - Lighthouse
+      - Fireworks
+      - Rain
+      - Tetrix
+      - Fire Flicker
+      - Gradient
+      - Loading
+      - Rolling Balls
+      - Fairy
+      - Two Dots
+      - Fairytwinkle
+      - Running Dual
+      - RSVD
+      - Chase 3
+      - Tri Wipe
+      - Tri Fade
+      - Lightning
+      - ICU
+      - Multi Comet
+      - Scanner Dual
+      - Stream 2
+      - Oscillate
+      - Pride 2015
+      - Juggle
+      - Palette
+      - Fire 2012
+      - Colorwaves
+      - Bpm
+      - Fill Noise
+      - Noise 1
+      - Noise 2
+      - Noise 3
+      - Noise 4
+      - Colortwinkles
+      - Lake
+      - Meteor
+      - Meteor Smooth
+      - Railway
+      - Ripple
+      - Twinklefox
+      - Twinklecat
+      - Halloween Eyes
+      - Solid Pattern
+      - Solid Pattern Tri
+      - Spots
+      - Spots Fade
+      - Glitter
+      - Candle
+      - Fireworks Starburst
+      - Fireworks 1D
+      - Bouncing Balls
+      - Sinelon
+      - Sinelon Dual
+      - Sinelon Rainbow
+      - Popcorn
+      - Drip
+      - Plasma
+      - Percent
+      - Ripple Rainbow
+      - Heartbeat
+      - Pacifica
+      - Candle Multi
+      - Solid Glitter
+      - Sunrise
+      - Phased
+      - Twinkleup
+      - Noise Pal
+      - Sine
+      - Phased Noise
+      - Flow
+      - Chunchun
+      - Dancing Shadows
+      - Washing Machine
+      - RSVD
+      - Blends
+      - TV Simulator
+      - Dynamic Smooth
+      - Spaceships
+      - Crazy Bees
+      - Ghost Rider
+      - Blobs
+      - Scrolling Text
+      - Drift Rose
+      - Distortion Waves
+      - Soap
+      - Octopus
+      - Waving Cell
+      - Pixels
+      - Pixelwave
+      - Juggles
+      - Matripix
+      - Gravimeter
+      - Plasmoid
+      - Puddles
+      - Midnoise
+      - Noisemeter
+      - Freqwave
+      - Freqmatrix
+      - GEQ
+      - Waterfall
+      - Freqpixels
+      - RSVD
+      - Noisefire
+      - Puddlepeak
+      - Noisemove
+      - Noise2D
+      - Perlin Move
+      - Ripple Peak
+      - Firenoise
+      - Squared Swirl
+      - RSVD
+      - DNA
+      - Matrix
+      - Metaballs
+      - Freqmap
+      - Gravcenter
+      - Gravcentric
+      - Gravfreq
+      - DJ Light
+      - Funky Plank
+      - RSVD
+      - Pulser
+      - Blurz
+      - Drift
+      - Waverly
+      - Sun Radiation
+      - Colored Bursts
+      - Julia
+      - RSVD
+      - RSVD
+      - RSVD
+      - Game Of Life
+      - Tartan
+      - Polar Lights
+      - Swirl
+      - Lissajous
+      - Frizzles
+      - Plasma Ball
+      - Flow Stripe
+      - Hiphotic
+      - Sindots
+      - DNA Spiral
+      - Black Hole
+      - Wavesins
+      - Rocktaves
+      - Akemi
+      supported_color_modes:
+      - rgbw
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      rgbw_color:
+      friendly_name: Iserlohn
+      supported_features: 36
+      state: 'off'
+    select.iserlohn_playlist:
+      options: []
+      friendly_name: Iserlohn Wiedergabeliste
+      state: unavailable
+    select.iserlohn_preset:
+      options:
+      - Candle
+      - Fireworks 1D
+      - Fireworks
+      - Glitter
+      - ICU
+      - Juggles
+      - Matripix
+      - Phased Noise
+      - Pride 2015
+      - Rainbow
+      - Ripple
+      - Running
+      - Solid Glitter
+      - Strobe Mega
+      friendly_name: Iserlohn Voreinstellung
+      state: unknown
+    light.gardine_wohnzimmer:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Gardine Wohnzimmer
+      supported_features: 0
+      state: 'off'
+    light.tannenbaum:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Tannenbaum
+      supported_features: 0
+      state: 'off'
+  icon: mdi:lightbulb-group-off
+  metadata:
+    light.gruppe_esstisch:
+      entity_only: true
+    light.tannenbaum:
+      entity_only: true
+- id: '1631296295633'
+  name: Gemütlich
+  entities:
+    light.auge:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      friendly_name: Auge
+      supported_features: 40
+      state: 'off'
+    light.hue_color_lamp_1:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      - unknown
+      - unknown
+      - unknown
+      - unknown
+      - sunrise
+      - sunset
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: None
+      color_mode: color_temp
+      brightness: 77
+      color_temp_kelvin: 2732
+      color_temp: 366
+      hs_color:
+      - 28.327
+      - 64.71
+      rgb_color:
+      - 255
+      - 168
+      - 90
+      xy_color:
+      - 0.522
+      - 0.387
+      mode: normal
+      dynamics: none
+      friendly_name: Bogenlampe
+      supported_features: 44
+      state: 'on'
+    light.wohnzimmer_temp_2:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      - unknown
+      - unknown
+      - unknown
+      - unknown
+      - sunrise
+      - sunset
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: None
+      color_mode: color_temp
+      brightness: 77
+      color_temp_kelvin: 2145
+      color_temp: 466
+      hs_color:
+      - 30
+      - 87.192
+      rgb_color:
+      - 255
+      - 144
+      - 33
+      xy_color:
+      - 0.584
+      - 0.387
+      mode: normal
+      dynamics: none
+      friendly_name: Wohnzimmer Temp 2
+      supported_features: 44
+      state: 'on'
+    light.lichtstreifen:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 76
+      color_temp_kelvin: 2710
+      color_temp: 369
+      hs_color:
+      - 28.373
+      - 65.405
+      rgb_color:
+      - 255
+      - 167
+      - 88
+      xy_color:
+      - 0.524
+      - 0.388
+      mode: normal
+      dynamics: none
+      friendly_name: Lichtstreifen
+      supported_features: 40
+      state: 'on'
+    light.gruppe_esstisch:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      entity_id:
+      - light.light_bulb_1
+      - light.light_bulb_2
+      - light.light_bulb_4
+      - light.light_bulb_3
+      icon: mdi:lightbulb-group
+      friendly_name: 'Esstisch '
+      supported_features: 40
+      state: 'off'
+    light.nanoleaf_aurora:
+      min_color_temp_kelvin: 1200
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 833
+      effect_list:
+      - Alarm
+      - Color Burst
+      - Disco Color
+      - Fall leafs
+      - Flames
+      - Forest
+      - Halloween Highlights
+      - Inner Peace
+      - Kaleidoscope of Colors
+      - Nemo
+      - Northern Lights
+      - Party
+      - Romantic
+      - Rose Tinted Glasses
+      - Single fade
+      - Skittles
+      - Snowfall
+      - Vintage
+      - Vintage Checkerboard
+      - Vintage Holiday
+      - Vintage Modern
+      - Vintage Splash
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: Vintage Modern
+      color_mode: hs
+      brightness: 102
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
+      friendly_name: Nanoleaf Aurora
+      supported_features: 36
+      state: 'on'
+    light.iserlohn:
+      effect_list:
+      - Solid
+      - Blink
+      - Breathe
+      - Wipe
+      - Wipe Random
+      - Random Colors
+      - Sweep
+      - Dynamic
+      - Colorloop
+      - Rainbow
+      - Scan
+      - Scan Dual
+      - Fade
+      - Theater
+      - Theater Rainbow
+      - Running
+      - Saw
+      - Twinkle
+      - Dissolve
+      - Dissolve Rnd
+      - Sparkle
+      - Sparkle Dark
+      - Sparkle+
+      - Strobe
+      - Strobe Rainbow
+      - Strobe Mega
+      - Blink Rainbow
+      - Android
+      - Chase
+      - Chase Random
+      - Chase Rainbow
+      - Chase Flash
+      - Chase Flash Rnd
+      - Rainbow Runner
+      - Colorful
+      - Traffic Light
+      - Sweep Random
+      - Chase 2
+      - Aurora
+      - Stream
+      - Scanner
+      - Lighthouse
+      - Fireworks
+      - Rain
+      - Tetrix
+      - Fire Flicker
+      - Gradient
+      - Loading
+      - Rolling Balls
+      - Fairy
+      - Two Dots
+      - Fairytwinkle
+      - Running Dual
+      - RSVD
+      - Chase 3
+      - Tri Wipe
+      - Tri Fade
+      - Lightning
+      - ICU
+      - Multi Comet
+      - Scanner Dual
+      - Stream 2
+      - Oscillate
+      - Pride 2015
+      - Juggle
+      - Palette
+      - Fire 2012
+      - Colorwaves
+      - Bpm
+      - Fill Noise
+      - Noise 1
+      - Noise 2
+      - Noise 3
+      - Noise 4
+      - Colortwinkles
+      - Lake
+      - Meteor
+      - Meteor Smooth
+      - Railway
+      - Ripple
+      - Twinklefox
+      - Twinklecat
+      - Halloween Eyes
+      - Solid Pattern
+      - Solid Pattern Tri
+      - Spots
+      - Spots Fade
+      - Glitter
+      - Candle
+      - Fireworks Starburst
+      - Fireworks 1D
+      - Bouncing Balls
+      - Sinelon
+      - Sinelon Dual
+      - Sinelon Rainbow
+      - Popcorn
+      - Drip
+      - Plasma
+      - Percent
+      - Ripple Rainbow
+      - Heartbeat
+      - Pacifica
+      - Candle Multi
+      - Solid Glitter
+      - Sunrise
+      - Phased
+      - Twinkleup
+      - Noise Pal
+      - Sine
+      - Phased Noise
+      - Flow
+      - Chunchun
+      - Dancing Shadows
+      - Washing Machine
+      - Rotozoomer
+      - Blends
+      - TV Simulator
+      - Dynamic Smooth
+      - Spaceships
+      - Crazy Bees
+      - Ghost Rider
+      - Blobs
+      - Scrolling Text
+      - Drift Rose
+      - Distortion Waves
+      - Soap
+      - Octopus
+      - Waving Cell
+      - Pixels
+      - Pixelwave
+      - Juggles
+      - Matripix
+      - Gravimeter
+      - Plasmoid
+      - Puddles
+      - Midnoise
+      - Noisemeter
+      - Freqwave
+      - Freqmatrix
+      - GEQ
+      - Waterfall
+      - Freqpixels
+      - RSVD
+      - Noisefire
+      - Puddlepeak
+      - Noisemove
+      - Noise2D
+      - Perlin Move
+      - Ripple Peak
+      - Firenoise
+      - Squared Swirl
+      - RSVD
+      - DNA
+      - Matrix
+      - Metaballs
+      - Freqmap
+      - Gravcenter
+      - Gravcentric
+      - Gravfreq
+      - DJ Light
+      - Funky Plank
+      - RSVD
+      - Pulser
+      - Blurz
+      - Drift
+      - Waverly
+      - Sun Radiation
+      - Colored Bursts
+      - Julia
+      - RSVD
+      - RSVD
+      - RSVD
+      - Game Of Life
+      - Tartan
+      - Polar Lights
+      - Swirl
+      - Lissajous
+      - Frizzles
+      - Plasma Ball
+      - Flow Stripe
+      - Hiphotic
+      - Sindots
+      - DNA Spiral
+      - Black Hole
+      - Wavesins
+      - Rocktaves
+      - Akemi
+      supported_color_modes:
+      - rgbw
+      effect: Candle
+      color_mode: rgbw
+      brightness: 255
+      hs_color:
+      - 37.647
+      - 100
+      rgb_color:
+      - 255
+      - 160
+      - 0
+      xy_color:
+      - 0.569
+      - 0.411
+      rgbw_color:
+      - 255
+      - 160
+      - 0
+      - 0
+      friendly_name: Iserlohn
+      supported_features: 36
+      state: 'on'
+    select.iserlohn_playlist:
+      options: []
+      friendly_name: Iserlohn Wiedergabeliste
+      state: unavailable
+    select.iserlohn_preset:
+      options:
+      - Candle
+      - Fireworks 1D
+      - Fireworks
+      - Glitter
+      - ICU
+      - Juggles
+      - Matripix
+      - Phased Noise
+      - Pride 2015
+      - Rainbow
+      - Ripple
+      - Running
+      - Solid Glitter
+      - Strobe Mega
+      friendly_name: Iserlohn Voreinstellung
+      state: unknown
+    light.gardine_wohnzimmer:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: rgb
+      brightness: 22
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
+      friendly_name: Govee Gardine Wohnzimmer
+      supported_features: 0
+      state: 'on'
+    light.tannenbaum:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Tannenbaum
+      supported_features: 0
+      state: 'on'
+  icon: mdi:sofa
+  metadata:
+    light.gruppe_esstisch:
+      entity_only: true
+    light.tannenbaum:
+      entity_only: true
+- id: '1631815377623'
+  name: Wohnzimmer normal
+  entities:
+    light.lichtstreifen:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2710
+      color_temp: 369
+      hs_color:
+      - 28.373
+      - 65.405
+      rgb_color:
+      - 255
+      - 167
+      - 88
+      xy_color:
+      - 0.524
+      - 0.388
+      mode: normal
+      dynamics: none
+      friendly_name: Lichtstreifen
+      supported_features: 40
+      state: 'on'
+    light.wohnzimmer_temp_2:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      - unknown
+      - unknown
+      - unknown
+      - unknown
+      - sunrise
+      - sunset
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: None
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2710
+      color_temp: 369
+      hs_color:
+      - 28.373
+      - 65.405
+      rgb_color:
+      - 255
+      - 167
+      - 88
+      xy_color:
+      - 0.524
+      - 0.388
+      mode: normal
+      dynamics: none
+      friendly_name: Wohnzimmer Temp 2
+      supported_features: 44
+      state: 'on'
+    light.hue_color_lamp_1:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      - unknown
+      - unknown
+      - unknown
+      - unknown
+      - sunrise
+      - sunset
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: None
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2710
+      color_temp: 369
+      hs_color:
+      - 28.373
+      - 65.405
+      rgb_color:
+      - 255
+      - 167
+      - 88
+      xy_color:
+      - 0.524
+      - 0.388
+      mode: normal
+      dynamics: none
+      friendly_name: Bogenlampe
+      supported_features: 44
+      state: 'on'
+    light.auge:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      friendly_name: Auge
+      supported_features: 40
+      state: unavailable
+    light.gruppe_esstisch:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 254
+      entity_id:
+      - light.light_bulb_1
+      - light.light_bulb_2
+      - light.light_bulb_4
+      - light.light_bulb_3
+      icon: mdi:lightbulb-group
+      friendly_name: 'Esstisch '
+      supported_features: 40
+      state: 'on'
+    light.nanoleaf_aurora:
+      min_color_temp_kelvin: 1200
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 833
+      effect_list:
+      - Alarm
+      - Color Burst
+      - Disco Color
+      - Fall leafs
+      - Flames
+      - Forest
+      - Halloween Highlights
+      - Inner Peace
+      - Kaleidoscope of Colors
+      - Nemo
+      - Northern Lights
+      - Party
+      - Romantic
+      - Rose Tinted Glasses
+      - Single fade
+      - Skittles
+      - Snowfall
+      - Vintage
+      - Vintage Checkerboard
+      - Vintage Holiday
+      - Vintage Modern
+      - Vintage Splash
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: Vintage Modern
+      color_mode: hs
+      brightness: 242
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
+      friendly_name: Nanoleaf Aurora
+      supported_features: 36
+      state: 'on'
+    light.gardine_wohnzimmer:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: rgb
+      brightness: 25
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
+      friendly_name: Govee Gardine Wohnzimmer
+      supported_features: 0
+      state: 'on'
+    light.tannenbaum:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Tannenbaum
+      supported_features: 0
+      state: 'on'
+  icon: mdi:sofa
+  metadata:
+    light.gruppe_esstisch:
+      entity_only: true
+    light.tannenbaum:
+      entity_only: true
+- id: '1643961254594'
+  name: Büro - AN - Licht + Rollo
+  entities:
+    light.hue_play_links:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: xy
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 49.944
+      - 70.196
+      rgb_color:
+      - 255
+      - 225
+      - 76
+      xy_color:
+      - 0.4629
+      - 0.4637
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Links
+      supported_features: 40
+      state: 'on'
+    light.hue_play_rechts:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: xy
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 27.5
+      - 65.882
+      rgb_color:
+      - 255
+      - 164
+      - 87
+      xy_color:
+      - 0.531
+      - 0.3853
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Rechts
+      supported_features: 40
+      state: 'on'
+    cover.rolllade_buro:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998D297:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Büro
+      supported_features: 15
+      state: open
+    light.gaming_light_bar:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 29.412
+      - 100
+      rgb_color:
+      - 255
+      - 125
+      - 0
+      xy_color:
+      - 0.615
+      - 0.372
+      friendly_name: Govee Gaming Lightbar
+      supported_features: 0
+      state: 'on'
+    light.minihaus:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Minihaus
+      supported_features: 32
+      state: 'on'
+    light.buro_fenster:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2000
+      color_temp: 500
+      hs_color:
+      - 30.601
+      - 94.547
+      rgb_color:
+      - 255
+      - 136
+      - 13
+      xy_color:
+      - 0.599
+      - 0.382
+      friendly_name: Govee Büro Fenster
+      supported_features: 0
+      state: 'on'
+    light.govee_tischlampe:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Tischlampe
+      supported_features: 32
+      state: 'off'
+    light.tischlampe:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Govee Tischlampe
+      supported_features: 0
+      state: 'on'
+  icon: mdi:chair-rolling
+  metadata:
+    light.minihaus:
+      entity_only: true
+- id: '1643990391966'
+  name: Büro - AUS - Licht + Rollo
+  entities:
+    light.hue_play_links:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Links
+      supported_features: 40
+      state: 'off'
+    light.hue_play_rechts:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Rechts
+      supported_features: 40
+      state: 'off'
+    cover.rolllade_buro:
+      current_position: 0
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998D297:4
+      model: HmIP-BROLL
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Büro
+      supported_features: 15
+      state: closed
+    switch.lavalampe:
+      friendly_name: Lavalampe
+      state: 'off'
+    light.gaming_light_bar:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Gaming Lightbar
+      supported_features: 0
+      state: 'off'
+    light.minihaus:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Minihaus
+      supported_features: 32
+      state: 'off'
+    light.buro_fenster:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Büro Fenster
+      supported_features: 0
+      state: 'off'
+    light.govee_tischlampe:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Tischlampe
+      supported_features: 32
+      state: 'off'
+    light.buro_status:
+      effect_list:
+      - Solid
+      - Blink
+      - Breathe
+      - Wipe
+      - Wipe Random
+      - Random Colors
+      - Sweep
+      - Dynamic
+      - Colorloop
+      - Rainbow
+      - Scan
+      - Scan Dual
+      - Fade
+      - Theater
+      - Theater Rainbow
+      - Running
+      - Saw
+      - Twinkle
+      - Dissolve
+      - Dissolve Rnd
+      - Sparkle
+      - Sparkle Dark
+      - Sparkle+
+      - Strobe
+      - Strobe Rainbow
+      - Strobe Mega
+      - Blink Rainbow
+      - Android
+      - Chase
+      - Chase Random
+      - Chase Rainbow
+      - Chase Flash
+      - Chase Flash Rnd
+      - Rainbow Runner
+      - Colorful
+      - Traffic Light
+      - Sweep Random
+      - Chase 2
+      - Aurora
+      - Stream
+      - Scanner
+      - Lighthouse
+      - Fireworks
+      - Rain
+      - Tetrix
+      - Fire Flicker
+      - Gradient
+      - Loading
+      - Rolling Balls
+      - Fairy
+      - Two Dots
+      - Fairytwinkle
+      - Running Dual
+      - RSVD
+      - Chase 3
+      - Tri Wipe
+      - Tri Fade
+      - Lightning
+      - ICU
+      - Multi Comet
+      - Scanner Dual
+      - Stream 2
+      - Oscillate
+      - Pride 2015
+      - Juggle
+      - Palette
+      - Fire 2012
+      - Colorwaves
+      - Bpm
+      - Fill Noise
+      - Noise 1
+      - Noise 2
+      - Noise 3
+      - Noise 4
+      - Colortwinkles
+      - Lake
+      - Meteor
+      - Meteor Smooth
+      - Railway
+      - Ripple
+      - Twinklefox
+      - Twinklecat
+      - Halloween Eyes
+      - Solid Pattern
+      - Solid Pattern Tri
+      - Spots
+      - Spots Fade
+      - Glitter
+      - Candle
+      - Fireworks Starburst
+      - Fireworks 1D
+      - Bouncing Balls
+      - Sinelon
+      - Sinelon Dual
+      - Sinelon Rainbow
+      - Popcorn
+      - Drip
+      - Plasma
+      - Percent
+      - Ripple Rainbow
+      - Heartbeat
+      - Pacifica
+      - Candle Multi
+      - Solid Glitter
+      - Sunrise
+      - Phased
+      - Twinkleup
+      - Noise Pal
+      - Sine
+      - Phased Noise
+      - Flow
+      - Chunchun
+      - Dancing Shadows
+      - Washing Machine
+      - Rotozoomer
+      - Blends
+      - TV Simulator
+      - Dynamic Smooth
+      - Spaceships
+      - Crazy Bees
+      - Ghost Rider
+      - Blobs
+      - Scrolling Text
+      - Drift Rose
+      - Distortion Waves
+      - Soap
+      - Octopus
+      - Waving Cell
+      - Pixels
+      - Pixelwave
+      - Juggles
+      - Matripix
+      - Gravimeter
+      - Plasmoid
+      - Puddles
+      - Midnoise
+      - Noisemeter
+      - Freqwave
+      - Freqmatrix
+      - GEQ
+      - Waterfall
+      - Freqpixels
+      - RSVD
+      - Noisefire
+      - Puddlepeak
+      - Noisemove
+      - Noise2D
+      - Perlin Move
+      - Ripple Peak
+      - Firenoise
+      - Squared Swirl
+      - RSVD
+      - DNA
+      - Matrix
+      - Metaballs
+      - Freqmap
+      - Gravcenter
+      - Gravcentric
+      - Gravfreq
+      - DJ Light
+      - Funky Plank
+      - RSVD
+      - Pulser
+      - Blurz
+      - Drift
+      - Waverly
+      - Sun Radiation
+      - Colored Bursts
+      - Julia
+      - RSVD
+      - RSVD
+      - RSVD
+      - Game Of Life
+      - Tartan
+      - Polar Lights
+      - Swirl
+      - Lissajous
+      - Frizzles
+      - Plasma Ball
+      - Flow Stripe
+      - Hiphotic
+      - Sindots
+      - DNA Spiral
+      - Black Hole
+      - Wavesins
+      - Rocktaves
+      - Akemi
+      supported_color_modes:
+      - rgbw
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      rgbw_color:
+      friendly_name: Büro Status
+      supported_features: 36
+      state: 'off'
+    select.buro_status_wiedergabeliste:
+      options: []
+      friendly_name: Büro Status Wiedergabeliste
+      state: unavailable
+    select.buro_status_voreinstellung:
+      options:
+      - Weiß
+      - Blau Atmen
+      - Kerze
+      - Rot Rotation
+      - Rot Atmen
+      - Chase Flash Rnd
+      - Colortwinkles
+      - Rainbow
+      - Police
+      - Gelb Rotation
+      - Blau Rotation
+      - 3D Druck fertig
+      friendly_name: Büro Status Voreinstellung
+      state: unknown
+  icon: mdi:chair-rolling
+  metadata:
+    light.minihaus:
+      entity_only: true
+- id: '1644355951891'
+  name: Büro - AN - Licht
+  entities:
+    light.hue_play_links:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: xy
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 49.944
+      - 70.196
+      rgb_color:
+      - 255
+      - 225
+      - 76
+      xy_color:
+      - 0.4629
+      - 0.4637
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Links
+      supported_features: 40
+      state: 'on'
+    light.hue_play_rechts:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: xy
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 27.5
+      - 65.882
+      rgb_color:
+      - 255
+      - 164
+      - 87
+      xy_color:
+      - 0.531
+      - 0.3853
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Rechts
+      supported_features: 40
+      state: 'on'
+    light.gaming_light_bar:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 29.412
+      - 100
+      rgb_color:
+      - 255
+      - 125
+      - 0
+      xy_color:
+      - 0.615
+      - 0.372
+      friendly_name: Govee Gaming Lightbar
+      supported_features: 0
+      state: 'on'
+    light.minihaus:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Minihaus
+      supported_features: 32
+      state: 'on'
+    light.buro_fenster:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2000
+      color_temp: 500
+      hs_color:
+      - 30.601
+      - 94.547
+      rgb_color:
+      - 255
+      - 136
+      - 13
+      xy_color:
+      - 0.599
+      - 0.382
+      friendly_name: Govee Büro Fenster
+      supported_features: 0
+      state: 'on'
+    light.govee_tischlampe:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Tischlampe
+      supported_features: 32
+      state: 'on'
+    light.tischlampe:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Govee Tischlampe
+      supported_features: 0
+      state: 'on'
+    select.buro_status_voreinstellung:
+      options:
+      - Weiß
+      - Blau Atmen
+      - Kerze
+      - Rot Rotation
+      - Rot Atmen
+      - Chase Flash Rnd
+      - Colortwinkles
+      - Rainbow
+      - Police
+      - Gelb Rotation
+      - Blau Rotation
+      friendly_name: Büro Status Voreinstellung
+      state: Kerze
+  icon: mdi:chair-rolling
+  metadata:
+    light.minihaus:
+      entity_only: true
+    select.buro_status_voreinstellung:
+      entity_only: true
+- id: '1644391109400'
+  name: Büro - AUS - Licht
+  entities:
+    light.hue_play_links:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Links
+      supported_features: 40
+      state: 'off'
+    light.hue_play_rechts:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Rechts
+      supported_features: 40
+      state: 'off'
+    switch.lavalampe:
+      friendly_name: Lavalampe
+      state: 'off'
+    light.gaming_light_bar:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Gaming Lightbar
+      supported_features: 0
+      state: 'off'
+    light.minihaus:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Minihaus
+      supported_features: 32
+      state: 'off'
+    light.buro_fenster:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Büro Fenster
+      supported_features: 0
+      state: 'off'
+    light.govee_tischlampe:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Govee Tischlampe
+      supported_features: 32
+      state: 'off'
+  icon: mdi:chair-rolling
+  metadata:
+    light.minihaus:
+      entity_only: true
+- id: '1651406326863'
+  name: Duschen
+  entities:
+    cover.rolllade_schlafzimmer:
+      current_position: 16
+      model_type: HmIP-BROLL
+      connection_type: HMIP_RF
+      rssi_device: -87
+      rssi_peer: -92
+      id: 3014F711A000111D8998D2BC
+      is_group: false
+      device_class: shutter
+      friendly_name: Rolllade Schlafzimmer
+      supported_features: 15
+      state: open
+    cover.rolllade_matilda:
+      current_position: 100
+      model_type: HmIP-BROLL
+      connection_type: HMIP_RF
+      rssi_device: -51
+      rssi_peer: -54
+      id: 3014F711A000111BE9A36B8A
+      is_group: false
+      device_class: shutter
+      friendly_name: Rolllade Matilda
+      supported_features: 15
+      state: open
+  icon: mdi:window-shutter
+- id: '1668531738499'
+  name: Alle Rolladen zu
+  entities:
+    cover.rolllade_buro:
+      current_position: 0
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998D297:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Büro
+      supported_features: 15
+      state: closed
+    cover.rolllade_emil:
+      current_position: 95
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998DC95:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Emil
+      supported_features: 15
+      state: closing
+    cover.rolllade_kuche:
+      current_position: 99
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998CC24:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Küche
+      supported_features: 15
+      state: closing
+    cover.rolllade_matilda:
+      current_position: 97
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111BE9A36B8A:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Matilda
+      supported_features: 15
+      state: closing
+    cover.rolllade_zentrale:
+      current_position: 0
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998CC21:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Zentrale
+      supported_features: 15
+      state: closed
+    cover.rolllade_wohnzimmer_tur:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00115D8992E909:4
+      model: HmIP-FROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Wohnzimmer Tür
+      supported_features: 15
+      state: closing
+    cover.rolllade_wohnzimmer_fenster:
+      current_position: 4
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00115D8992E908:4
+      model: HmIP-FROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Wohnzimmer Fenster
+      supported_features: 15
+      state: closing
+    cover.rolllade_schlafzimmer:
+      current_position: 96
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998D2BC:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Schlafzimmer
+      supported_features: 15
+      state: closing
+  icon: mdi:blinds-horizontal-closed
+  metadata: {}
+- id: '1668531822709'
+  name: Rolladen offen
+  entities:
+    cover.rolllade_emil:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998DC95:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Emil
+      supported_features: 15
+      state: open
+    cover.rolllade_kuche:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998CC24:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Küche
+      supported_features: 15
+      state: open
+    cover.rolllade_matilda:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111BE9A36B8A:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Matilda
+      supported_features: 15
+      state: open
+    cover.rolllade_wohnzimmer_tur:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00115D8992E909:4
+      model: HmIP-FROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Wohnzimmer Tür
+      supported_features: 15
+      state: open
+    cover.rolllade_schlafzimmer:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00111D8998D2BC:4
+      model: HmIP-BROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Schlafzimmer
+      supported_features: 15
+      state: open
+    cover.rolllade_wohnzimmer_fenster:
+      current_position: 100
+      interface_id: RaspberryMatic-HmIP-RF
+      address: 00115D8992E908:4
+      model: HmIP-FROLL
+      entity_type: custom
+      value_state: valid
+      device_class: shutter
+      friendly_name: Rolllade Wohnzimmer Fenster
+      supported_features: 15
+      state: open
+  icon: mdi:blinds-horizontal
+  metadata: {}
+- id: '1674840707667'
+  name: Werkstatt gemütlich
+  entities:
+    light.govee_lightstrip_werkstatt:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9009
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      rate_limit_total: 100
+      rate_limit_remaining: -2832
+      rate_limit_reset_seconds: -1689592187.01
+      rate_limit_reset: '1970-01-01T01:00:00'
+      rate_limit_on: 5
+      manufacturer: Govee
+      model: H615C
+      friendly_name: Govee Lightstrip Werkstatt
+      supported_features: 19
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 29.412
+      - 100
+      rgb_color:
+      - 255
+      - 125
+      - 0
+      xy_color:
+      - 0.615
+      - 0.372
+      state: 'on'
+    switch.led_lennarts_werkstatt_switch:
+      friendly_name: LED Lennarts Werkstatt Schalter
+      state: 'on'
+    switch.laser_schrankbeleuchtung_switch:
+      friendly_name: Laser Schrankbeleuchtung Switch
+      state: 'off'
+    switch.werkstatt_hangeschrank:
+      device_class: outlet
+      friendly_name: Werkstatt-Hängeschrank Socket 1
+      state: 'off'
+    light.werkstatt_hangeschrank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Hängeschrank
+      supported_features: 0
+      state: 'off'
+    switch.werkstatt_schreibtisch:
+      device_class: outlet
+      friendly_name: Werkstatt-Schreibtisch Socket 1
+      state: 'on'
+    light.werkstatt_schreibtisch:
+      supported_color_modes:
+      - onoff
+      friendly_name: Schreibtisch
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    switch.werkstatt_werkbank:
+      device_class: outlet
+      friendly_name: Werkstatt-Werkbank Socket 1
+      state: 'off'
+    light.werkstatt_werkbank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Werkbank
+      supported_features: 0
+      state: 'off'
+  icon: mdi:tools
+  metadata: {}
+- id: '1674840816470'
+  name: Werkstatt aus
+  entities:
+    light.govee_lightstrip_werkstatt:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9009
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      rate_limit_total: 100
+      rate_limit_remaining: -2816
+      rate_limit_reset_seconds: -1689592040.57
+      rate_limit_reset: '1970-01-01T01:00:00'
+      rate_limit_on: 5
+      manufacturer: Govee
+      model: H615C
+      friendly_name: Govee Lightstrip Werkstatt
+      supported_features: 19
+      state: 'off'
+    switch.nspanelworkshop_relay_1:
+      icon: mdi:lightbulb-fluorescent-tube
+      friendly_name: Deckenlicht Werkstatt
+      state: 'off'
+    input_boolean.werkstatt_werkbanke:
+      editable: true
+      icon: mdi:led-on
+      friendly_name: Werkstatt Werkbänke
+      state: 'off'
+    switch.laser_schrankbeleuchtung_switch:
+      friendly_name: Laser Schrankbeleuchtung Switch
+      state: 'off'
+    switch.led_lennarts_werkstatt_switch:
+      friendly_name: LED Lennarts Werkstatt Schalter
+      state: 'off'
+    switch.werkstatt_hangeschrank:
+      device_class: outlet
+      friendly_name: Werkstatt-Hängeschrank Socket 1
+      state: 'off'
+    light.werkstatt_hangeschrank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Hängeschrank
+      supported_features: 0
+      state: 'off'
+    switch.werkstatt_schreibtisch:
+      device_class: outlet
+      friendly_name: Werkstatt-Schreibtisch Socket 1
+      state: 'off'
+    light.werkstatt_schreibtisch:
+      supported_color_modes:
+      - onoff
+      friendly_name: Schreibtisch
+      supported_features: 0
+      state: 'off'
+    switch.werkstatt_werkbank:
+      device_class: outlet
+      friendly_name: Werkstatt-Werkbank Socket 1
+      state: 'off'
+    light.werkstatt_werkbank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Werkbank
+      supported_features: 0
+      state: 'off'
+  icon: mdi:tools
+  metadata:
+    switch.nspanelworkshop_relay_1:
+      entity_only: true
+    input_boolean.werkstatt_werkbanke:
+      entity_only: true
+- id: '1674840924914'
+  name: Werkstatt Werkbänke
+  entities:
+    switch.nspanelworkshop_relay_1:
+      icon: mdi:lightbulb-fluorescent-tube
+      friendly_name: Deckenlicht Werkstatt
+      state: 'off'
+    input_boolean.werkstatt_werkbanke:
+      editable: true
+      icon: mdi:led-on
+      friendly_name: Werkstatt Werkbänke
+      state: 'on'
+    switch.laser_schrankbeleuchtung_switch:
+      friendly_name: Laser Schrankbeleuchtung Switch
+      state: 'on'
+    switch.led_lennarts_werkstatt_switch:
+      friendly_name: LED Lennarts Werkstatt Schalter
+      state: 'on'
+    switch.werkstatt_hangeschrank:
+      device_class: outlet
+      friendly_name: Werkstatt-Hängeschrank Socket 1
+      state: 'on'
+    light.werkstatt_hangeschrank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Hängeschrank
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    switch.werkstatt_schreibtisch:
+      device_class: outlet
+      friendly_name: Werkstatt-Schreibtisch Socket 1
+      state: 'on'
+    light.werkstatt_schreibtisch:
+      supported_color_modes:
+      - onoff
+      friendly_name: Schreibtisch
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    switch.werkstatt_werkbank:
+      device_class: outlet
+      friendly_name: Werkstatt-Werkbank Socket 1
+      state: 'on'
+    light.werkstatt_werkbank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Werkbank
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+  icon: mdi:tools
+  metadata:
+    switch.nspanelworkshop_relay_1:
+      entity_only: true
+    input_boolean.werkstatt_werkbanke:
+      entity_only: true
+- id: '1674841060484'
+  name: Werkstatt An
+  entities:
+    light.govee_lightstrip_werkstatt:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9009
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      rate_limit_total: 100
+      rate_limit_remaining: -2819
+      rate_limit_reset_seconds: -1689592070.51
+      rate_limit_reset: '1970-01-01T01:00:00'
+      rate_limit_on: 5
+      manufacturer: Govee
+      model: H615C
+      friendly_name: Govee Lightstrip Werkstatt
+      supported_features: 19
+      state: 'off'
+    switch.nspanelworkshop_relay_1:
+      icon: mdi:lightbulb-fluorescent-tube
+      friendly_name: Deckenlicht Werkstatt
+      state: 'on'
+    switch.laser_schrankbeleuchtung_switch:
+      friendly_name: Laser Schrankbeleuchtung Switch
+      state: 'on'
+    switch.werkstatt_hangeschrank:
+      device_class: outlet
+      friendly_name: Werkstatt-Hängeschrank Socket 1
+      state: 'on'
+    light.werkstatt_hangeschrank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Hängeschrank
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    switch.werkstatt_schreibtisch:
+      device_class: outlet
+      friendly_name: Werkstatt-Schreibtisch Socket 1
+      state: 'on'
+    light.werkstatt_schreibtisch:
+      supported_color_modes:
+      - onoff
+      friendly_name: Schreibtisch
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+    switch.werkstatt_werkbank:
+      device_class: outlet
+      friendly_name: Werkstatt-Werkbank Socket 1
+      state: 'on'
+    light.werkstatt_werkbank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Werkbank
+      supported_features: 0
+      color_mode: onoff
+      state: 'on'
+  icon: mdi:tools
+  metadata:
+    switch.nspanelworkshop_relay_1:
+      entity_only: true
+- id: '1674856648312'
+  name: Werkstatt Werkbänke aus
+  entities:
+    light.govee_lightstrip_werkstatt:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9009
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      rate_limit_total: 100
+      rate_limit_remaining: -2823
+      rate_limit_reset_seconds: -1689592111.52
+      rate_limit_reset: '1970-01-01T01:00:00'
+      rate_limit_on: 5
+      manufacturer: Govee
+      model: H615C
+      friendly_name: Govee Lightstrip Werkstatt
+      supported_features: 19
+      state: 'off'
+    input_boolean.werkstatt_werkbanke:
+      editable: true
+      icon: mdi:led-on
+      friendly_name: Werkstatt Werkbänke
+      state: 'off'
+    switch.laser_schrankbeleuchtung_switch:
+      friendly_name: Laser Schrankbeleuchtung Switch
+      state: 'off'
+    switch.led_lennarts_werkstatt_switch:
+      friendly_name: LED Lennarts Werkstatt Schalter
+      state: 'off'
+    switch.werkstatt_hangeschrank:
+      device_class: outlet
+      friendly_name: Werkstatt-Hängeschrank Socket 1
+      state: 'off'
+    light.werkstatt_hangeschrank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Hängeschrank
+      supported_features: 0
+      state: 'off'
+    switch.werkstatt_schreibtisch:
+      device_class: outlet
+      friendly_name: Werkstatt-Schreibtisch Socket 1
+      state: 'off'
+    light.werkstatt_schreibtisch:
+      supported_color_modes:
+      - onoff
+      friendly_name: Schreibtisch
+      supported_features: 0
+      state: 'off'
+    switch.werkstatt_werkbank:
+      device_class: outlet
+      friendly_name: Werkstatt-Werkbank Socket 1
+      state: 'off'
+    light.werkstatt_werkbank:
+      supported_color_modes:
+      - onoff
+      friendly_name: Werkbank
+      supported_features: 0
+      state: 'off'
+  icon: mdi:tools
+  metadata:
+    input_boolean.werkstatt_werkbanke:
+      entity_only: true
+- id: '1677438578203'
+  name: TV Time
+  entities:
+    light.auge:
+      supported_color_modes:
+      - xy
+      color_mode: xy
+      brightness: 115
+      hs_color:
+      - 49.176
+      - 100
+      rgb_color:
+      - 255
+      - 209
+      - 0
+      xy_color:
+      - 0.5064
+      - 0.4734
+      mode: normal
+      dynamics: none
+      friendly_name: Auge
+      supported_features: 40
+      state: 'on'
+    light.hue_color_lamp_1:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      mode: normal
+      dynamics: none
+      friendly_name: Bogenlampe
+      supported_features: 40
+      state: 'off'
+    light.wohnzimmer_temp_2:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      supported_color_modes:
+      - color_temp
+      - xy
+      mode: normal
+      dynamics: none
+      friendly_name: Wohnzimmer Temp 2
+      supported_features: 44
+      state: 'off'
+    light.lichtstreifen:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 76
+      color_temp_kelvin: 2710
+      color_temp: 369
+      hs_color:
+      - 28.373
+      - 65.405
+      rgb_color:
+      - 255
+      - 167
+      - 88
+      xy_color:
+      - 0.524
+      - 0.388
+      mode: normal
+      dynamics: none
+      friendly_name: Lichtstreifen
+      supported_features: 40
+      state: 'on'
+    light.gruppe_esstisch:
+      supported_color_modes:
+      - brightness
+      entity_id:
+      - light.light_bulb_1
+      - light.light_bulb_2
+      - light.light_bulb_4
+      - light.light_bulb_3
+      icon: mdi:lightbulb-group
+      friendly_name: 'Esstisch '
+      supported_features: 40
+      state: 'off'
+    light.nanoleaf_aurora:
+      min_color_temp_kelvin: 1200
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 833
+      effect_list:
+      - Alarm
+      - Color Burst
+      - Disco Color
+      - Fall leafs
+      - Flames
+      - Forest
+      - Halloween Highlights
+      - Inner Peace
+      - Kaleidoscope of Colors
+      - Nemo
+      - Northern Lights
+      - Party
+      - Romantic
+      - Rose Tinted Glasses
+      - Single fade
+      - Skittles
+      - Snowfall
+      - Vintage
+      - Vintage Checkerboard
+      - Vintage Holiday
+      - Vintage Modern
+      - Vintage Splash
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 102
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
+      effect: Vintage Modern
+      icon: mdi:triangle-outline
+      friendly_name: Nanoleaf Aurora
+      supported_features: 36
+      state: 'on'
+    light.iserlohn:
+      effect_list:
+      - Akemi
+      - Android
+      - Aurora
+      - Black Hole
+      - Blends
+      - Blink
+      - Blink Rainbow
+      - Blobs
+      - Blurz
+      - Bouncing Balls
+      - Bpm
+      - Breathe
+      - Candle
+      - Candle Multi
+      - Chase
+      - Chase 2
+      - Chase 3
+      - Chase Flash
+      - Chase Flash Rnd
+      - Chase Rainbow
+      - Chase Random
+      - Chunchun
+      - Colored Bursts
+      - Colorful
+      - Colorloop
+      - Colortwinkles
+      - Colorwaves
+      - Crazy Bees
+      - DJ Light
+      - DNA
+      - DNA Spiral
+      - Dancing Shadows
+      - Dissolve
+      - Dissolve Rnd
+      - Drift
+      - Drift Rose
+      - Drip
+      - Dynamic
+      - Dynamic Smooth
+      - Fade
+      - Fairy
+      - Fairytwinkle
+      - Fill Noise
+      - Fire 2012
+      - Fire Flicker
+      - Firenoise
+      - Fireworks
+      - Fireworks 1D
+      - Fireworks Starburst
+      - Flow
+      - Flow Stripe
+      - Freqmap
+      - Freqmatrix
+      - Freqpixels
+      - Freqwave
+      - Frizzles
+      - Funky Plank
+      - GEQ
+      - Game Of Life
+      - Ghost Rider
+      - Glitter
+      - Gradient
+      - Gravcenter
+      - Gravcentric
+      - Gravfreq
+      - Gravimeter
+      - Halloween Eyes
+      - Heartbeat
+      - Hiphotic
+      - ICU
+      - Juggle
+      - Juggles
+      - Julia
+      - Lake
+      - Lighthouse
+      - Lightning
+      - Lissajous
+      - Loading
+      - Matripix
+      - Matrix
+      - Metaballs
+      - Meteor
+      - Meteor Smooth
+      - Midnoise
+      - Multi Comet
+      - Noise 1
+      - Noise 2
+      - Noise 3
+      - Noise 4
+      - Noise Pal
+      - Noise2D
+      - Noisefire
+      - Noisemeter
+      - Noisemove
+      - Oscillate
+      - Pacifica
+      - Palette
+      - Percent
+      - Perlin Move
+      - Phased
+      - Phased Noise
+      - Pixels
+      - Pixelwave
+      - Plasma
+      - Plasma Ball
+      - Plasmoid
+      - Polar Lights
+      - Popcorn
+      - Pride 2015
+      - Puddlepeak
+      - Puddles
+      - Pulser
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - Railway
+      - Rain
+      - Rainbow
+      - Rainbow Runner
+      - Random Colors
+      - Ripple
+      - Ripple Peak
+      - Ripple Rainbow
+      - Rocktaves
+      - Running
+      - Running Dual
+      - Saw
+      - Scan
+      - Scan Dual
+      - Scanner
+      - Scanner Dual
+      - Scrolling Text
+      - Sindots
+      - Sine
+      - Sinelon
+      - Sinelon Dual
+      - Sinelon Rainbow
+      - Solid
+      - Solid Glitter
+      - Solid Pattern
+      - Solid Pattern Tri
+      - Spaceships
+      - Sparkle
+      - Sparkle Dark
+      - Sparkle+
+      - Spots
+      - Spots Fade
+      - Squared Swirl
+      - Stream
+      - Stream 2
+      - Strobe
+      - Strobe Mega
+      - Strobe Rainbow
+      - Sun Radiation
+      - Sunrise
+      - Sweep
+      - Sweep Random
+      - Swirl
+      - TV Simulator
+      - Tartan
+      - Tetrix
+      - Theater
+      - Theater Rainbow
+      - Traffic Light
+      - Tri Fade
+      - Tri Wipe
+      - Twinkle
+      - Twinklecat
+      - Twinklefox
+      - Twinkleup
+      - Two Dots
+      - Washing Machine
+      - Waterfall
+      - Waverly
+      - Wavesins
+      - Wipe
+      - Wipe Random
+      supported_color_modes:
+      - rgbw
+      color_mode: rgbw
+      brightness: 255
+      hs_color:
+      - 37.647
+      - 100
+      rgb_color:
+      - 255
+      - 160
+      - 0
+      rgbw_color:
+      - 255
+      - 160
+      - 0
+      - 0
+      xy_color:
+      - 0.569
+      - 0.411
+      effect: Candle
+      icon: mdi:led-strip-variant
+      friendly_name: Iserlohn
+      supported_features: 36
+      state: 'on'
+    select.iserlohn_playlist:
+      options: []
+      icon: mdi:play-speed
+      friendly_name: Iserlohn Playlist
+      state: unavailable
+    select.iserlohn_preset:
+      options:
+      - Candle
+      - Fireworks
+      - Fireworks 1D
+      - Glitter
+      - ICU
+      - Juggles
+      - Matripix
+      - Phased Noise
+      - Pride 2015
+      - Rainbow
+      - Ripple
+      - Running
+      - Solid Glitter
+      - Strobe Mega
+      icon: mdi:playlist-play
+      friendly_name: Iserlohn Preset
+      state: unknown
+  metadata:
+    light.gruppe_esstisch:
+      entity_only: true
+  icon: mdi:television
+- id: '1732782750366'
+  name: Büro - Videocall
+  entities:
+    light.gaming_light_bar:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 29.412
+      - 100
+      rgb_color:
+      - 255
+      - 125
+      - 0
+      xy_color:
+      - 0.615
+      - 0.372
+      friendly_name: Govee Gaming Lightbar
+      supported_features: 0
+      state: 'on'
+    light.hue_play_links:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 5102
+      color_temp: 196
+      hs_color:
+      - 27.12
+      - 17.875
+      rgb_color:
+      - 255
+      - 230
+      - 209
+      xy_color:
+      - 0.368
+      - 0.349
+      mode: normal
+      dynamics: none
+      icon: hue:play-bar
+      friendly_name: Hue Play Links
+      supported_features: 40
+      state: 'on'
+    light.hue_play_links_licht:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 5102
+      color_temp: 196
+      hs_color:
+      - 27.12
+      - 17.875
+      rgb_color:
+      - 255
+      - 230
+      - 209
+      xy_color:
+      - 0.368
+      - 0.349
+      friendly_name: Hue Play Links
+      supported_features: 32
+      state: 'on'
+    light.buro_fenster:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 9000
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - rgb
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 6711
+      color_temp: 149
+      hs_color:
+      - 289.817
+      - 2.567
+      rgb_color:
+      - 253
+      - 248
+      - 255
+      xy_color:
+      - 0.323
+      - 0.321
+      friendly_name: Govee Büro Fenster
+      supported_features: 0
+      state: 'on'
+  metadata: {}

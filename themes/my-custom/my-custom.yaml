@@ -1,0 +1,14 @@
+happy:
+  primary-color: pink
+  text-primary-color: purple
+  mdc-theme-primary: plum
+sad:
+  primary-color: steelblue
+tablet:
+  header-height: 100px
+  #mdc-icon-size: 70px
+  primary-color: "#03A9F4"
+  accent-color: "#FF9800"
+  modes:
+    dark:
+      secondary-text-color: slategray

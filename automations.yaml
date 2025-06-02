@@ -1,0 +1,4630 @@
+- id: '1637267867819'
+  alias: HomeAssistant Restart
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:00:00
+  condition: []
+  action:
+  - service: homeassistant.restart
+    data: {}
+  mode: single
+- id: '1644337045913'
+  alias: Warnung Stromzähler
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.spannung_l1
+    below: '200'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: numeric_state
+    entity_id: sensor.spannung_l2
+    below: '200'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: numeric_state
+    entity_id: sensor.spannung_l3
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    below: '200'
+  condition: []
+  action:
+  - service: persistent_notification.create
+    data:
+      message: Bitte den Stromzähler überprüfen!
+      title: WARNUNG
+      notification_id: warnung_strom
+  - service: notify.mobile_app_mate20pro_lennart
+    data:
+      message: Bitte den Stromzähler überprüfen!
+      title: WARNUNG
+  mode: single
+- id: '1645889925432'
+  alias: Stinki Button
+  description: ''
+  triggers:
+  - device_id: f04099a4194936cf6edf67b957b02db1
+    domain: zha
+    type: remote_button_short_press
+    subtype: turn_on
+    trigger: device
+    id: ein
+  - trigger: state
+    entity_id:
+    - light.badezimmer_geruchsabsaugung_switch
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    id: aus
+  - trigger: state
+    entity_id:
+    - light.badezimmer_geruchsabsaugung_switch
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 20
+      seconds: 0
+    id: aus
+  - trigger: state
+    entity_id:
+    - light.badezimmer_geruchsabsaugung_switch
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    id: aus
+  - trigger: state
+    entity_id:
+    - light.badezimmer_geruchsabsaugung_switch
+    to: 'on'
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    id: aus
+  - trigger: state
+    entity_id:
+    - light.badezimmer_geruchsabsaugung_switch
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: aus
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - ein
+    then:
+    - type: turn_on
+      device_id: d138193f667be63cd2d87275acfe19aa
+      entity_id: light.badezimmer_geruchsabsaugung_switch
+      domain: light
+    - delay:
+        hours: 0
+        minutes: 3
+        seconds: 0
+        milliseconds: 0
+    - type: turn_off
+      device_id: d138193f667be63cd2d87275acfe19aa
+      entity_id: light.badezimmer_geruchsabsaugung_switch
+      domain: light
+  - if:
+    - condition: trigger
+      id:
+      - aus
+    then:
+    - type: turn_off
+      device_id: d138193f667be63cd2d87275acfe19aa
+      entity_id: light.badezimmer_geruchsabsaugung_switch
+      domain: light
+  mode: restart
+- id: '1649746456439'
+  alias: Licht Aquarium Büro
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:50:00
+    id: ein
+  - platform: time
+    at: '18:40:00'
+    id: aus
+  - platform: time
+    at: 07:55:00
+    id: ein
+  - platform: time
+    at: '18:45:00'
+    id: aus
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: aus
+      sequence:
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.licht_aquarium_buro_switch
+    - conditions:
+      - condition: trigger
+        id: ein
+      sequence:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.licht_aquarium_buro_switch
+    default: []
+  mode: single
+- id: '1651079620124'
+  alias: Erinnerung
+  description: ''
+  trigger:
+  - platform: time
+    at: 08:00:00
+  - platform: time
+    at: '18:00:00'
+  condition: []
+  action:
+  - service: persistent_notification.create
+    data:
+      message: Eliquis nehmen
+      notification_id: Eliquis
+      title: Wichtig!
+  - service: notify.mobile_app_mate20pro_lennart
+    data:
+      message: Eliquis nehmen
+      title: Wichtig!
+  mode: single
+- id: '1654324604161'
+  alias: Küche - Bewegung - Licht
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: a50b06dfa71852cb56d4c55dcd20d111
+    entity_id: binary_sensor.bewegungsmelder_kueche_motion
+    domain: binary_sensor
+  - type: no_motion
+    platform: device
+    device_id: a50b06dfa71852cb56d4c55dcd20d111
+    entity_id: binary_sensor.bewegungsmelder_kueche_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  condition: []
+  action:
+  - if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.lichtmodus_kuche
+        state: Auto - Nacht
+      - type: is_illuminance
+        condition: device
+        device_id: a50b06dfa71852cb56d4c55dcd20d111
+        entity_id: sensor.bewegungsmelder_kueche_illuminance
+        domain: sensor
+        below: 50
+      - type: is_motion
+        condition: device
+        device_id: a50b06dfa71852cb56d4c55dcd20d111
+        entity_id: binary_sensor.bewegungsmelder_kueche_motion
+        domain: binary_sensor
+    then:
+    - device_id: 18c5f6119a9c56cd2040a60a4ef95ad9
+      domain: select
+      entity_id: select.wled_kueche_preset
+      type: select_option
+      option: Nacht
+    - type: turn_on
+      device_id: 18c5f6119a9c56cd2040a60a4ef95ad9
+      entity_id: light.wled_kueche
+      domain: light
+  - if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.lichtmodus_kuche
+        state: Auto - Tag
+      - type: is_illuminance
+        condition: device
+        device_id: a50b06dfa71852cb56d4c55dcd20d111
+        entity_id: sensor.bewegungsmelder_kueche_illuminance
+        domain: sensor
+        below: 50
+      - type: is_motion
+        condition: device
+        device_id: a50b06dfa71852cb56d4c55dcd20d111
+        entity_id: binary_sensor.bewegungsmelder_kueche_motion
+        domain: binary_sensor
+    then:
+    - device_id: 18c5f6119a9c56cd2040a60a4ef95ad9
+      domain: select
+      entity_id: select.wled_kueche_preset
+      type: select_option
+      option: Tag
+    - type: turn_on
+      device_id: 18c5f6119a9c56cd2040a60a4ef95ad9
+      entity_id: light.wled_kueche
+      domain: light
+  - if:
+    - condition: and
+      conditions:
+      - type: is_no_motion
+        condition: device
+        device_id: a50b06dfa71852cb56d4c55dcd20d111
+        entity_id: binary_sensor.bewegungsmelder_kueche_motion
+        domain: binary_sensor
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 30
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_select.lichtmodus_kuche
+          state: Auto - Tag
+        - condition: state
+          entity_id: input_select.lichtmodus_kuche
+          state: Auto - Nacht
+    then:
+    - type: turn_off
+      device_id: 18c5f6119a9c56cd2040a60a4ef95ad9
+      entity_id: light.wled_kueche
+      domain: light
+  mode: single
+- id: '1656396240648'
+  alias: 433mhz-Funk
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: tele/tasmota_825F0C/RESULT
+    payload: '28181819090908181819081819081818181819081818181908'
+    value_template: '{{ value_json["RfRaw"]["Data"].split()[6] }}'
+    id: '28181819090908181819081819081818181819081818181908'
+  - platform: mqtt
+    topic: tele/tasmota_825F0C/RESULT
+    payload: 481A3A3A3A3B2A3B2B2B2A3B2B2A3A3A3B2A3B2B2B2A3B2B2A3A3A3A3A3B2B2B2A3B2B2B2A3B2B2B2A
+    value_template: '{{ value_json["RfRaw"]["Data"].split()[8] }}'
+    id: 481A3A3A3A3B2A3B2B2B2A3B2B2A3A3A3B2A3B2B2B2A3B2B2A3A3A3A3A3B2B2B2A3B2B2B2A3B2B2B2A
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: '28181819090908181819081819081818181819081818181908'
+    then:
+    - service: persistent_notification.create
+      data:
+        message: Fensterkontakt geöffnet
+        notification_id: Fensterkontakt
+        title: Fensterkontakt
+  - if:
+    - condition: trigger
+      id: 481A3A3A3A3B2A3B2B2B2A3B2B2A3A3A3B2A3B2B2B2A3B2B2A3A3A3A3A3B2B2B2A3B2B2B2A3B2B2B2A
+    then:
+    - service: persistent_notification.create
+      data:
+        notification_id: Windsensor
+        title: Windsensor
+        message: Windsensor schließen
+  mode: single
+- id: '1656611128946'
+  alias: 'Markise Windsensor '
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 9ebe048ebdffe826b9b55c38ca0bab60
+    entity_id: binary_sensor.sensor_markise
+    domain: binary_sensor
+  - type: not_opened
+    platform: device
+    device_id: 9ebe048ebdffe826b9b55c38ca0bab60
+    entity_id: binary_sensor.sensor_markise
+    domain: binary_sensor
+  condition: []
+  action:
+  - if:
+    - type: is_open
+      condition: device
+      device_id: 9ebe048ebdffe826b9b55c38ca0bab60
+      entity_id: binary_sensor.sensor_markise
+      domain: binary_sensor
+    then:
+    - type: turn_on
+      device_id: f57018257dbaf8b007591578a9fc30f6
+      entity_id: light.schalter_windsensor_on_off
+      domain: light
+  - if:
+    - type: is_not_open
+      condition: device
+      device_id: 9ebe048ebdffe826b9b55c38ca0bab60
+      entity_id: binary_sensor.sensor_markise
+      domain: binary_sensor
+    then:
+    - type: turn_off
+      device_id: f57018257dbaf8b007591578a9fc30f6
+      entity_id: light.schalter_windsensor_on_off
+      domain: light
+  mode: single
+- id: '1657452488489'
+  alias: NFC Tag Haustür ist gescannt
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 1b2715df-5c4e-4615-b3e3-4da12f1f192f
+  - platform: tag
+    tag_id: e105dd1a-c339-492c-8339-ddd344aceb6b
+  condition: []
+  action:
+  - service: script.haustur_offnen
+    data: {}
+  mode: single
+- id: '1657894681850'
+  alias: Wandtaster Wohnmzimmer
+  description: ''
+  trigger:
+  - platform: device
+    domain: homematicip_local
+    device_id: 0f9ec2758d8a9cd3e564a8585c1aaaf7
+    event_type: homematic.keypress
+    interface_id: RaspberryMatic-HmIP-RF
+    address: HmIP-RCV-1
+    type: press_short
+    subtype: 1
+    id: '5'
+  - platform: device
+    domain: homematicip_local
+    device_id: 0f9ec2758d8a9cd3e564a8585c1aaaf7
+    event_type: homematic.keypress
+    interface_id: RaspberryMatic-HmIP-RF
+    address: HmIP-RCV-1
+    type: press_short
+    subtype: 2
+    id: '6'
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: '5'
+    then:
+    - type: turn_on
+      device_id: a8752fed612b77a0314131855a484423
+      entity_id: light.terassenleuchte
+      domain: light
+      brightness_pct: 100
+    else:
+    - if:
+      - condition: trigger
+        id: '6'
+      then:
+      - type: turn_off
+        device_id: a8752fed612b77a0314131855a484423
+        entity_id: light.terassenleuchte
+        domain: light
+  mode: single
+- id: '1664437727809'
+  alias: Actionable Notification test
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: script.activate_alexa_actionable_notification
+    data_template:
+      text: Ich probiere das jetzt einfach mal aus. Soll ich das machen?
+      event_id: actionable_notification_lock_left_unlocked
+      alexa_device: media_player.echo_show
+  mode: single
+- id: '1666516973952'
+  alias: Markise Frage App
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_open: '{{ ''OPEN_'' ~ context.id }}'
+      action_close: '{{ ''CLOSE_'' ~ context.id }}'
+  - alias: Ask to close or open the blinds
+    service: notify.mobile_app_Pixel_7
+    data:
+      message: Möchtest du die Markise anpassen?
+      data:
+        actions:
+        - action: '{{ action_open }}'
+          title: Ausfahren
+        - action: '{{ action_close }}'
+          title: Einfahren
+  - alias: Wait for a response
+    wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_open }}'
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_close }}'
+  - alias: Perform the action
+    choose:
+    - conditions: '{{ wait.trigger.event.data.action == action_open }}'
+      sequence:
+      - service: cover.open_cover
+        target:
+          entity_id:
+          - cover.markise
+        data: {}
+    - conditions: '{{ wait.trigger.event.data.action == action_close }}'
+      sequence:
+      - service: cover.close_cover
+        target:
+          entity_id:
+          - cover.markise
+        data: {}
+  mode: single
+- id: '1666519469027'
+  alias: Haustür Frage App
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_ja: '{{ ''JA_'' ~ context.id }}'
+      action_nein: '{{ ''NEIN_'' ~ context.id }}'
+  - alias: Frage Haustür öffnen
+    service: notify.mobile_app_Pixel_7
+    data:
+      message: Möchtest du die Haustür öffnen?
+      data:
+        actions:
+        - action: '{{ action_ja }}'
+          title: Ja
+        - action: '{{ action_nein }}'
+          title: Nein
+  - alias: Wait for a response
+    wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_ja }}'
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_nein }}'
+  - alias: Perform the action
+    choose:
+    - conditions: '{{ wait.trigger.event.data.action == action_ja }}'
+      sequence:
+      - service: lock.open
+        data: {}
+        target:
+          entity_id: lock.nuki_haustur_lock
+    - conditions: '{{ wait.trigger.event.data.action == action_nein }}'
+      sequence: []
+  mode: single
+- id: '1666905772551'
+  alias: Klingel - Doorbell Sensing
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.sensing
+    from: 'on'
+    to: 'off'
+    id: sensor aus
+    trigger: state
+  - entity_id:
+    - sensor.doorbell_fingerprint_state
+    to: Authorized finger
+    id: authorized
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Tür öffnen
+    if:
+    - condition: trigger
+      id: authorized
+    then:
+    - data: {}
+      target:
+        entity_id: script.haustur_offnen
+      action: script.turn_on
+    - event: Haustür durch KIingel geöffnet
+      event_data: {}
+    - action: light.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.spots_flur
+    else: []
+  - alias: Klingel
+    if:
+    - condition: and
+      conditions:
+      - condition: trigger
+        id: sensor aus
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: sensor.doorbell_fingerprint_state
+          state: Authorized finger
+      - condition: state
+        entity_id: automation.haustur_auto_open
+        state: 'off'
+    then:
+    - data: {}
+      target:
+        entity_id: script.alexa_klingel
+      action: script.turn_on
+    - event: Klingel ausgelöst
+      event_data: {}
+  mode: parallel
+  max: 4
+- id: '1666908288517'
+  alias: Haustür Bewegung Notification
+  description: ''
+  use_blueprint:
+    path: vorion/send-camera-snapshot-notification-on-motion.yaml
+    input:
+      motion_sensor: binary_sensor.haustuer_motion_sensor
+      camera: camera.haustuer
+      notify_device: ce086df877c807a90fa120f33a7aed65
+      delay: 4
+- id: '1666908850621'
+  alias: Doorbell cam actionable Notification
+  description: ''
+  use_blueprint:
+    path: AndreiRadchenko/doorbell-cam-actionable-nitification.yaml
+    input:
+      doorbell_button: binary_sensor.sensing
+      doorbell_cam: camera.synologynas_haustur
+      notify_dev: notify.mobile_app_pixel_7
+      notification_title: Jemand hat geklingelt.
+      uri_: ' '
+      action1_title: Tür öffnen
+      action2_title: ' '
+      action1:
+      - service: script.haustur_offnen
+        data: {}
+- id: '1666986467912'
+  alias: Fingerprint Light
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: '- 01:00:00'
+    id: auf-1
+  - platform: sun
+    event: sunset
+    offset: '- 01:00:00'
+    id: unter-1
+  - platform: sun
+    event: sunset
+    offset: + 05:00:00
+    id: unter+5
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: unter-1
+    then:
+    - type: turn_on
+      device_id: daae1b6f8afd3b5b0c64efda970214ca
+      entity_id: switch.fingerprint_light
+      domain: switch
+    - type: turn_on
+      device_id: daae1b6f8afd3b5b0c64efda970214ca
+      entity_id: switch.name_light
+      domain: switch
+  - if:
+    - condition: trigger
+      id: unter+5
+    then:
+    - type: turn_off
+      device_id: daae1b6f8afd3b5b0c64efda970214ca
+      entity_id: switch.fingerprint_light
+      domain: switch
+    - type: turn_off
+      device_id: daae1b6f8afd3b5b0c64efda970214ca
+      entity_id: switch.name_light
+      domain: switch
+  mode: single
+- id: '1667353870018'
+  alias: Flur - Bewegungswarnung
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bewegung_flur
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_7
+    data:
+      message: Bewegung im Flur
+      title: Achtung
+  mode: single
+- id: '1669061905551'
+  alias: Badezimmer - Spiegelschrank Button
+  description: ''
+  trigger:
+  - device_id: eb0b085f8309ab4d86146f92fc8365b1
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_on
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.spiegelschrank_light
+  mode: single
+- id: '1669366142235'
+  alias: Büro - Wochentags 13:30 Uhr Erinnerung
+  description: ''
+  triggers:
+  - alias: Um 13 Uhr
+    at: '13:30:00'
+    trigger: time
+  conditions:
+  - condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      alias: Wochentags
+    - condition: numeric_state
+      entity_id: sensor.computer_power_offset
+      above: 100
+  actions:
+  - action: notify.alexa_media_echo_dot_buro
+    metadata: {}
+    data:
+      message: Es ist 13:30 Uhr
+  mode: single
+- id: '1671710681252'
+  alias: Lichterkette Dach
+  description: ''
+  triggers:
+  - at: 07:30:00
+    id: '1'
+    trigger: time
+  - at: 08:45:00
+    id: '2'
+    trigger: time
+  - at: '16:00:00'
+    id: '3'
+    trigger: time
+  - at: '23:00:00'
+    id: '4'
+    trigger: time
+  conditions: []
+  actions:
+  - if:
+    - condition: or
+      conditions:
+      - condition: trigger
+        id: '1'
+      - condition: trigger
+        id: '3'
+    then:
+    - data: {}
+      target:
+        entity_id: light.lichterkette_dach
+      action: light.turn_on
+      enabled: false
+    - action: light.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - light.eiszapfen
+        - light.curtain_lights
+  - if:
+    - condition: or
+      conditions:
+      - condition: trigger
+        id: '2'
+      - condition: trigger
+        id: '4'
+    then:
+    - data: {}
+      target:
+        entity_id: light.lichterkette_dach
+      action: light.turn_off
+      enabled: false
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - light.eiszapfen
+        - light.curtain_lights
+  mode: single
+- id: '1672334919599'
+  alias: 3D Druck fertig
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.ender3s1pro_state
+    from: printing
+    to: complete
+    id: ender3s1pro
+    trigger: state
+  - entity_id:
+    - sensor.resin_drucker_leistung_offset
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+    above: 10
+    id: Resin_ueber_10
+    trigger: numeric_state
+  - entity_id:
+    - sensor.resin_drucker_leistung_offset
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+    id: Resin_unter_15_3_min
+    below: 15
+    trigger: numeric_state
+  - trigger: state
+    entity_id:
+    - sensor.k1_max_current_print_state
+    from: printing
+    to: complete
+    id: k1max
+  - trigger: state
+    entity_id:
+    - binary_sensor.k1_max_tur_offnung
+    from: 'off'
+    to: 'on'
+    id: K1_Max_Door
+  conditions: []
+  actions:
+  - alias: Ender 3 S1 Pro
+    if:
+    - condition: trigger
+      id:
+      - ender3s1pro
+    then:
+    - data:
+        message: 3D Druck fertig um {{ states("sensor.time") }}
+        title: Ender 3 S1 Pro
+      action: notify.mobile_app_pixel_7
+    - if:
+      - condition: state
+        entity_id: schedule.silent_house
+        state: 'off'
+      then:
+      - data:
+          target: media_player.echo_show
+          data:
+            type: tts
+          message: Der 3D Druck ist fertig
+        action: notify.alexa_media
+      - data:
+          target: media_player.echo_pop_werkstatt
+          data:
+            type: tts
+          message: Der 3D Druck ist fertig
+        action: notify.alexa_media
+    - if:
+      - condition: state
+        entity_id: input_boolean.silent_house
+        state: 'off'
+      - condition: device
+        type: is_off
+        device_id: e4237a886370b1697a409a4a44726857
+        entity_id: switch.echo_dot_buro_do_not_disturb_switch
+        domain: switch
+      then:
+      - data:
+          target: media_player.echo_dot_buro
+          data:
+            type: tts
+          message: Der 3D Druck ist fertig
+        action: notify.alexa_media
+      alias: Büro
+  - if:
+    - condition: trigger
+      id:
+      - Resin_ueber_10
+    then:
+    - target:
+        entity_id: input_boolean.resin_druck
+      data: {}
+      action: input_boolean.turn_on
+    alias: Resin Start
+  - alias: Resin Stop
+    if:
+    - condition: trigger
+      id:
+      - Resin_unter_15_3_min
+    - condition: state
+      entity_id: input_boolean.resin_druck
+      state: 'on'
+    then:
+    - target:
+        entity_id: input_boolean.resin_druck
+      data: {}
+      action: input_boolean.turn_off
+    - data:
+        message: Resin Druck fertig um {{ states("sensor.time") }}
+        title: Elegoo Saturn 2
+      action: notify.mobile_app_pixel_7
+    - if:
+      - condition: state
+        entity_id: schedule.silent_house
+        state: 'off'
+      then:
+      - data:
+          target: media_player.echo_show
+          data:
+            type: tts
+          message: Der Resin Druck ist fertig
+        action: notify.alexa_media
+      - data:
+          target: media_player.echo_pop_werkstatt
+          data:
+            type: tts
+          message: Der Resin Druck ist fertig
+        action: notify.alexa_media
+      - alias: Büro
+        if:
+        - condition: state
+          entity_id: input_boolean.silent_house
+          state: 'off'
+        - condition: device
+          type: is_off
+          device_id: e4237a886370b1697a409a4a44726857
+          entity_id: switch.echo_dot_buro_do_not_disturb_switch
+          domain: switch
+        then:
+        - data:
+            target: media_player.echo_dot_buro
+            data:
+              type: tts
+            message: Der Resin Druck ist fertig
+          action: notify.alexa_media
+    - action: script.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: script.buro_status_3d_druck_fertig
+  - alias: K1 Max
+    if:
+    - condition: trigger
+      id:
+      - k1max
+    then:
+    - data:
+        message: 3D Druck fertig um {{ states("sensor.time") }}
+        title: K1 Max
+      action: notify.mobile_app_pixel_7
+      enabled: false
+    - action: input_boolean.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.k1_max_3d_druck_fertig
+    - if:
+      - condition: state
+        entity_id: schedule.silent_house
+        state: 'off'
+      then:
+      - data:
+          target: media_player.echo_show
+          data:
+            type: tts
+          message: Der 3D Druck ist fertig
+        action: notify.alexa_media
+      - data:
+          target: media_player.echo_pop_werkstatt
+          data:
+            type: tts
+          message: Der 3D Druck ist fertig
+        action: notify.alexa_media
+    - alias: Büro
+      if:
+      - condition: state
+        state: 'off'
+        entity_id: schedule.silent_house
+      - condition: device
+        type: is_off
+        device_id: e4237a886370b1697a409a4a44726857
+        entity_id: switch.echo_dot_buro_do_not_disturb_switch
+        domain: switch
+      then:
+      - data:
+          target: media_player.echo_dot_buro
+          data:
+            type: tts
+          message: Der 3D Druck ist fertig
+        action: notify.alexa_media
+    - action: script.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: script.buro_status_3d_druck_fertig
+  - alias: K1 Max Door
+    if:
+    - condition: trigger
+      id:
+      - K1_Max_Door
+    then:
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.k1_max_3d_druck_fertig
+  mode: single
+- id: '1672569155542'
+  alias: Button Laser
+  description: ''
+  trigger:
+  - device_id: f3bf100166240cf8b9b692e1289e92b8
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: left
+    id: links
+  - device_id: f3bf100166240cf8b9b692e1289e92b8
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: right
+    id: rechts
+  - device_id: f3bf100166240cf8b9b692e1289e92b8
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_on
+    id: oben
+  - device_id: f3bf100166240cf8b9b692e1289e92b8
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_off
+    id: unten
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: oben
+    then:
+    - service: switch.toggle
+      data: {}
+      target:
+        entity_id:
+        - switch.laser_master
+    alias: Oben
+  - alias: Unten
+    if:
+    - condition: trigger
+      id: unten
+    then:
+    - service: switch.toggle
+      data: {}
+      target:
+        entity_id: switch.laserpowercontroller32_steckdose_1
+  - if:
+    - condition: trigger
+      id: links
+    then:
+    - service: light.toggle
+      data: {}
+      target:
+        entity_id: light.laser
+    alias: Links
+  - alias: Rechts
+    if:
+    - condition: trigger
+      id: rechts
+    then:
+    - service: switch.toggle
+      data: {}
+      target:
+        entity_id:
+        - switch.laserpowercontroller32_steckdose_4
+  mode: single
+- id: '1673216958642'
+  alias: 3D Drucker automatisch ausschalten
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.k1_max_current_print_state
+    from: printing
+    to: complete
+  conditions: []
+  actions:
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - data: {}
+    target:
+      entity_id: switch.creality_k1_max_socket
+    action: switch.turn_off
+  - data: {}
+    target:
+      entity_id: automation.3d_drucker_automatisch_ausschalten
+    action: automation.turn_off
+  mode: single
+- id: '1674399183010'
+  alias: Werkbank Button
+  description: ''
+  trigger:
+  - device_id: aa489f72567a9c3a48fa68453da9bbc8
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 1
+    unique_id: 9c21258a-08a1-49a4-89b2-aed2f908829b
+  condition: []
+  action:
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.135_b_plug
+  mode: single
+- id: '1674399691809'
+  alias: Button 3D Drucker
+  description: ''
+  trigger:
+  - device_id: c724d0e5781cc5f91f45dd4db7899bf0
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_on
+  condition: []
+  action:
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.3d_drucker
+  mode: single
+- id: '1674827100477'
+  alias: NsPanel Werkstatt Display einschalten
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ikea_bewegungsmelder_werkstatt_motion
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: esphome.nspanelworkshop_wake_up
+    data:
+      reset_timer: false
+  mode: single
+- id: '1674827580665'
+  alias: NSPANELWORKSHOP Sleep Modus
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ikea_bewegungsmelder_werkstatt_motion
+    to: 'on'
+    id: bewegung
+  - platform: state
+    entity_id:
+    - binary_sensor.ikea_bewegungsmelder_werkstatt_motion
+    from: 'on'
+    to: 'off'
+    id: keinebewegung
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - bewegung
+    then:
+    - service: esphome.nspanelworkshop_send_command_printf
+      data:
+        cmd: page home
+      enabled: false
+    - service: esphome.nspanelworkshop_play_rtttl
+      data:
+        song_str: The Simpsons:d=4,o=5,b=160:c.6,e6,f#6,8a6,g.6,e6,c6,8a,8f#,8f#,8f#,2g,8p,8p,8f#,8f#,8f#,8g,a#.,8c6,8c6,8c6,c6
+      alias: Play Simpsons
+      enabled: false
+    - device_id: dbe9ad836d16d1cd148a094bf8161ccf
+      domain: number
+      entity_id: 3bc1b0100e1c7f0d45a4938109fea6c7
+      type: set_value
+      value: 0
+  - if:
+    - condition: trigger
+      id:
+      - keinebewegung
+    then:
+    - device_id: dbe9ad836d16d1cd148a094bf8161ccf
+      domain: number
+      entity_id: 3bc1b0100e1c7f0d45a4938109fea6c7
+      type: set_value
+      value: 300
+  mode: single
+- id: '1674856839132'
+  alias: Werkstatt Szene Werkbänke nspanel
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.werkstatt_werkbanke
+    from: 'on'
+    to: 'off'
+    id: aus
+    enabled: true
+  - platform: state
+    entity_id:
+    - input_boolean.werkstatt_werkbanke
+    from: 'off'
+    to: 'on'
+    id: an
+    enabled: true
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: aus
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.werkstatt_werkbanke_aus
+      metadata: {}
+  - if:
+    - condition: trigger
+      id: an
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.werkstatt_werkbanke
+      metadata: {}
+  mode: single
+- id: '1674860773832'
+  alias: Werkstatt Licht kurz
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.ikea_bewegungsmelder_werkstatt_motion
+    from: 'off'
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.werkstatt_werkbanke
+    state: 'off'
+  actions:
+  - type: turn_on
+    device_id: 36c2eb16297ee761714c2c332c9c9ba3
+    entity_id: ffdd76d070f655b24162e003fc41b144
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 36c2eb16297ee761714c2c332c9c9ba3
+    entity_id: ffdd76d070f655b24162e003fc41b144
+    domain: light
+  mode: single
+- id: '1674924964142'
+  alias: Büro Dimmer Switch
+  description: ''
+  trigger:
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: dim_up
+    id: Dimmer hoch
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: dim_down
+    id: Dimmer runter
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_on
+    id: Ein
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: turn_off
+    id: Aus
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_double_press
+    subtype: turn_off
+    id: 'Aus doppelt '
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_double_press
+    subtype: turn_on
+    id: Ein doppelt
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_double_press
+    subtype: dim_down
+    id: Dimmer runter doppelt
+  - device_id: 0d52183b3ebe22ba6e34168872209970
+    domain: zha
+    platform: device
+    type: remote_button_double_press
+    subtype: dim_up
+    id: Dimmer hoch doppelt
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: Dimmer hoch
+    then:
+    - service: script.buro_an_licht
+      data: {}
+  - if:
+    - condition: trigger
+      id: Dimmer runter
+    then:
+    - service: script.buro_aus_licht
+      data: {}
+  - if:
+    - condition: trigger
+      id: Dimmer hoch doppelt
+    then:
+    - device_id: 5f2fd021bdce27a742ff58b25ce65784
+      domain: cover
+      entity_id: cover.rolllade_buro
+      type: set_position
+    - service: scene.turn_on
+      target:
+        entity_id: scene.homeoffice
+      metadata: {}
+  - if:
+    - condition: trigger
+      id: Dimmer runter doppelt
+    then:
+    - device_id: 5f2fd021bdce27a742ff58b25ce65784
+      domain: cover
+      entity_id: cover.rolllade_buro
+      type: set_position
+    - service: scene.turn_on
+      target:
+        entity_id: scene.buro_aus
+      metadata: {}
+  - if:
+    - condition: trigger
+      id: Ein doppelt
+    then:
+    - service: script.buro_an_licht_rollo_pc
+      data: {}
+  - if:
+    - condition: trigger
+      id: 'Aus doppelt '
+    then:
+    - service: script.buro_aus_licht_rollo_pc
+      data: {}
+  - if:
+    - condition: trigger
+      id: Ein
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.computer_wake_on_lan_wired
+  - if:
+    - condition: trigger
+      id: Aus
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id:
+        - switch.shutdown_desktop_pc
+  mode: single
+- id: '1681937055541'
+  alias: 'Lautstärke Echo Dot Matilda '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.echo_dot_matilda
+    attribute: volume_level
+  condition:
+  - condition: numeric_state
+    entity_id: media_player.echo_dot_matilda
+    attribute: volume_level
+    above: 0.4
+  action:
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.4
+    target:
+      device_id: 68cad591d467dc539da1f31f7fa8cb7b
+  - service: notify.alexa_media_echo_dot_matilda
+    data:
+      message: Mach den Echo nicht so laut Matilda
+  mode: single
+- id: '1681976315622'
+  alias: Garten Nachtabschaltung
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition:
+  - condition: state
+    entity_id: switch.steckdose_brunnen_switch
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: bfa7400b48e1aee16691e73a93e21149
+    entity_id: switch.steckdose_brunnen_switch
+    domain: switch
+  mode: single
+- id: '1682178475375'
+  alias: Badezimmer Lüftung nach Neustart
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: humidifier.turn_on
+    data: {}
+    target:
+      entity_id: humidifier.badezimmerluftung
+  mode: single
+- id: '1683106497444'
+  alias: Senec Speicher 70% Warnung
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.senec_battery_charge_percent
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.senec_battery_charge_percent
+    above: 70
+  action:
+  - service: notify.mobile_app_pixel_7
+    data:
+      message: Der Senec Speicher ist über 70%
+      title: ACHTUNG
+  mode: single
+- id: '1685123321295'
+  alias: Wandtaster Garten Wohnzimmer
+  description: ''
+  trigger:
+  - platform: device
+    domain: homematicip_local
+    device_id: 2a9ec1fea0a998c98d449d09565ecf6b
+    event_type: homematic.keypress
+    address: 000B5D898B2E69
+    device_type: HmIP-WRC6
+    interface_id: RaspberryMatic-HmIP-RF
+    type: press_short
+    subtype: 5
+    id: Links unten
+  - platform: device
+    domain: homematicip_local
+    device_id: 2a9ec1fea0a998c98d449d09565ecf6b
+    event_type: homematic.keypress
+    address: 000B5D898B2E69
+    device_type: HmIP-WRC6
+    interface_id: RaspberryMatic-HmIP-RF
+    type: press_short
+    subtype: 6
+    id: Rechts unten
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: Links unten
+    then:
+    - type: toggle
+      device_id: bfa7400b48e1aee16691e73a93e21149
+      entity_id: switch.steckdose_brunnen_switch
+      domain: switch
+  - if:
+    - condition: trigger
+      id: Rechts unten
+    then:
+    - type: toggle
+      device_id: a8752fed612b77a0314131855a484423
+      entity_id: light.terassenleuchte
+      domain: light
+    - type: toggle
+      device_id: f72314109f4f2512c926637db2030611
+      entity_id: light.steckdosenlampen_on_off
+      domain: light
+  mode: single
+- id: '1690043278920'
+  alias: Rollladen Auto
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -01:00:00
+    id: zu
+  - platform: sun
+    event: sunrise
+    offset: 01:30:00
+    id: auf
+  - platform: time
+    at: '22:00:00'
+    id: zu2
+  - platform: time
+    at: 08:00:00
+    id: auf2
+  - platform: time
+    at: 09:00:00
+    id: auf2
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - auf
+      - auf2
+    then:
+    - service: cover.open_cover
+      data: {}
+      target:
+        entity_id: cover.obergeschoss
+  - if:
+    - condition: trigger
+      id:
+      - zu
+      - zu2
+    then:
+    - service: cover.close_cover
+      data: {}
+      target:
+        entity_id: cover.obergeschoss
+  mode: single
+- id: '1692613344884'
+  alias: Werkstatt PC Button
+  description: ''
+  trigger:
+  - device_id: f26866a5c0f265ea6b963c1bb53f61ed
+    domain: zha
+    platform: device
+    type: remote_button_short_release
+    subtype: turn_on
+    id: kurz
+  - device_id: f26866a5c0f265ea6b963c1bb53f61ed
+    domain: zha
+    platform: device
+    type: remote_button_long_press
+    subtype: turn_on
+    id: lang
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - kurz
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.werkstatt_wake_on_lan_wired
+  - if:
+    - condition: trigger
+      id:
+      - lang
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id:
+        - switch.laser_air_assist
+    - service: fan.turn_on
+      data: {}
+      target:
+        entity_id: fan.laser_luftung
+  mode: single
+- id: '1694342912980'
+  alias: Lennart zu Hause
+  description: ''
+  trigger:
+  - platform: device
+    device_id: ce086df877c807a90fa120f33a7aed65
+    domain: device_tracker
+    entity_id: 50a47c5ecf2d21bd46ceb67795e2aaaf
+    type: enters
+    zone: zone.home
+  condition: []
+  action:
+  - alias: Variablen definieren
+    variables:
+      action_open: '{{ ''OPEN_'' ~ context.id }}'
+      action_close: '{{ ''CLOSE_'' ~ context.id }}'
+  - alias: Nach Tür Öffnung fragen
+    service: notify.mobile_app_pixel_7
+    data:
+      message: Willkommen zu Hause. Möchtest du die Tür öffnen?
+      data:
+        actions:
+        - action: '{{ action_open }}'
+          title: Tür öffnen
+        tag: lennart_home
+  - alias: Auf Antwort warten
+    wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_open }}'
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_close }}'
+    timeout:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - alias: Aktion ausführen
+    choose:
+    - conditions: '{{ wait.trigger.event.data.action == action_open }}'
+      sequence:
+      - service: script.haustur_offnen
+        data: {}
+  - service: notify.mobile_app_pixel_7
+    data:
+      message: clear_notification
+      data:
+        tag: lennart_home
+    alias: Benachrichtigung löschen
+    enabled: true
+  mode: single
+- id: '1694344851708'
+  alias: Haustür geöffnet
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.nuki_haustur_door_open
+    from: 'off'
+    to: 'on'
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      message: clear_notification
+      data:
+        tag: lennart_home
+    alias: Benachrichtigung löschen
+    action: notify.mobile_app_pixel_7
+  - action: script.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: script.buro_status_blau_rotation
+    enabled: false
+  mode: single
+- id: '1696340292073'
+  alias: Wake On Lan Reset
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.computer_wake_on_lan_wired
+    from: 'off'
+    to: 'on'
+    id: buero
+  - platform: state
+    entity_id:
+    - switch.werkstatt_wake_on_lan_wired
+    from: 'off'
+    to: 'on'
+    id: werkstatt
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - buero
+    then:
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 2
+        milliseconds: 0
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.computer_wake_on_lan_wired
+  - if:
+    - condition: trigger
+      id:
+      - werkstatt
+    then:
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 2
+        milliseconds: 0
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id:
+        - switch.werkstatt_wake_on_lan_wired
+  mode: single
+- id: '1696617272497'
+  alias: Meldung Laser fertig
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.laser
+    from: 'on'
+    to: 'off'
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      message: Laser fertig um {{ states("sensor.time") }}
+      title: Laser
+    action: notify.mobile_app_pixel_7
+  - if:
+    - condition: state
+      entity_id: schedule.silent_house
+      state: 'off'
+    then:
+    - data:
+        target: media_player.echo_show
+        data:
+          type: tts
+        message: Der Laser ist fertig
+      action: notify.alexa_media
+  mode: single
+- id: '1699015148782'
+  alias: ToDo erstellen
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.senec_system_state_name
+    to: Unbekannt-Status
+    id: Unbekannt-Status
+  condition: []
+  action:
+  - alias: Unbekannter Senec Status mapping
+    if:
+    - condition: trigger
+      id:
+      - Unbekannt-Status
+    then:
+    - service: todo.add_item
+      data:
+        item: Senec Status >{{ states("sensor.senec_system_state") }}< muss gemapped
+          werden
+      target:
+        entity_id: todo.to_do_homeassistant
+  mode: single
+- id: '1700739799566'
+  alias: Laser Status Licht
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.laser
+    from: 'off'
+    to: 'on'
+    id: start
+    trigger: state
+  - entity_id:
+    - binary_sensor.laser
+    from: 'on'
+    to: 'off'
+    id: stop
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Start
+    if:
+    - condition: trigger
+      id:
+      - start
+    then:
+    - data:
+        scene_id: temp_automation
+        snapshot_entities:
+        - select.laserpowercontroller_voreinstellung
+      alias: temp_automation Szene updaten
+      action: scene.create
+    - data:
+        option: Laser läuft
+      target:
+        entity_id: select.laserpowercontroller_voreinstellung
+      action: select.select_option
+  - alias: Stop
+    if:
+    - condition: trigger
+      id:
+      - stop
+    then:
+    - data:
+        option: Warm
+      target:
+        entity_id: select.laserpowercontroller_voreinstellung
+      action: select.select_option
+  mode: single
+- id: '1701285944552'
+  alias: NSPanel Werkstatt Konfiguration
+  description: ''
+  use_blueprint:
+    path: Blackymas/nspanel_blueprint.yaml
+    input:
+      nspanel_name: dbe9ad836d16d1cd148a094bf8161ccf
+      language: de
+      weather_entity: weather.iserlohn
+      outdoortemp: sensor.ausenthermostat_temperature
+      relay_1_local_fallback: true
+      left_button_entity: switch.nspanelworkshop_relay_1
+      right_button_entity: input_boolean.werkstatt_werkbanke
+      right_button_name: Werkbänke
+      left_button_name: Deckenlicht
+      home_value01: sensor.werkstatt_leistung
+      home_value01_icon: mdi:tools
+      home_value01_icon_color:
+      - 87
+      - 120
+      - 255
+      home_value02: sensor.3d_drucker_leistung_offset
+      home_value02_icon: mdi:printer-3d-nozzle
+      home_value02_icon_color:
+      - 0
+      - 255
+      - 0
+      chip01: switch.laser_master
+      chip01_icon: mdi:alert
+      chip_font_size: '8'
+      chip01_icon_color:
+      - 255
+      - 0
+      - 0
+      home_custom_button01: switch.werkstatt_wake_on_lan_wired
+      home_custom_button01_icon: mdi:desktop-tower
+      climate: climate.heizkorperthermostat_werkstatt
+      button_page01_label: Licht
+      entity01: light.werkstatt_werkbank
+      entity01_name: Werkbank
+      entity02: light.werkstatt_hangeschrank
+      entity02_name: Hängeschrank
+      entity03: light.laser_schrankbeleuchtung_switch
+      entity03_name: Laser Schrank
+      entity04: light.werkstatt_schreibtisch
+      entity04_name: Schreibtisch
+      entity05: light.led_lennarts_werkstatt_schalter
+      entity05_name: LED Schild
+      button_page02_label: Geräte
+      entity09: switch.laser_master
+      entity09_name: Laser
+      entity09_icon: mdi:alert
+      entity09_confirm: true
+      entity10: switch.3d_drucker
+      entity10_name: SLA
+      entity10_confirm: true
+      entity11: switch.resin_drucker
+      entity11_icon: ''
+      entity11_name: Resin
+      entity11_confirm: true
+      entity12: switch.bosch_ladegeraet
+      entity12_name: Bosch Ladegerät
+      entity12_confirm: false
+      entity06: light.laser
+      entity06_name: Laser
+      entity07: light.govee_lightstrip_werkstatt
+      entity07_name: Govee
+      chip02_icon: mdi:printer-3d-nozzle
+      chip02: switch.3d_drucker
+      chip03: switch.resin_drucker
+      chip02_icon_color:
+      - 31
+      - 255
+      - 34
+      chip03_icon: ''
+      chip04: switch.bosch_ladegeraet
+      chip04_icon_color:
+      - 24
+      - 62
+      - 251
+      indoortemp: sensor.heizkorperthermostat_werkstatt_temperature
+      delay: 96
+      left_button_hold_select: Default
+      entity13: switch.werkstattpi_steckdose_switch
+      entity13_name: RasPi
+      entity13_confirm: true
+      entity05_icon: mdi:sign-text
+      home_value03: sensor.laser_leistung_offset
+      home_value03_icon: mdi:laser-pointer
+      home_value03_label_color:
+      - 255
+      - 255
+      - 255
+      home_value01_label_color:
+      - 255
+      - 255
+      - 255
+      home_value02_label_color:
+      - 255
+      - 255
+      - 255
+      home_value03_icon_color:
+      - 255
+      - 31
+      - 31
+      entity12_icon: ''
+      entity14: switch.creality_k1_max_socket
+      entity14_name: K1 Max
+      entity14_confirm: true
+      entity15: switch.filamenttrockner_socket
+      entity15_name: Filamenttrockner
+- id: '1702803432445'
+  alias: Schalter Badezimmer
+  description: ''
+  trigger:
+  - device_id: 9d3106c8bcd00bdff6f0146e2b038dc2
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 3
+    unique_id: 6ddb452f-c1f4-4b62-82a4-82201d121acc
+    id: oben-rechts
+  - device_id: 9d3106c8bcd00bdff6f0146e2b038dc2
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 1
+    unique_id: 00e86a0c-c918-443f-b2ed-e11b6ec26d1b
+    id: oben-links
+  - device_id: 9d3106c8bcd00bdff6f0146e2b038dc2
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 2
+    unique_id: 8d5c19d7-8438-4513-b603-4de165a3f925
+    id: unten-links
+  - device_id: 9d3106c8bcd00bdff6f0146e2b038dc2
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 4
+    unique_id: abce9a8a-ab83-4d91-8fb6-b4126b0785a4
+    id: unten-rechts
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - oben-rechts
+    then:
+    - service: light.toggle
+      target:
+        entity_id: light.spots_bad
+      data: {}
+    alias: Oben Rechts
+  - alias: Oben Links
+    if:
+    - condition: trigger
+      id:
+      - oben-links
+    then:
+    - alias: Tag -> Nacht / Nacht -> Tag
+      if:
+      - condition: state
+        entity_id: input_select.lichtmodus_bad
+        state: Auto - Tag
+      then:
+      - service: input_select.select_option
+        target:
+          entity_id: input_select.lichtmodus_bad
+        data:
+          option: Auto - Nacht
+      - service: scene.turn_on
+        target:
+          entity_id: scene.badezimmer_nachtlicht
+        metadata: {}
+      else:
+      - alias: Nacht -> Tag
+        if:
+        - condition: state
+          entity_id: input_select.lichtmodus_bad
+          state: Auto - Nacht
+        then:
+        - service: input_select.select_option
+          target:
+            entity_id: input_select.lichtmodus_bad
+          data:
+            option: Auto - Tag
+        - service: scene.turn_on
+          target:
+            entity_id: scene.badezimmer_hell
+          metadata: {}
+  - alias: Unten Links
+    if:
+    - condition: trigger
+      id:
+      - unten-links
+    then:
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.spots_bad
+        device_id: []
+        area_id: []
+      data: {}
+  - alias: Unten Rechts
+    if:
+    - condition: trigger
+      id:
+      - unten-rechts
+    then:
+    - service: light.toggle
+      target:
+        entity_id: light.spiegelschrank_light
+      data: {}
+  mode: single
+- id: '1702815340988'
+  alias: Badezimmer - Bewegung - Licht
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.bewegung_badezimmer
+    to: 'on'
+    id: an
+    trigger: state
+  - entity_id:
+    - binary_sensor.bewegung_badezimmer
+    to: 'off'
+    id: aus1min
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    trigger: state
+  - entity_id:
+    - binary_sensor.bewegung_badezimmer
+    to: 'off'
+    id: aus10min
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.lichtmodus_bad
+        state: Auto - Nacht
+      - condition: trigger
+        id:
+        - an
+    then:
+    - target:
+        entity_id: scene.badezimmer_nachtlicht
+      metadata: {}
+      action: scene.turn_on
+    alias: An - Nacht
+  - if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.lichtmodus_bad
+        state: Auto - Tag
+      - condition: trigger
+        id:
+        - an
+    then:
+    - target:
+        entity_id: scene.badezimmer_hell
+      metadata: {}
+      action: scene.turn_on
+    alias: An - Tag
+  - alias: Aus 1min
+    if:
+    - condition: and
+      conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_select.lichtmodus_bad
+          state: Auto - Tag
+        - condition: state
+          entity_id: input_select.lichtmodus_bad
+          state: Auto - Nacht
+      - condition: trigger
+        id:
+        - aus1min
+      - condition: numeric_state
+        entity_id: sensor.sensor_dusche_luftfeuchtigkeit
+        below: 90
+    then:
+    - target:
+        entity_id: light.spots_bad
+      data: {}
+      action: light.turn_off
+  - alias: Aus 10min
+    if:
+    - condition: and
+      conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_select.lichtmodus_bad
+          state: Auto - Tag
+        - condition: state
+          entity_id: input_select.lichtmodus_bad
+          state: Auto - Nacht
+      - condition: trigger
+        id:
+        - aus10min
+    then:
+    - target:
+        entity_id: light.spots_bad
+      data: {}
+      action: light.turn_off
+  mode: single
+- id: '1702816083233'
+  alias: Flur - Bewegung - Licht
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bewegung_flur
+    to: 'on'
+    id: an
+  - platform: state
+    entity_id:
+    - binary_sensor.bewegung_flur
+    to: 'off'
+    id: aus
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - alias: An - Nacht
+    if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.lichtmodus_flur
+        state: Auto - Nacht
+      - condition: trigger
+        id:
+        - an
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.flur_nachtlicht_2
+      metadata: {}
+  - alias: An - Tag
+    if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.lichtmodus_flur
+        state: Auto - Tag
+      - condition: trigger
+        id:
+        - an
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.flur_hell_2
+      metadata: {}
+  - alias: Aus
+    if:
+    - condition: and
+      conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_select.lichtmodus_flur
+          state: Auto - Tag
+        - condition: state
+          entity_id: input_select.lichtmodus_flur
+          state: Auto - Nacht
+      - condition: trigger
+        id:
+        - aus
+    then:
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.spots_flur
+        - light.pendelleuchte
+      data: {}
+  mode: single
+- id: '1702816323602'
+  alias: Lichtmodus
+  description: ''
+  triggers:
+  - at: 06:00:00
+    id: 06:00
+    trigger: time
+  - at: 06:30:00
+    id: 06:30
+    trigger: time
+  - at: 07:00:00
+    id: 07:00
+    trigger: time
+  - at: 07:30:00
+    id: 07:30
+    trigger: time
+  - at: 08:30:00
+    id: 08:30
+    trigger: time
+  - at: 09:30:00
+    id: 09:30
+    trigger: time
+  - at: '20:30:00'
+    id: '20:30'
+    trigger: time
+  - at: '21:00:00'
+    id: '21:00'
+    trigger: time
+  - entity_id:
+    - input_select.lichtmodus_flur
+    id: flur-change
+    from:
+    trigger: state
+  - entity_id:
+    - input_select.lichtmodus_bad
+    from:
+    id: bad-change
+    trigger: state
+  - entity_id:
+    - input_select.lichtmodus_kuche
+    from:
+    id: kueche-change
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Wochentags - Bad/Küche - Tag
+    if:
+    - condition: and
+      conditions:
+      - condition: trigger
+        id:
+        - 06:00
+        - 08:30
+        - 07:00
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        alias: Wochentags
+    then:
+    - target:
+        entity_id:
+        - input_select.lichtmodus_bad
+        - input_select.lichtmodus_kuche
+      data:
+        option: Auto - Tag
+      action: input_select.select_option
+  - alias: Wochenende - Bad/Küche - Tag
+    if:
+    - condition: and
+      conditions:
+      - condition: trigger
+        id:
+        - 09:30
+        - 08:30
+      - alias: Wochenende
+        condition: time
+        weekday:
+        - sat
+        - sun
+    then:
+    - target:
+        entity_id:
+        - input_select.lichtmodus_flur
+        - input_select.lichtmodus_bad
+      data:
+        option: Auto - Tag
+      action: input_select.select_option
+  - alias: Wochentags - Flur - Tag
+    if:
+    - condition: and
+      conditions:
+      - condition: trigger
+        id:
+        - 07:00
+        - 08:30
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        alias: Wochentags
+    then:
+    - target:
+        entity_id:
+        - input_select.lichtmodus_flur
+      data:
+        option: Auto - Tag
+      action: input_select.select_option
+  - alias: Wochenende - Flur - Tag
+    if:
+    - condition: and
+      conditions:
+      - condition: trigger
+        id:
+        - 09:30
+        - 08:30
+      - alias: Wochenende
+        condition: time
+        weekday:
+        - sat
+        - sun
+    then:
+    - data:
+        option: Auto - Tag
+      target:
+        entity_id: input_select.lichtmodus_flur
+      action: input_select.select_option
+  - alias: Nacht
+    if:
+    - condition: trigger
+      id:
+      - '21:00'
+      - '20:30'
+    then:
+    - data:
+        option: Auto - Nacht
+      target:
+        entity_id:
+        - input_select.lichtmodus_flur
+        - input_select.lichtmodus_bad
+        - input_select.lichtmodus_kuche
+      action: input_select.select_option
+  - alias: Flur - Modus Change
+    if:
+    - condition: state
+      entity_id: light.spots_flur
+      state: 'on'
+    - condition: trigger
+      id:
+      - flur-change
+    then:
+    - if:
+      - condition: state
+        entity_id: input_select.lichtmodus_flur
+        state: Auto - Tag
+      then:
+      - target:
+          entity_id: scene.flur_hell_2
+        metadata: {}
+        action: scene.turn_on
+      alias: Tag
+    - alias: Nacht
+      if:
+      - condition: state
+        entity_id: input_select.lichtmodus_flur
+        state: Auto - Nacht
+      then:
+      - target:
+          entity_id: scene.flur_nachtlicht_2
+        metadata: {}
+        action: scene.turn_on
+  - alias: Bad - Modus Change
+    if:
+    - condition: state
+      entity_id: light.spots_bad
+      state: 'on'
+    - condition: trigger
+      id:
+      - bad-change
+    then:
+    - alias: Tag
+      if:
+      - condition: state
+        entity_id: input_select.lichtmodus_bad
+        state: Auto - Tag
+      then:
+      - target:
+          entity_id: scene.badezimmer_hell
+        metadata: {}
+        action: scene.turn_on
+    - alias: Nacht
+      if:
+      - condition: state
+        entity_id: input_select.lichtmodus_bad
+        state: Auto - Nacht
+      then:
+      - target:
+          entity_id: scene.badezimmer_nachtlicht
+        metadata: {}
+        action: scene.turn_on
+  - alias: Küche - Modus Change
+    if:
+    - condition: state
+      entity_id: light.wled_kueche
+      state: 'on'
+    - condition: trigger
+      id:
+      - kueche-change
+    then:
+    - alias: Tag
+      if:
+      - condition: state
+        entity_id: input_select.lichtmodus_kuche
+        state: Auto - Tag
+      then:
+      - device_id: 18c5f6119a9c56cd2040a60a4ef95ad9
+        domain: select
+        entity_id: select.wled_kueche_preset
+        type: select_option
+        option: Tag
+    - alias: Nacht
+      if:
+      - condition: state
+        entity_id: input_select.lichtmodus_kuche
+        state: Auto - Nacht
+      then:
+      - device_id: 18c5f6119a9c56cd2040a60a4ef95ad9
+        domain: select
+        entity_id: select.wled_kueche_preset
+        type: select_option
+        option: Nacht
+  mode: single
+- id: '1702820766717'
+  alias: Schalter Wohnzimmer
+  description: ''
+  trigger:
+  - device_id: c368261a87b99b65116d8f8bb6277fc0
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 3
+    unique_id: f9e3ac47-1462-4f4b-8b89-078282faaa68
+    id: oben-rechts
+  - device_id: c368261a87b99b65116d8f8bb6277fc0
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 1
+    unique_id: e0cb9102-b919-4654-85eb-879807ef48b2
+    id: oben-links
+  - device_id: c368261a87b99b65116d8f8bb6277fc0
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 2
+    unique_id: 34f8417c-cf60-46cf-a071-8f443769c321
+    id: unten-links
+  - device_id: c368261a87b99b65116d8f8bb6277fc0
+    domain: hue
+    platform: device
+    type: short_release
+    subtype: 4
+    unique_id: 05c8ee77-290b-4a2f-a4a3-64a1b7848885
+    id: unten-rechts
+  condition: []
+  action:
+  - alias: Oben Rechts
+    if:
+    - condition: trigger
+      id:
+      - oben-rechts
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.tv
+      metadata: {}
+  - alias: Oben Links
+    if:
+    - condition: trigger
+      id:
+      - oben-links
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.wohnzimmer_normal
+      metadata: {}
+  - alias: Unten Links
+    if:
+    - condition: trigger
+      id:
+      - unten-links
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.gemutlich
+      metadata: {}
+  - alias: Unten Rechts
+    if:
+    - condition: trigger
+      id:
+      - unten-rechts
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.alles_aus
+      metadata: {}
+  mode: single
+- id: '1702821100541'
+  alias: Heizung - Abwesenheit
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.trigger_eco
+    to: 'on'
+    from: 'off'
+    id: an
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - an
+    then:
+    - service: homematicip_local.enable_away_mode_by_calendar
+      target:
+        entity_id:
+        - climate.heizkorperthermostat_badezimmer
+        - climate.heizkorperthermostat_buro
+        - climate.heizkorperthermostat_emil
+        - climate.heizkorperthermostat_flur
+        - climate.heizkorperthermostat_kuche
+        - climate.heizkorperthermostat_matilda
+        - climate.heizkorperthermostat_schlafzimmer
+        - climate.heizkorperthermostat_waschkuche
+        - climate.heizkorperthermostat_werkstatt
+        - climate.heizkorperthermostat_wohnzimmer
+        - climate.wandthermostat_badezimmer
+        - climate.wandthermostat_buero
+        - climate.wandthermostat_emil
+        - climate.wandthermostat_kueche
+        - climate.wandthermostat_matilda
+        - climate.wandthermostat_schlafzimmer
+        - climate.wandthermostat_wohnzimmer
+      data:
+        away_temperature: 15
+        end: input_datetime.awaymode_datum
+  mode: single
+- id: '1702821675228'
+  alias: Heizung - Zählerstand
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.lumi_lumi_sensor_magnet_aq2_opening
+    from: 'on'
+    to: 'off'
+    id: impuls
+  - platform: state
+    entity_id:
+    - input_text.gaszahler_input
+    id: manuell
+  condition: []
+  action:
+  - alias: Impuls
+    if:
+    - condition: trigger
+      id:
+      - impuls
+    then:
+    - service: input_text.set_value
+      target:
+        entity_id: input_text.gaszahler_input
+      data:
+        value: '{{ states(''input_number.gaszahler'') }}'
+      enabled: false
+    - service: input_number.increment
+      target:
+        entity_id: input_number.gaszahler
+      data: {}
+  - alias: Manuell
+    if:
+    - condition: trigger
+      id:
+      - manuell
+    then:
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.gaszahler
+      data:
+        value: '{{ states(''input_text.gaszahler_input'') }}'
+  mode: single
+- id: '1702838290152'
+  alias: Bosch Ladevorgang
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.bosch_ladegeraet
+    id: an
+    to: 'on'
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    trigger: state
+  - entity_id:
+    - switch.bosch_ladegeraet
+    id: aus
+    to: 'off'
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    trigger: state
+  - entity_id:
+    - sensor.ladegerat_leistung
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    below: 20
+    id: leistung_unter_20
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - an
+    then:
+    - target:
+        entity_id: input_boolean.ladevorgang
+      data: {}
+      action: input_boolean.turn_on
+    alias: Einschalten
+  - alias: Ausschalten
+    if:
+    - condition: trigger
+      id:
+      - aus
+    then:
+    - target:
+        entity_id: input_boolean.ladevorgang
+      data: {}
+      action: input_boolean.turn_off
+  - alias: Laden fertig
+    if:
+    - condition: trigger
+      id:
+      - leistung_unter_20
+    - condition: device
+      type: is_on
+      device_id: 49e4b8b0cbe5df50438caf229fa48a7d
+      entity_id: d03914a1b514c1c21d10b691b9ecca8c
+      domain: switch
+    then:
+    - type: turn_off
+      device_id: 49e4b8b0cbe5df50438caf229fa48a7d
+      entity_id: d03914a1b514c1c21d10b691b9ecca8c
+      domain: switch
+    - if:
+      - condition: state
+        entity_id: schedule.silent_house
+        state: 'off'
+      then:
+      - alias: Meldung Echo Show
+        data:
+          message: Der Ladevorgang des Akku in der Werkstatt ist abgeschlossen
+          title: Werkstatt
+          data:
+            type: tts
+        action: notify.alexa_media_echo_show
+  mode: single
+- id: '1702841590925'
+  alias: Deebot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - vacuum.deebot_ozmo_t8
+    to: cleaning
+    from: docked
+  condition: []
+  action:
+  - service: input_datetime.set_datetime
+    data:
+      timestamp: '{{ now().timestamp() }}'
+    target:
+      entity_id: input_datetime.deebot_letzte_reinigung
+  mode: single
+- id: '1702842536572'
+  alias: Maximalleistung
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.senec_house_power
+    id: Haus
+    above: input_number.maximalleistunghaus
+  - platform: numeric_state
+    entity_id:
+    - sensor.senec_solar_generated_power
+    id: Solar
+    above: input_number.maximalleistungsolar
+  condition: []
+  action:
+  - alias: Solar
+    if:
+    - condition: trigger
+      id:
+      - Solar
+    then:
+    - service: input_datetime.set_datetime
+      data:
+        timestamp: '{{ now().timestamp() }}'
+      target:
+        entity_id: input_datetime.maximalleistung_solar
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.maximalleistungsolar
+      data:
+        value: '{{ states(''sensor.senec_solar_generated_power'') }}'
+    - service: notify.mobile_app_pixel_7
+      data:
+        message: Neue Maximalleistug Sola von {{ states("sensor.senec_solar_generated_power")
+          }} W
+        title: Maximalleistung Solar
+  - alias: Haus
+    if:
+    - condition: trigger
+      id:
+      - Haus
+    then:
+    - service: input_datetime.set_datetime
+      data:
+        timestamp: '{{ now().timestamp() }}'
+      target:
+        entity_id: input_datetime.maximalleistung_haus
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.maximalleistunghaus
+      data:
+        value: '{{ states(''sensor.senec_house_power'') }}'
+    - service: notify.mobile_app_pixel_7
+      data:
+        message: Neue Maximalleistug Haus von {{ states("sensor.senec_house_power")
+          }} W
+        title: Maximalleistung Haus
+  mode: single
+- id: '1703673596337'
+  alias: TTS
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_text.tts_wohnzimmer
+    to:
+    id: wohnzimmer
+  - platform: state
+    entity_id:
+    - input_text.tts_emil
+    to:
+    id: emil
+  - platform: state
+    entity_id:
+    - input_text.tts_matilda
+    to:
+    id: matilda
+  - platform: state
+    entity_id:
+    - input_text.tts_buro
+    to:
+    id: buro
+  - platform: state
+    entity_id:
+    - input_text.tts_uberall
+    to:
+    id: ueberall
+  - platform: state
+    entity_id:
+    - input_text.tts_kuche
+    to:
+    id: kuche
+  - platform: state
+    entity_id:
+    - input_text.tts_werkstatt
+    to:
+    id: werkstatt
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - wohnzimmer
+      - wohnzimmer state
+    then:
+    - service: notify.alexa_media_echo_show
+      data:
+        message: '{{ states(''input_text.tts_wohnzimmer'') }}'
+    - service: input_text.set_value
+      target:
+        entity_id: input_text.tts_wohnzimmer
+      data:
+        value: ''
+    alias: Wohnzimmer
+  - alias: Emil
+    if:
+    - condition: trigger
+      id:
+      - emil
+    then:
+    - service: notify.alexa_media_echo_dot_emil
+      data:
+        message: '{{ states(''input_text.tts_emil'') }}'
+    - service: input_text.set_value
+      target:
+        entity_id:
+        - input_text.tts_emil
+      data:
+        value: ''
+  - alias: Matilda
+    if:
+    - condition: trigger
+      id:
+      - matilda
+    then:
+    - service: notify.alexa_media_echo_dot_matilda
+      data:
+        message: '{{ states(''input_text.tts_matilda'') }}'
+    - service: input_text.set_value
+      target:
+        entity_id:
+        - input_text.tts_matilda
+      data:
+        value: ''
+  - alias: Büro
+    if:
+    - condition: trigger
+      id:
+      - buro
+    then:
+    - service: notify.alexa_media_echo_dot_buro
+      data:
+        message: '{{ states(''input_text.tts_buro'') }}'
+    - service: input_text.set_value
+      target:
+        entity_id:
+        - input_text.tts_buro
+      data:
+        value: ''
+  - alias: Überall
+    if:
+    - condition: trigger
+      id:
+      - ueberall
+    then:
+    - service: script.notify_alexa
+      data:
+        devices:
+        - b125ba08175d1b0557b45ee427dd177d
+        - bf7795ce308da456e7efac63adbdb1ee
+        - e4237a886370b1697a409a4a44726857
+        - 68cad591d467dc539da1f31f7fa8cb7b
+        - 2c1c65c2604160bf8dc6c5f3b983100f
+        - 259c4c0ff7a2651a71be59c400bea9cf
+        message: '{{ states(''input_text.tts_uberall'') }}'
+        type: tts
+    - service: input_text.set_value
+      target:
+        entity_id:
+        - input_text.tts_uberall
+      data:
+        value: ''
+  - alias: Küche
+    if:
+    - condition: trigger
+      id:
+      - kuche
+    then:
+    - service: script.notify_alexa
+      data:
+        devices:
+        - 259c4c0ff7a2651a71be59c400bea9cf
+        message: '{{ states(''input_text.tts_kuche'') }}'
+        type: tts
+    - service: input_text.set_value
+      target:
+        entity_id:
+        - input_text.tts_kuche
+      data:
+        value: ''
+  - alias: Werkstatt
+    if:
+    - condition: trigger
+      id:
+      - werkstatt
+    then:
+    - service: script.notify_alexa
+      data:
+        devices:
+        - 2c1c65c2604160bf8dc6c5f3b983100f
+        message: '{{ states(''input_text.tts_werkstatt'') }}'
+        type: tts
+    - service: input_text.set_value
+      target:
+        entity_id:
+        - input_text.tts_werkstatt
+      data:
+        value: ''
+  mode: single
+- id: '1703842568057'
+  alias: Müllabholung
+  description: ''
+  trigger:
+  - alias: Start 6h vorher
+    platform: calendar
+    event: start
+    offset: '-6:0:0'
+    entity_id: calendar.ha_mull
+    id: start-6h-vorher
+  - platform: calendar
+    event: start
+    offset: 0:0:0
+    entity_id: calendar.ha_mull
+    id: start
+    alias: Start
+  - platform: calendar
+    event: end
+    offset: 0:0:0
+    entity_id: calendar.ha_mull
+    id: ende
+    alias: Ende
+  - alias: Start 1h vorher
+    platform: calendar
+    event: start
+    offset: '-1:0:0'
+    entity_id: calendar.ha_mull
+    id: start-1h-vorher
+  condition: []
+  action:
+  - alias: Blaue Tonne Morgen
+    if:
+    - condition: template
+      value_template: '{{ ''Blaue Tonne'' in trigger.calendar_event.summary }}'
+    - condition: trigger
+      id:
+      - start-6h-vorher
+    then:
+    - service: persistent_notification.create
+      data:
+        message: Blaue Tonne wird morgen abgeholt
+        title: Müllabholung
+    - service: notify.mobile_app_pixel_7
+      data:
+        title: Müllabholung
+        message: Die Blaue Tonne wird morgen abgeholt
+    - service: notify.mobile_app_sm_a528b
+      data:
+        message: Die Blaue Tonne wird morgen abgeholt
+        title: Müllabholung
+  mode: single
+- id: '1704107423149'
+  alias: Spülmaschine
+  description: Spülmaschine, Waschmaschine, Trockner
+  triggers:
+  - entity_id:
+    - sensor.geschirrspuler_operation_state
+    from: run
+    to: finished
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    id: spuelmaschine
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Spülmaschine
+    if:
+    - condition: trigger
+      id:
+      - spuelmaschine
+    - condition: state
+      entity_id: schedule.silent_house
+      state: 'off'
+    then:
+    - data:
+        devices:
+        - b125ba08175d1b0557b45ee427dd177d
+        message: Die Spülmaschine ist fertig
+        type: tts
+        title: Küche
+      action: script.notify_alexa
+  mode: single
+- id: '1704115544380'
+  alias: Trockner
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.steckdose_trockner_power
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    above: 100
+    id: trockner_start
+  - platform: numeric_state
+    entity_id:
+    - sensor.steckdose_trockner_power
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: trockner_stop
+    below: 100
+  - platform: numeric_state
+    entity_id:
+    - sensor.steckdose_trockner_power
+    for:
+      hours: 2
+      minutes: 0
+      seconds: 0
+    id: trockner_stop_lang
+    below: 100
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - trockner_start
+    then:
+    - if:
+      - condition: state
+        entity_id: input_boolean.trocknungsvorgang
+        state: 'off'
+      then:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.trocknungsvorgang
+        data: {}
+    alias: Status - An
+  - alias: Status - Aus
+    if:
+    - condition: trigger
+      id:
+      - trockner_stop
+    - condition: state
+      entity_id: binary_sensor.trockner_status
+      state: 'on'
+    then:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.trocknungsvorgang
+      data: {}
+    - service: script.notify_alexa
+      data:
+        devices:
+        - b125ba08175d1b0557b45ee427dd177d
+        title: Trockner
+        message: Der Trockner ist fertig
+        type: tts
+    - service: notify.persistent_notification
+      data:
+        message: Der Trockner ist fertig
+        title: Trockner
+        data:
+          notification_id: Trockner
+  - if:
+    - condition: trigger
+      id:
+      - trockner_stop_lang
+    then:
+    - service: persistent_notification.dismiss
+      data:
+        notification_id: Trockner
+    alias: Status - Aus lang - Notification löschen
+  mode: parallel
+  max: 10
+- id: '1704116920144'
+  alias: Waschmaschine
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.waschmaschine_energy_power
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    above: 10
+    id: waschmaschine_start
+    trigger: numeric_state
+  - entity_id:
+    - sensor.waschmaschine_energy_power
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: waschmaschine_stop
+    below: 10
+    trigger: numeric_state
+  - entity_id:
+    - sensor.waschmaschine_energy_power
+    for:
+      hours: 2
+      minutes: 0
+      seconds: 0
+    id: waschmaschine_stop_lang
+    below: 10
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - alias: Status - An
+    if:
+    - condition: trigger
+      id:
+      - waschmaschine_start
+    then:
+    - if:
+      - condition: state
+        entity_id: input_boolean.waschvorgang
+        state: 'off'
+      then:
+      - target:
+          entity_id:
+          - input_boolean.waschvorgang
+        data: {}
+        action: input_boolean.turn_on
+  - alias: Status - Aus
+    if:
+    - condition: trigger
+      id:
+      - waschmaschine_stop
+    - condition: state
+      entity_id: input_boolean.waschvorgang
+      state: 'on'
+    then:
+    - target:
+        entity_id:
+        - input_boolean.waschvorgang
+      data: {}
+      action: input_boolean.turn_off
+    - data:
+        devices:
+        - b125ba08175d1b0557b45ee427dd177d
+        title: Waschmaschine
+        message: Die Waschmaschine ist fertig
+        type: tts
+      action: script.notify_alexa
+    - data:
+        message: Die Waschmaschine ist fertig
+        title: Waschmaschine
+        data:
+          notification_id: Waschmaschine
+      action: notify.persistent_notification
+  - alias: Status - Aus lang - Notification löschen
+    if:
+    - condition: trigger
+      id:
+      - waschmaschine_stop_lang
+    then:
+    - data:
+        notification_id: Waschmaschine
+      action: persistent_notification.dismiss
+  mode: parallel
+  max: 10
+- id: '1706170730484'
+  alias: Echo Nachtabschaltung Emil und Matilda
+  description: ''
+  trigger:
+  - platform: device
+    device_id: bf7795ce308da456e7efac63adbdb1ee
+    domain: media_player
+    entity_id: 0d6af0dc50bc26d322db0491b53d99e5
+    type: playing
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    id: Emil1h
+    alias: Emil 1h
+  - alias: Matilda 1h
+    platform: device
+    device_id: 68cad591d467dc539da1f31f7fa8cb7b
+    domain: media_player
+    entity_id: 1f422fe0d2ebe7ddf1034a2d4f0f23c8
+    type: playing
+    id: Matilda1h
+    for:
+      hours: 1
+      minutes: 30
+      seconds: 0
+  - alias: Emil 30m
+    platform: device
+    device_id: bf7795ce308da456e7efac63adbdb1ee
+    domain: media_player
+    entity_id: 0d6af0dc50bc26d322db0491b53d99e5
+    type: playing
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    id: Emil30m
+  - alias: Matilda 30m
+    platform: device
+    device_id: 68cad591d467dc539da1f31f7fa8cb7b
+    domain: media_player
+    entity_id: 1f422fe0d2ebe7ddf1034a2d4f0f23c8
+    type: playing
+    id: Matilda30m
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  condition: []
+  action:
+  - alias: Emil 1h
+    if:
+    - condition: time
+      after: '20:00:00'
+      before: '23:45:00'
+    - condition: trigger
+      id:
+      - Emil1h
+    then:
+    - service: media_player.media_pause
+      metadata: {}
+      data: {}
+      target:
+        device_id: bf7795ce308da456e7efac63adbdb1ee
+  - alias: Matilda 1h
+    if:
+    - condition: time
+      after: '20:00:00'
+      before: '23:45:00'
+    - condition: trigger
+      id:
+      - Matilda1h
+    then:
+    - service: media_player.media_pause
+      metadata: {}
+      data: {}
+      target:
+        device_id:
+        - 68cad591d467dc539da1f31f7fa8cb7b
+  - alias: Emil 30m
+    if:
+    - condition: time
+      after: '23:00:00'
+      before: 06:00:00
+    - condition: trigger
+      id:
+      - Emil30m
+    then:
+    - service: media_player.media_pause
+      metadata: {}
+      data: {}
+      target:
+        device_id: bf7795ce308da456e7efac63adbdb1ee
+  - alias: Matilda 30m
+    if:
+    - condition: time
+      after: '23:00:00'
+      before: 06:00:00
+    - condition: trigger
+      id:
+      - Matilda30m
+    then:
+    - service: media_player.media_pause
+      metadata: {}
+      data: {}
+      target:
+        device_id:
+        - 68cad591d467dc539da1f31f7fa8cb7b
+  mode: parallel
+  max: 4
+- id: '1707059276173'
+  alias: Lautstärke Echo Dot Emil
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.echo_dot_emil
+    attribute: volume_level
+  condition:
+  - condition: numeric_state
+    entity_id: media_player.echo_dot_emil
+    above: 0.4
+    attribute: volume_level
+  action:
+  - data:
+      volume_level: 0.4
+    target:
+      device_id:
+      - bf7795ce308da456e7efac63adbdb1ee
+    action: media_player.volume_set
+  - data:
+      message: Mach den Echo nicht so laut Emil
+    action: notify.alexa_media_echo_dot_emil
+  mode: single
+- id: '1710860528102'
+  alias: Sprachbefehle
+  description: ''
+  trigger:
+  - platform: conversation
+    command: Popel
+    id: Popel
+  - platform: conversation
+    command: Furz
+    id: Furz
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - Popel
+    then:
+    - type: toggle
+      device_id: dcdc8e07e538930a8a6d154c145de239
+      entity_id: 90bd9934b63197c50508ab2350d18458
+      domain: light
+    - set_conversation_response: Das habe ich gemacht
+  - if:
+    - condition: trigger
+      id:
+      - Furz
+    then:
+    - set_conversation_response: Emil hat gefurzt
+  mode: single
+- id: '1713643257932'
+  alias: Nuki Batterie Warnung
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.nuki_haustur_battery
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    below: 30
+  - platform: state
+    entity_id:
+    - binary_sensor.nuki_haustur_battery_critical
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_7
+    metadata: {}
+    data:
+      message: Nuki Akku laden!
+  mode: single
+- id: '1715277902344'
+  alias: Fahrzeit Anzeige
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:30:00
+    id: An
+  - platform: time
+    at: 09:30:00
+    id: Aus
+  - platform: time
+    at: '19:30:00'
+    id: Aus
+  - platform: time
+    at: '15:30:00'
+    id: An
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - An
+    then:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.fahrzeitanzeige
+      data: {}
+  mode: single
+- id: '1720511549243'
+  alias: Data Purge
+  description: ''
+  triggers:
+  - at: '22:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - alias: Purge 2 Tage
+    metadata: {}
+    data:
+      keep_days: 2
+      entity_id:
+      - automation.nspanel_werkstatt_konfiguration
+      - sensor.raspberrypi_homeassistant_power
+      - light.gardine_wohnzimmer
+      - light.govee_lightstrip_werkstatt
+      - sensor.senec_battery_discharge_power
+      - light.gaming_light_bar
+      entity_globs: sensor.*_rms_voltage sensor.internetgatewaydevicev2_fritz_box_7590_*
+        sensor.fritz_box_7590_*
+    action: recorder.purge_entities
+  - alias: Purge 7 Tage
+    metadata: {}
+    data:
+      keep_days: 7
+      entity_id:
+      - sensor.computer_power_offset
+      - sensor.cpu_temperature
+      - sensor.nuki_haustur_rssi
+      - image.deebot_ozmo_t8_live_map
+      - sensor.senec_battery_charge_power
+      - sensor.werkstatt_leistung
+      - sensor.werkstatt_pc_leistung
+      - sensor.werkstatt_licht_power
+      - sensor.werkstatt_steckdosen_power
+      - automation.datenbankeintrage_delta
+      domains: media_player
+    action: recorder.purge_entities
+  - alias: Purge 14 Tage
+    metadata: {}
+    data:
+      keep_days: 14
+      entity_id:
+      - sensor.senec_grid_state_power
+      - sensor.senec_house_power
+      - sensor.senec_battery_state_power
+      - sensor.senec_grid_exported_power
+      - sensor.senec_solar_generated_power
+      - sensor.senec_grid_imported_power
+      - sensor.nspanelworkshop_temperature
+      - sensor.senec_system_state_name
+      - sensor.senec_system_state
+      - sensor.datenbankeintrage_states
+    action: recorder.purge_entities
+  - alias: Purge 21 Tage
+    metadata: {}
+    data:
+      keep_days: 21
+      domains: automation light person climate
+      entity_globs: sensor.*iserlohn*
+      entity_id:
+      - sensor.database_size
+    action: recorder.purge_entities
+  - alias: Purge 0 Tage
+    metadata: {}
+    data:
+      entity_id:
+      - sensor.computer_current
+      - sensor.senec_battery_state_current
+      - sensor.senec_webapi_battery_state_current
+      - sensor.senec_case_temp
+      - sensor.senec_webapi_case_temp
+      - sensor.computer_voltage
+      - sensor.lenovom10_fully_dashboard_free_memory
+      - sensor.senec_battery_state_voltage
+      - sensor.senec_webapi_battery_state_voltage
+      entity_globs: sensor.senec_enfluri_net_* sensor.senec_bms_*
+    action: recorder.purge_entities
+  mode: single
+- id: '1720800751145'
+  alias: Datenbankeinträge Delta
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.datenbankeintrage_states
+    attribute: value
+  condition: []
+  action:
+  - variables:
+      akt_wert: '{{ states("sensor.datenbankeintrage_states") |float(0) }}'
+      alt_wert: '{{ states("input_number.datenbankeintrage_alter_wert") |float(0)
+        }}'
+      delta: '{{akt_wert | float(0) - alt_wert | float(0)}}'
+  - service: input_number.set_value
+    metadata: {}
+    data:
+      value: '{{akt_wert}}'
+    target:
+      entity_id: input_number.datenbankeintrage_alter_wert
+  - if:
+    - condition: template
+      value_template: '{{ delta > 0 }}'
+    then:
+    - service: input_number.set_value
+      metadata: {}
+      data:
+        value: '{{delta}}'
+      target:
+        entity_id: input_number.delta_datenbankeintrage_erstellt
+    else:
+    - service: input_number.set_value
+      metadata: {}
+      data:
+        value: '{{delta * (-1)}}'
+      target:
+        entity_id: input_number.delta_datenbankeintrage_geloscht
+  mode: single
+- id: '1721405578632'
+  alias: Haustür Auto-Open
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.sensing
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: script.haustur_offnen
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1721405833815'
+  alias: Haustür Auto-Open Safety-Deactivation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - automation.haustur_auto_open
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 2
+      minutes: 0
+      seconds: 0
+  - platform: time
+    at: '20:00:00'
+  condition: []
+  action:
+  - service: automation.turn_off
+    metadata: {}
+    data:
+      stop_actions: true
+    target:
+      entity_id: automation.haustur_auto_open
+  mode: single
+- id: '1722501209250'
+  alias: Deebot Fehler Benachrichtigung
+  description: ''
+  triggers:
+  - entity_id:
+    - vacuum.deebot_ozmo_t8
+    to: error
+    trigger: state
+    from: cleaning
+  conditions:
+  - condition: state
+    entity_id: schedule.silent_house
+    state: 'off'
+  actions:
+  - metadata: {}
+    data:
+      title: Deebot
+      message: Der Deebot hat einen Fehler
+    action: notify.mobile_app_pixel_7
+  - data:
+      message: Der Deebot hat einen Fehler
+      title: Deebot
+    action: notify.mobile_app_sm_a528b
+  - metadata: {}
+    data:
+      message: Deebot hat einen Fehler
+    action: notify.alexa_media_echo_dot_buro
+  - metadata: {}
+    data:
+      message: Deebot hat einen Fehler
+    action: notify.alexa_media_echo_show
+  mode: single
+- id: '1722508769691'
+  alias: ARK Server Status Warnung
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.ark_server_center_status
+    id: center
+    to: offline
+  - platform: state
+    entity_id:
+    - sensor.ark_server_earth_status
+    id: earth
+    to: offline
+  - platform: state
+    entity_id:
+    - sensor.ark_server_island_status
+    id: island
+    to: offline
+  - platform: state
+    entity_id:
+    - sensor.ark_server_aberration_status
+    id: aberration
+    to: offline
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - island
+    then:
+    - metadata: {}
+      data:
+        title: ARK Server Island
+        message: Island Server ist offline
+      action: notify.mobile_app_pixel_7
+  - if:
+    - condition: trigger
+      id:
+      - earth
+    then:
+    - metadata: {}
+      data:
+        title: ARK Server Earth
+        message: Earth Server ist offline
+      action: notify.mobile_app_pixel_7
+  - if:
+    - condition: trigger
+      id:
+      - center
+    then:
+    - metadata: {}
+      data:
+        title: ARK Server Center
+        message: Center Server ist offline
+      action: notify.mobile_app_pixel_7
+  - if:
+    - condition: trigger
+      id:
+      - aberration
+    then:
+    - metadata: {}
+      data:
+        title: ARK Server Aberration
+        message: Aberration Server ist offline
+      action: notify.mobile_app_pixel_7
+  mode: single
+- id: '1727108362371'
+  alias: Außenleuchte vorne
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 428bdea9a51dd279151d710a11c5101f
+    entity_id: 80b1062b59f9db438dce14b05bb0e647
+    domain: binary_sensor
+    id: ein
+  - type: not_occupied
+    platform: device
+    device_id: 428bdea9a51dd279151d710a11c5101f
+    entity_id: 80b1062b59f9db438dce14b05bb0e647
+    domain: binary_sensor
+    id: aus
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - ein
+    - type: is_illuminance
+      condition: device
+      device_id: 428bdea9a51dd279151d710a11c5101f
+      entity_id: 164a9f1b7367521690770c7e9eb541bc
+      domain: sensor
+      below: 20
+    then:
+    - type: turn_on
+      device_id: a77e2cd6d8139f0da5fec0aa474a4ef5
+      entity_id: 3f44d4b32881df97a18e6710b050025c
+      domain: light
+      brightness_pct: 100
+  - if:
+    - condition: trigger
+      id:
+      - aus
+    then:
+    - type: turn_off
+      device_id: a77e2cd6d8139f0da5fec0aa474a4ef5
+      entity_id: 3f44d4b32881df97a18e6710b050025c
+      domain: light
+  mode: single
+- id: '1727364428520'
+  alias: Post
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 3aaf4363824cbc5de91390b4ecd07867
+    entity_id: 87464b3f6982cf89b6074f89adcdd95c
+    domain: binary_sensor
+    id: klappe-auf
+    trigger: device
+  - entity_id:
+    - input_boolean.post
+    from: 'on'
+    to: 'off'
+    id: post-reset
+    trigger: state
+  - trigger: state
+    entity_id:
+    - binary_sensor.briefkasten_tur_offnung
+    from: 'off'
+    to: 'on'
+    id: tuer-auf
+  conditions: []
+  actions:
+  - alias: Post
+    if:
+    - condition: trigger
+      id:
+      - klappe-auf
+    - condition: state
+      entity_id: binary_sensor.briefkasten_tur_offnung
+      state: 'off'
+      for:
+        hours: 0
+        minutes: 2
+        seconds: 0
+    then:
+    - action: input_boolean.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.post
+    - action: notify.alexa_media_echo_show
+      data:
+        message: Sie haben Post
+    - action: notify.alexa_media_echo_dot_buro
+      metadata: {}
+      data:
+        message: Sie haben Post
+    - action: persistent_notification.create
+      metadata: {}
+      data:
+        title: Post
+        message: Es ist Post im Briefkasten
+        notification_id: post
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 10
+        milliseconds: 0
+    - action: counter.increment
+      metadata: {}
+      data: {}
+      target:
+        entity_id: counter.post_anzahl
+  - alias: Reset
+    if:
+    - condition: trigger
+      id:
+      - post-reset
+      - tuer-auf
+    then:
+    - action: counter.reset
+      metadata: {}
+      data: {}
+      target:
+        entity_id: counter.post_anzahl
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.post
+    - action: persistent_notification.dismiss
+      metadata: {}
+      data:
+        notification_id: post
+  mode: restart
+- id: '1727453017405'
+  alias: Schreibtisch
+  description: ''
+  trigger:
+  - device_id: 13852d5bc4d4a9ac023042871624aa3b
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: dim_up
+    id: up_press
+  - device_id: 13852d5bc4d4a9ac023042871624aa3b
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: dim_down
+    id: down_press
+  - device_id: 13852d5bc4d4a9ac023042871624aa3b
+    domain: zha
+    platform: device
+    type: remote_button_long_press
+    subtype: turn_on
+    id: on_press_long
+  - device_id: 13852d5bc4d4a9ac023042871624aa3b
+    domain: zha
+    platform: device
+    type: remote_button_long_press
+    subtype: turn_off
+    id: off_press_long
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - up_press
+    then:
+    - action: light.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.licht_buro
+    alias: Up
+  - alias: Down
+    if:
+    - condition: trigger
+      id:
+      - down_press
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.licht_buro
+  - alias: On Long
+    if:
+    - condition: trigger
+      id:
+      - on_press_long
+    then:
+    - action: script.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: script.buro_an_licht_pc_hz
+  - alias: Off Long
+    if:
+    - condition: trigger
+      id:
+      - off_press_long
+    then:
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.licht_buro
+    - action: script.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: script.buro_aus_licht_rollo_pc
+  mode: single
+- id: '1727712410909'
+  alias: Besprechung
+  description: Tracking via HASS.Agent
+  triggers:
+  - type: running
+    device_id: 4098676f79968948a7c4b0898e0857a2
+    entity_id: d7d28d7af2da26e367795c9b6a490141
+    domain: binary_sensor
+    id: aktiv
+    trigger: device
+  - type: not_running
+    device_id: 4098676f79968948a7c4b0898e0857a2
+    entity_id: d7d28d7af2da26e367795c9b6a490141
+    domain: binary_sensor
+    id: inaktiv
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.desktop_buero_kameraaktiv
+    - binary_sensor.desktop_fuc96o4_satellite_kameraaktiv
+    to: 'on'
+    id: aktiv
+  - trigger: state
+    entity_id:
+    - binary_sensor.desktop_fuc96o4_satellite_kameraaktiv
+    - binary_sensor.desktop_buero_kameraaktiv
+    id: inaktiv
+    to: 'off'
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - aktiv
+    then:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.echo_dot_buro_do_not_disturb_switch
+    - action: light.turn_on
+      metadata: {}
+      data:
+        kelvin: 5083
+      target:
+        entity_id: light.hue_play_links
+    - action: scene.turn_on
+      metadata: {}
+      target:
+        entity_id: scene.videocall
+  - if:
+    - condition: trigger
+      id:
+      - inaktiv
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.echo_dot_buro_do_not_disturb_switch
+    - action: scene.turn_on
+      metadata: {}
+      target:
+        entity_id: scene.homeoffice_licht
+  mode: parallel
+  max: 10
+- id: '1727725296794'
+  alias: Druckauftrag senden MQTT POS
+  description: ''
+  triggers: []
+  actions:
+  - action: mqtt.publish
+    metadata: {}
+    data:
+      evaluate_payload: false
+      qos: 0
+      retain: false
+      topic: Prn062523002F0C0A29000013241289A8B9
+      payload: "\nTest MQTT\n\n\nSensorwert: {{ states(\"sensor.senec_house_power\")
+        }}\n{{ states(\"todo.to_do_homeassistant\") }}\n\n{{ state_attr('todo.to_do_homeassistant',
+        'items') | tojson }}\n{{ state_attr('todo.to_do_homeassistant', 'items') }}\n\nEnde\n\n "
+- id: '1727862177402'
+  alias: Homeassistant Neustart Info
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: shutdown
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
+  action:
+  - action: notify.mobile_app_pixel_7
+    metadata: {}
+    data:
+      message: System startet neu!
+      title: Homeassistant
+  mode: single
+- id: '1727990321681'
+  alias: POS Drucker Ausschalten
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.pos_drucker_leistung_offset
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+    below: 3
+  - type: turned_on
+    device_id: a899a0b8375c8e2811c052ef029d582e
+    entity_id: fdb93ce9be002daa2721c668a09403f2
+    domain: switch
+    trigger: device
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: a899a0b8375c8e2811c052ef029d582e
+    entity_id: fdb93ce9be002daa2721c668a09403f2
+    domain: switch
+  mode: single
+- id: '1729620190084'
+  alias: Schalter Flur
+  description: ''
+  triggers:
+  - device_id: f33c45cac2322f2f806a5978f4448e7f
+    domain: hue
+    type: short_release
+    subtype: 3
+    unique_id: a8259913-4287-4b3c-83be-a6ddcb2b7261
+    trigger: device
+    id: oben-rechts
+  - device_id: f33c45cac2322f2f806a5978f4448e7f
+    domain: hue
+    type: short_release
+    subtype: 1
+    unique_id: 180edeca-b750-4d49-8f2e-7bf6fdef924d
+    trigger: device
+    id: oben-links
+  - device_id: f33c45cac2322f2f806a5978f4448e7f
+    domain: hue
+    type: short_release
+    subtype: 2
+    unique_id: 85c96483-19b1-454c-88a6-91b89b960e27
+    trigger: device
+    id: unten-links
+  - device_id: f33c45cac2322f2f806a5978f4448e7f
+    domain: hue
+    type: short_release
+    subtype: 4
+    unique_id: 446c700f-abd7-406c-82cb-f526af028d5d
+    trigger: device
+    id: unten-rechts
+  conditions: []
+  actions:
+  - alias: Oben Rechts
+    if:
+    - condition: trigger
+      id:
+      - oben-rechts
+    then:
+    - target:
+        entity_id: scene.tv
+      metadata: {}
+      action: scene.turn_on
+  - alias: Oben Links
+    if:
+    - condition: trigger
+      id:
+      - oben-links
+    then:
+    - target:
+        entity_id: scene.wohnzimmer_normal
+      metadata: {}
+      action: scene.turn_on
+  - alias: Unten Links
+    if:
+    - condition: trigger
+      id:
+      - unten-links
+    then:
+    - target:
+        entity_id: scene.gemutlich
+      metadata: {}
+      action: scene.turn_on
+  - alias: Unten Rechts
+    if:
+    - condition: trigger
+      id:
+      - unten-rechts
+    then:
+    - target:
+        entity_id: scene.alles_aus
+      metadata: {}
+      action: scene.turn_on
+  mode: single
+- id: '1729705409792'
+  alias: Color Loop
+  description: ''
+  use_blueprint:
+    path: mdolnik/color_loop.yaml
+    input:
+      light: light.bogenlampe_licht
+      helper_toggle: input_boolean.color_loop_bogenlampe
+      color_1:
+      - 255
+      - 0
+      - 0
+      color_2:
+      - 0
+      - 0
+      - 255
+      color_3:
+      - 0
+      - 255
+      - 0
+      color_4:
+      - 255
+      - 0
+      - 255
+      color_5:
+      - 0
+      - 255
+      - 255
+      color_6:
+      - 255
+      - 0
+      - 0
+- id: '1730991199613'
+  alias: Smartwatch Emil
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.emil_watch_battery_papa
+    below: 20
+  conditions: []
+  actions:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      message: Uhr von Emil aufladen
+      title: Uhr Emil
+      notification_id: uhr-emil-aufladen
+  mode: single
+- id: '1731415508346'
+  alias: Post Benachrichtigung Haustür
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 000dae04b97df4e1e01fbba85440acda
+    entity_id: 018ac84eb56e3ea3f44ff1e0e26e6a5c
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: input_boolean.post
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 45
+      seconds: 0
+  actions:
+  - action: notify.alexa_media_echo_show
+    data:
+      message: Es ist Post im Briefkasten
+  mode: single
+- id: '1732794342000'
+  alias: Besprechung Teams
+  description: Tracking via Teams
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_meeting
+    to: 'on'
+    id: meeting_on
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_meeting
+    to: 'off'
+    id: meeting_off
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_video
+    to: 'on'
+    id: webcam_on
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_video
+    to: 'off'
+    id: webcam_off
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_muted
+    to: 'on'
+    id: mute_on
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_muted
+    to: 'off'
+    id: mute_off
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_sharing
+    to: 'on'
+    id: share_on
+  - trigger: state
+    entity_id:
+    - binary_sensor.teams_sharing
+    to: 'off'
+    id: share_off
+  conditions: []
+  actions:
+  - alias: Meeting On
+    if:
+    - condition: trigger
+      id:
+      - meeting_on
+    then:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.echo_dot_buro_do_not_disturb_switch
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: Meeting
+      target:
+        entity_id:
+        - select.minihaus_voreinstellung
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: Rot Atmen
+      target:
+        entity_id:
+        - select.buro_status_voreinstellung
+  - alias: Meeting Off
+    if:
+    - condition: trigger
+      id:
+      - meeting_off
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.echo_dot_buro_do_not_disturb_switch
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: Candle
+      target:
+        entity_id:
+        - select.minihaus_voreinstellung
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: Kerze
+      target:
+        entity_id:
+        - select.buro_status_voreinstellung
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: 'Off'
+      target:
+        entity_id:
+        - select.webcam_light_voreinstellung
+  - alias: Webcam On
+    if:
+    - condition: trigger
+      id:
+      - webcam_on
+    then:
+    - action: scene.turn_on
+      metadata: {}
+      target:
+        entity_id: scene.videocall
+      data: {}
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_muted
+        state: 'on'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Mute Webcam
+        target:
+          entity_id: select.webcam_light_voreinstellung
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_muted
+        state: 'off'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: An
+        target:
+          entity_id: select.webcam_light_voreinstellung
+  - alias: Webcam Off
+    if:
+    - condition: trigger
+      id:
+      - webcam_off
+    then:
+    - action: scene.turn_on
+      metadata: {}
+      target:
+        entity_id: scene.homeoffice_licht
+      data: {}
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_muted
+        state: 'on'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Mute Mic
+        target:
+          entity_id: select.webcam_light_voreinstellung
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_muted
+        state: 'off'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: 'Off'
+        target:
+          entity_id: select.webcam_light_voreinstellung
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_meeting
+        state: 'on'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Rot Atmen
+        target:
+          entity_id:
+          - select.buro_status_voreinstellung
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 2
+        milliseconds: 0
+    - action: scene.turn_on
+      metadata: {}
+      target:
+        entity_id: scene.homeoffice_licht
+      data: {}
+  - alias: Mute On
+    if:
+    - condition: trigger
+      id:
+      - mute_on
+    then:
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_video
+        state: 'on'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Mute Webcam
+        target:
+          entity_id: select.webcam_light_voreinstellung
+      alias: Mute bei Webcam
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_video
+        state: 'off'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: Mute Mic
+        target:
+          entity_id: select.webcam_light_voreinstellung
+      alias: Mute ohne Webcam
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: Rot Rotation
+      target:
+        entity_id:
+        - select.buro_status_voreinstellung
+  - alias: Mute Off
+    if:
+    - condition: trigger
+      id:
+      - mute_off
+    then:
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_video
+        state: 'on'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: An
+        target:
+          entity_id: select.webcam_light_voreinstellung
+    - if:
+      - condition: state
+        entity_id: binary_sensor.teams_video
+        state: 'off'
+      then:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: 'Off'
+        target:
+          entity_id: select.webcam_light_voreinstellung
+    - action: select.select_option
+      metadata: {}
+      data:
+        option: Rot Atmen
+      target:
+        entity_id:
+        - select.buro_status_voreinstellung
+  mode: parallel
+  max: 10
+- id: '1733155340657'
+  alias: Heizung Büro Fallback
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - climate.heizkorperthermostat_buro
+    attribute: temperature
+    below: 18
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.computer_buro
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.fensterkontakt_buro_state
+    state: 'off'
+  actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 21
+    target:
+      entity_id: climate.buro
+  mode: single
+- id: '1733501332380'
+  alias: 3D Druck K1 Max
+  description: ''
+  use_blueprint:
+    path: AndreiRadchenko/doorbell-cam-actionable-nitification.yaml
+    input:
+      doorbell_button: input_boolean.k1_max_3d_druck_fertig
+      doorbell_cam: camera.k1max
+      notify_dev: notify.mobile_app_pixel_7
+      notification_title: Der 3D Druck ist fertig.
+      uri_: ' /lovelace-mobile/werkstatt'
+      action1_title: K1 Max ausschalten
+      action2_title: ' '
+      action1:
+      - action: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.k1_max_3d_druck_fertig
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.k1_max_k1_max
+      action2: []
+      delay: 120
+- id: '1736622435091'
+  alias: Sarah Zustand
+  description: ''
+  triggers:
+  - trigger: zone
+    entity_id: person.sarah
+    zone: zone.altena_denkhaus
+    event: leave
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_7
+    metadata: {}
+    data:
+      message: Bewegungswarnung Sarah
+      title: Bewegungswarnung
+  - action: notify.alexa_media_echo_dot_buro
+    metadata: {}
+    data:
+      message: Warnung
+  mode: single
+- id: '1737485929687'
+  alias: Actionable Notification Doorbell Sarah
+  description: ''
+  use_blueprint:
+    path: AndreiRadchenko/doorbell-cam-actionable-nitification.yaml
+    input:
+      doorbell_button: binary_sensor.sensing
+      doorbell_cam: camera.synologynas_haustur
+      notify_dev: notify.mobile_app_sm_a528b
+      notification_title: Jemand hat geklingelt.
+      uri_: ' '
+      action1_title: Tür öffnen
+      action2_title: ' '
+      action1:
+      - data: {}
+        action: script.haustur_offnen
+- id: '1743623066157'
+  alias: Regen
+  description: ''
+  triggers:
+  - type: moist
+    device_id: f9757d584fa7ba1dd04b1e7d9f480ecf
+    entity_id: fc3ea63b6d8241f1db30313bdd3a6a74
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_7
+    metadata: {}
+    data:
+      message: Regen
+  mode: single
+- id: '1744474066838'
+  alias: EWE Restart
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.10013b542a_2
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - trigger: state
+    entity_id:
+    - switch.10013b542a_2
+    to: unknown
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  conditions: []
+  actions:
+  - action: hassio.addon_restart
+    metadata: {}
+    data:
+      addon: f4f71350_ewelink_smart_home_slug
+  - action: hassio.addon_start
+    metadata: {}
+    data:
+      addon: f4f71350_ewelink_smart_home_slug
+  mode: single
+- id: '1744907952406'
+  alias: Spülmaschine Solar
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.senec_solar_generated_power
+  conditions: []
+  actions:
+  - if:
+    - condition: numeric_state
+      entity_id: sensor.senec_solar_generated_power
+      above: 1500
+    then:
+    - type: turn_on
+      device_id: 6baac3c4a3d20140ab947dcda920f780
+      entity_id: e8d17165bc2b8092c9c67a536523b687
+      domain: switch
+    - action: automation.turn_off
+      metadata: {}
+      data:
+        stop_actions: true
+      target:
+        entity_id: automation.spulmaschine_solar
+    - action: persistent_notification.create
+      metadata: {}
+      data:
+        title: 'Geschirrspüler '
+        message: Programm "Auto" gestartet durch Solar Überproduktion
+  mode: single
+- id: '1745839943040'
+  alias: Brunnen Auto
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.solar_uberproduktion
+    to: 'on'
+    id: ein
+  - trigger: state
+    entity_id:
+    - binary_sensor.turkontakt_wohnzimmer_state
+    to: 'on'
+    id: ein
+  - trigger: state
+    entity_id:
+    - binary_sensor.solar_uberproduktion
+    to: 'off'
+    id: aus
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  - trigger: state
+    entity_id:
+    - binary_sensor.turkontakt_wohnzimmer_state
+    to: 'off'
+    id: aus
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - ein
+    - condition: state
+      entity_id: binary_sensor.turkontakt_wohnzimmer_state
+      state: 'on'
+    then:
+    - type: turn_on
+      device_id: bfa7400b48e1aee16691e73a93e21149
+      entity_id: f719eff00993b1fc09e056f7bdbede75
+      domain: switch
+  - if:
+    - condition: trigger
+      id:
+      - aus
+    - condition: state
+      entity_id: binary_sensor.turkontakt_wohnzimmer_state
+      state: 'off'
+    then:
+    - type: turn_off
+      device_id: bfa7400b48e1aee16691e73a93e21149
+      entity_id: f719eff00993b1fc09e056f7bdbede75
+      domain: switch
+  mode: single
+- id: '1747846818087'
+  alias: 'Tür unter der Treppe geöffnet '
+  description: ''
+  triggers:
+  - device_id: e92c9d97ce35911cfc9037ff3431af57
+    domain: zha
+    type: device_tilted
+    subtype: device_tilted
+    trigger: device
+  conditions: []
+  actions:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      message: 'Tür unter der Treppe wurde geöffnet '
+  mode: single

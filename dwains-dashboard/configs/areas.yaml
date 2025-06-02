@@ -1,0 +1,44 @@
+alexa:
+  sort_order: 11
+aquarium:
+  sort_order: 7
+aquarium_buro:
+  sort_order: 18
+arbeitszimmer:
+  sort_order: 12
+badezimmer:
+  sort_order: 14
+badezimmer_spots:
+  sort_order: 19
+buro:
+  sort_order: 17
+deconz:
+  sort_order: 10
+esstisch:
+  sort_order: 9
+flur:
+  sort_order: 4
+garten:
+  sort_order: 15
+kinderzimmer:
+  sort_order: 6
+kuche:
+  floor: '1'
+  icon: ''
+  sort_order: 2
+schlafzimmer:
+  sort_order: 3
+steckdosen:
+  sort_order: 5
+vordertur:
+  sort_order: 16
+werkstatt:
+  sort_order: 13
+wohnzimmer:
+  floor: '1'
+  icon: ''
+  sort_order: 1
+zentrale:
+  floor: '2'
+  icon: ''
+  sort_order: 8
