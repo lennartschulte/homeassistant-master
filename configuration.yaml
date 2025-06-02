@@ -334,32 +334,6 @@ rest_command:
     payload: !secret todoist_api_payload
     content_type: "application/x-www-form-urlencoded"
 
-#cloud:
-#  alexa:
-#    filter:
-#      include_entities:
-#        - binary_sensor.alexa_klingel
-#    entity_config:
-#      binary_sensor.alexa_klingel:
-#        name: "Klingel"
-#        description: "Klingel Binary Sensor"
-#        display_categories: DOORBELL
-
-# alexa:
-#   smart_home:
-#     locale: de-DE
-#     endpoint: https://api.eu.amazonalexa.com/v3/events
-#     client_id: amzn1.application-oa2-client.4a294e1615c04cdf8c0fa4022c6311a2
-#     client_secret: b51718d268eb3c8fa3628bb4747642341200437a3793e06b1f5d1aa055b6d850
-#     filter:
-#       include_entities:
-#         - binary_sensor.alexa_klingel2
-#     entity_config:
-#       binary_sensor.alexa_klingel2:
-#         name: "Klingel 2"
-#         description: "Klingel Binary Sensor"
-#         display_categories: DOORBELL
-
 calendar:
   - platform: todoist
     token: !secret todoist_api_token
