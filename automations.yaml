@@ -586,7 +586,7 @@
       notify_device: ce086df877c807a90fa120f33a7aed65
       delay: 4
 - id: '1666908850621'
-  alias: Doorbell cam actionable Notification
+  alias: Klingel - Doorbell cam actionable Notification
   description: ''
   use_blueprint:
     path: AndreiRadchenko/doorbell-cam-actionable-nitification.yaml
@@ -599,8 +599,8 @@
       action1_title: Tür öffnen
       action2_title: ' '
       action1:
-      - service: script.haustur_offnen
-        data: {}
+      - data: {}
+        action: script.haustur_offnen
 - id: '1666986467912'
   alias: Fingerprint Light
   description: ''
@@ -4461,7 +4461,7 @@
       message: Warnung
   mode: single
 - id: '1737485929687'
-  alias: Actionable Notification Doorbell Sarah
+  alias: Klingel - Actionable Notification Doorbell Sarah
   description: ''
   use_blueprint:
     path: AndreiRadchenko/doorbell-cam-actionable-nitification.yaml
@@ -4627,4 +4627,40 @@
     metadata: {}
     data:
       message: 'Tür unter der Treppe wurde geöffnet '
+  mode: single
+- id: '1749140978659'
+  alias: Klingel
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.klingel
+  conditions: []
+  actions:
+  - if:
+    - condition: state
+      entity_id: input_boolean.klingel
+      state: 'on'
+    then:
+    - action: automation.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - automation.klingel_doorbell_sensing
+        - automation.actionable_notification_doorbell_sarah
+        - automation.doorbell_cam_actionable_nitification
+  - if:
+    - condition: state
+      entity_id: input_boolean.klingel
+      state: 'off'
+    then:
+    - action: automation.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id:
+        - automation.actionable_notification_doorbell_sarah
+        - automation.doorbell_cam_actionable_nitification
+        - automation.klingel_doorbell_sensing
   mode: single
