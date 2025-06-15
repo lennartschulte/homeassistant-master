@@ -22,3 +22,4 @@ home-assistant.log.fault
 secrets.yaml
 .google.token
 homematicip_local/cache/
+.HA_VERSION
