@@ -289,9 +289,9 @@ wled_regenbogen:
 haustur_offnen:
   alias: Haustür öffnen
   sequence:
-  - device_id: 000dae04b97df4e1e01fbba85440acda
+  - device_id: c17fe4c026528fcec99aca3b4d4b69e8
     domain: lock
-    entity_id: lock.nuki_haustur_lock
+    entity_id: 385c2709664d37c8df9bb53b7a4eda7f
     type: open
   - delay:
       hours: 0
@@ -300,6 +300,7 @@ haustur_offnen:
       milliseconds: 0
   mode: single
   icon: mdi:door-open
+  description: ''
 aqara_motion_reset:
   alias: Aqara Motion Reset
   sequence:

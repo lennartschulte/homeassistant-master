@@ -1619,7 +1619,7 @@
   description: ''
   triggers:
   - entity_id:
-    - binary_sensor.nuki_haustur_door_open
+    - binary_sensor.haustur
     from: 'off'
     to: 'on'
     trigger: state
@@ -3316,26 +3316,26 @@
 - id: '1713643257932'
   alias: Nuki Batterie Warnung
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.nuki_haustur_battery
+  triggers:
+  - entity_id:
+    - sensor.haustur_batterie
     for:
       hours: 1
       minutes: 0
       seconds: 0
     below: 30
-  - platform: state
-    entity_id:
-    - binary_sensor.nuki_haustur_battery_critical
+    trigger: numeric_state
+  - entity_id:
+    - binary_sensor.haustur_batteriestand
     from: 'off'
     to: 'on'
-  condition: []
-  action:
-  - service: notify.mobile_app_pixel_7
-    metadata: {}
+    trigger: state
+  conditions: []
+  actions:
+  - metadata: {}
     data:
       message: Nuki Akku laden!
+    action: notify.mobile_app_pixel_7
   mode: single
 - id: '1715277902344'
   alias: Fahrzeit Anzeige
@@ -4102,11 +4102,10 @@
   alias: Post Benachrichtigung Haustür
   description: ''
   triggers:
-  - type: opened
-    device_id: 000dae04b97df4e1e01fbba85440acda
-    entity_id: 018ac84eb56e3ea3f44ff1e0e26e6a5c
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.haustur
+    to: 'on'
   conditions:
   - condition: state
     entity_id: input_boolean.post
