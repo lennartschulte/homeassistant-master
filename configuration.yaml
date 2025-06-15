@@ -57,7 +57,7 @@ http:
   login_attempts_threshold: 5
   use_x_forwarded_for: true
   trusted_proxies:
-    - 192.168.178.78
+    - 192.168.178.100
     - 172.30.33.0/24
 
 browser_mod:
